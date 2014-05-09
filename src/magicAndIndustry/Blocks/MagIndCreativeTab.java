@@ -1,4 +1,4 @@
-package Blocks;
+package magicAndIndustry.Blocks;
 
 import net.minecraft.creativetab.CreativeTabs;
 
