@@ -15,7 +15,7 @@ import cpw.mods.fml.common.FMLLog;
 public class StructureTileEntity extends TileEntity
 {
 	/** Core coordinates. */
-	public int coreX, coreY, coreZ;
+	public int coreX = 0, coreY = 0, coreZ = 0;
 	
 	public StructureTileEntity()
 	{
@@ -79,7 +79,7 @@ public class StructureTileEntity extends TileEntity
 	
 	public boolean hasCore()
 	{
-		return coreX == 0 && coreY == 0 && coreZ == 0;
+		return !(coreX == 0 && coreY == 0 && coreZ == 0);
 	}
 
 	/**

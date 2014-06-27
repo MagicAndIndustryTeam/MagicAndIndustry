@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -97,9 +98,15 @@ public class StructureBlock extends BlockContainer implements IWrenchable
 	@Override
 	public void OnWrenched(EntityPlayer player, World world, int x, int y, int z, int meta, int side) 
 	{
+		if (world.isRemote) return;
 		TileEntity struct = world.getTileEntity(x, y, z);
 		if (struct != null && struct instanceof StructureUpgradeEntity)
 				((StructureUpgradeEntity)struct).onWrenched(player, side);
+		if (struct != null && struct instanceof StructureTileEntity)
+		{
+			StructureTileEntity strutE = (StructureTileEntity)struct;
+			player.addChatMessage(new ChatComponentText("X=" + strutE.coreX + ", Y=" + strutE.coreY + ", Z=" + strutE.coreZ + ", hasCore=" + strutE.hasCore()));
+		}
 	}
 	
 	@Override
@@ -166,6 +173,13 @@ public class StructureBlock extends BlockContainer implements IWrenchable
 	public TileEntity createNewTileEntity(World var1, int var2) 
 	{
 		return new StructureTileEntity();
+	}
+
+	public void resetStructure(World world, int x, int y, int z) 
+	{
+		world.setBlockMetadataWithNotify(x, y, z, 1, 2);
+		StructureTileEntity ste = (StructureTileEntity)world.getTileEntity(x, y, z);
+		if (ste != null) ste.setCoreValues(0, 0, 0);
 	}
 
 }

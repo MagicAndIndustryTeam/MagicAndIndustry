@@ -11,10 +11,8 @@ import magicAndIndustry.machines.structure.BlockPosition;
 import magicAndIndustry.machines.structure.MachineStructure;
 import magicAndIndustry.machines.structure.MachineStructureRegistrar;
 import magicAndIndustry.machines.structure.PReq;
-import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class MachineCoreEntity extends TileEntity 
@@ -26,7 +24,7 @@ public abstract class MachineCoreEntity extends TileEntity
 	public StructureUpgrade[] upgrades;
 	
 	/** Saved coords of structure blocks to reset if the structure is broken. */
-	public BlockPosition[] structureBlocks;
+	public RelativeFaceCoords[] structureBlocks;
 	
 	/** The Tier of the machine entity */
 	public MachineTier tier;
@@ -111,7 +109,7 @@ public abstract class MachineCoreEntity extends TileEntity
 				currY = yCoord + req.relHeight;
 				currZ = zCoord + (req.relSide == 0 ? req.relSide : modZ + req.relSide);
 				*/
-				//Utils.print("Relative coords: behind = %d, height = %d, %d.", req.relBehind, req.relHeight, req.relSide);
+				Utils.print("Relative coords: behind = %d, height = %d, %d.", req.relBehind, req.relHeight, req.relSide);
 				
 				currX = xCoord + (modX * (isXAxis? req.relBehind : req.relSide));
 				currY = yCoord + req.relHeight;
@@ -131,7 +129,12 @@ public abstract class MachineCoreEntity extends TileEntity
 						}
 					}
 				}
-				else { checkPassed = false; break; }
+				else 
+				{ 
+					checkPassed = false; 
+					Utils.print("Check failed at %d, %d, %d: expecting " + req.toString(), currX, currY, currZ);
+					break; 
+				}
 			}
 			if (checkPassed)
 			{
@@ -162,13 +165,17 @@ public abstract class MachineCoreEntity extends TileEntity
 			}
 			else
 			{
-				foundStructures.clear(); 
+				// Sure, this is temp, it's not gonna have everything in it
+				foundStructures.clear();
+				
+				// I was very tired when I wrote this
+				for (RelativeFaceCoords main : structureBlocks)
+				{
+					resetStructure(main, rotation);
+				}
 				for (RelativeFaceCoords structCoords : struct.relativeStriped)
 				{
-					BlockPosition structBlock = structCoords.getPosition(rotation, xCoord, yCoord, zCoord);
-					
-					if (worldObj.getBlock(structBlock.x, structBlock.y, structBlock.z) instanceof StructureBlock)
-						worldObj.setBlockMetadataWithNotify(structBlock.x, structBlock.y, structBlock.z, 0, 2);
+					resetStructure(structCoords, rotation);
 				}
 				
 			}
@@ -177,7 +184,12 @@ public abstract class MachineCoreEntity extends TileEntity
 		structureComplete = false;
 	}
 	
-	
+	private void resetStructure(RelativeFaceCoords rfc, ForgeDirection dir)
+	{
+		BlockPosition pos = rfc.getPosition(dir, xCoord, yCoord, zCoord);
+		StructureBlock block = (StructureBlock)worldObj.getBlock(pos.x, pos.y, pos.z);
+		if (block != null) block.resetStructure(worldObj, pos.x, pos.y, pos.z);
+	}
 	
 	public abstract String getMachineID();
 }
