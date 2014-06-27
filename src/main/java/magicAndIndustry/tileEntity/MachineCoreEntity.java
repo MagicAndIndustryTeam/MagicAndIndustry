@@ -11,6 +11,7 @@ import magicAndIndustry.machines.structure.BlockPosition;
 import magicAndIndustry.machines.structure.MachineStructure;
 import magicAndIndustry.machines.structure.MachineStructureRegistrar;
 import magicAndIndustry.machines.structure.PReq;
+import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -65,14 +66,14 @@ public abstract class MachineCoreEntity extends TileEntity
 	@Override
 	public void updateEntity()
 	{
-		//if (checkCountdown >= CHECK_MAX)
-		//{
-			//checkCountdown = 0;
+		if (checkCountdown >= CHECK_MAX)
+		{
+			checkCountdown = 0;
 			
 			// Refresh the core structure.
-			//updateStructure();
-		//}
-		//else checkCountdown++;
+			updateStructure();
+		}
+		else checkCountdown++;
 	}
 	
 	public void updateStructure()
@@ -151,7 +152,7 @@ public abstract class MachineCoreEntity extends TileEntity
 					if (ent instanceof StructureTileEntity) 
 					{
 						((StructureTileEntity)ent).setCoreValues(pos.x, pos.y, pos.z);
-						worldObj.setBlockMetadataWithNotify(pos.x, pos.y, pos.z, 1, 2);
+						//aaaaaaaworldObj.setBlockMetadataWithNotify(pos.x, pos.y, pos.z, 1, 2);
 					}
 				}
 				for (RelativeFaceCoords structCoords : struct.relativeStriped)
@@ -169,10 +170,12 @@ public abstract class MachineCoreEntity extends TileEntity
 				foundStructures.clear();
 				
 				// I was very tired when I wrote this
+				if (structureBlocks != null)
 				for (RelativeFaceCoords main : structureBlocks)
 				{
 					resetStructure(main, rotation);
 				}
+				if (struct.relativeStriped != null)
 				for (RelativeFaceCoords structCoords : struct.relativeStriped)
 				{
 					resetStructure(structCoords, rotation);
@@ -187,8 +190,9 @@ public abstract class MachineCoreEntity extends TileEntity
 	private void resetStructure(RelativeFaceCoords rfc, ForgeDirection dir)
 	{
 		BlockPosition pos = rfc.getPosition(dir, xCoord, yCoord, zCoord);
-		StructureBlock block = (StructureBlock)worldObj.getBlock(pos.x, pos.y, pos.z);
-		if (block != null) block.resetStructure(worldObj, pos.x, pos.y, pos.z);
+		Block brock = worldObj.getBlock(pos.x, pos.y, pos.z);
+		if (brock != null && brock instanceof StructureBlock) 
+			((StructureBlock)brock).resetStructure(worldObj, pos.x, pos.y, pos.z);
 	}
 	
 	public abstract String getMachineID();

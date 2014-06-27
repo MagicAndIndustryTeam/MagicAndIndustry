@@ -69,7 +69,7 @@ public abstract class MachineCoreBlock extends BlockContainer implements IWrench
 		Utils.print("Began machine core wrench structure.");
 		
 		MachineCoreEntity ent = (MachineCoreEntity)world.getTileEntity(x, y, z);
-		if (ent != null)
+		if (ent != null && !ent.structureComplete)
 			ent.updateStructure();
 		
 		// Adds to the previous log.
