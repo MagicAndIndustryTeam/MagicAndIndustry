@@ -10,10 +10,26 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class MachineStructure 
 {
+	/**
+	 * The different requirements for each block in the structure
+	 */
 	public PReq[] Requirements;
+	/**
+	 * The relative block coords of all structure blocks which should be striped when the machine is set up.
+	 */
+	public BlockPosition[] relativeStriped;
+	
+	/**
+	 * Constructor for the registrar. Call .setStripes after to specify striped structures.
+	 */
 	public MachineStructure(PReq... requirements)
 	{
 		Requirements = requirements;
+	}
+	public MachineStructure setStripes(BlockPosition... stripedBlocks)
+	{
+		relativeStriped = stripedBlocks;
+		return this;
 	}
 	
 	private MachineStructure(int requirements)

@@ -87,7 +87,7 @@ public class MachineStructureRegistrar
 				new PReq(stoneSlab, 0, 0, 1), new PReq(stoneSlab, 0, -1, 1), new PReq(stoneSlab, 0,  1, 1),
 				new PReq(stoneSlab, 1, 0, 1), new PReq(stoneSlab, 1, -1, 1), new PReq(stoneSlab, 1,  1, 1),
 				new PReq(stoneSlab, 2, 0, 1), new PReq(stoneSlab, 2, -1, 1), new PReq(stoneSlab, 2,  1, 1)
-				));
+				).setStripes(new BlockPosition(0, -1, 0), new BlockPosition(0, 1, 0)));
 		
 		// BEHIND | SIDE | BELOW
 		registerMachineConfiguration("crusher", 
@@ -110,7 +110,8 @@ public class MachineStructureRegistrar
 				// Top
 				new PReq(stoneSlab, 0, -1, -3), new PReq(stoneSlab, 0, 0, -3), new PReq(stoneSlab, 0, 1, -3),
 				new PReq(stoneSlab, 1, -1, -3), new PReq(stoneSlab, 1, 0, -3), new PReq(stoneSlab, 1, 1, -3),
-				new PReq(stoneSlab, 2, -1, -3), new PReq(stoneSlab, 2, 0, -3), new PReq(stoneSlab, 2, 1, -3)),
+				new PReq(stoneSlab, 2, -1, -3), new PReq(stoneSlab, 2, 0, -3), new PReq(stoneSlab, 2, 1, -3)
+				).setStripes(new BlockPosition(0, -1, 0), new BlockPosition(0, 1, 0)),
 				
 				
 			new MachineStructure( // Komo version, top down
@@ -129,7 +130,7 @@ public class MachineStructureRegistrar
 				new PReq(structure, 0, -1, 2), new PReq(structure, 0, 0, 2), new PReq(structure, 0, 1, 2), 
 				new PReq(structure, 1, -1, 2), new PReq(stonePlate, 1, 0, 2), new PReq(structure, 1, 1, 2),
 				new PReq(structure, 2, -1, 2), new PReq(structure, 2, 0, 2), new PReq(structure, 2, 1, 2)
-					));
+					).setStripes(new BlockPosition(0, -1, 0), new BlockPosition(0, 1, 0)));
 
 		/*
 		ironFurnace = MachineStructure.Transform(cobbleFurnace, 

@@ -54,15 +54,6 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 	}
 	
 	@Override
-	public void acceptTier(MachineTier tier)
-	{
-		items = new ItemStack[3];
-		if    (tier.name.equals("cobble")) { maxCookTime = 20 * 9; } //  setStructures(MachineStructure.cobbleFurnace); }
-		else if (tier.name.equals("iron")) { maxCookTime = 20 * 8; } // setStructures(MachineStructure.ironFurnace); }
-		else if (tier.name.equals("steel")){ maxCookTime = 20 * 6; } // setStructures(MachineStructure.steelFurnace); }
-	}
-	
-	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		//System.out.println("Reading from NBT data...");
@@ -93,7 +84,6 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 		itemCookTime = tag.getShort("CookTime");
 		maxFuelTime = tag.getShort("MaxBurnTime");
 		tier = MachineTier.get(tag.getString("FurnaceType"));
-		if (tier == null) System.out.println("Tier is null!");
 		
 		// 8 seconds of cooking to start out with, should be set by like a scan area. Possibly on chunk load.
 		//maxCookTime = 20 * 8; 
@@ -113,7 +103,7 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 		// Writes the position, etc.
 		super.writeToNBT(tag);
 				
-		// Write the variables. Minecraft furnace "shortens" them too.
+		// Write the variables.
 		tag.setShort("BurnTime", (short)fuelBurnTime);
 		tag.setShort("CookTime", (short)itemCookTime);
 		tag.setShort("MaxBurnTime", (short)maxFuelTime);
@@ -140,8 +130,8 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 	@Override
 	public void updateEntity()
 	{
-		// Check structure and whatnot
-		//super.updateEntity();
+		// Machine core checks structure and whatnot
+		super.updateEntity();
 		
 		// Save how the burning is going: if it changed this tick,
 		// update the underlying block's burn settings.
@@ -374,5 +364,7 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 				return false;
 		}
 	}
-	
+
+	@Override
+	public String getMachineID() { return "furnace"; }
 }

@@ -64,10 +64,13 @@ public abstract class MachineCoreBlock extends BlockContainer implements IWrench
 	public void OnWrenched(EntityPlayer player, World world, int x, int y, int z, int meta, int side)
 	{
 		// Don't let sneak wrench, clients, or already built machines get in da way.
-		if (player.isSneaking() || world.isRemote || world.getTileEntity(x, y, z) == null) return;
+		if (player.isSneaking() || world.isRemote) return;
 		
 		Utils.print("Began machine core wrench structure.");
 		
+		MachineCoreEntity ent = (MachineCoreEntity)world.getTileEntity(x, y, z);
+		if (ent != null)
+			ent.updateStructure();
 		
 		// Adds to the previous log.
 		//else MagicAndIndustry.logger.error("MachineCoreBlock at %1$i, %2$i, %3$i was unable to load its machine - ID " + machineID + " on wrench event from " + player.getDisplayName(), x, y, z);

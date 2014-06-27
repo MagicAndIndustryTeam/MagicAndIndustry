@@ -8,6 +8,7 @@ import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.StructureUpgrade;
 import magicAndIndustry.machines.structure.BlockPosition;
 import magicAndIndustry.machines.structure.MachineStructure;
+import magicAndIndustry.machines.structure.MachineStructureRegistrar;
 import magicAndIndustry.machines.structure.PReq;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,17 +21,18 @@ public abstract class MachineCoreEntity extends TileEntity
 	/** If this machine's structure is valid. */
 	public boolean structureComplete;
 	
-	/** The structure to be checked. */
-	public MachineStructure[] structures;
-	
 	/** All connected structure upgrade tile entities' upgrades are passed into the core which calls events with them. */
 	public StructureUpgrade[] upgrades;
+	
+	/** Saved coords of structure blocks to reset if the structure is broken. */
+	public BlockPosition[] structureBlocks;
 	
 	/** The Tier of the machine entity */
 	public MachineTier tier;
 	
 	/** Countdown between machine checks. */
 	private int checkCountdown;
+	
 	/** Max time between checks. Note that most checks happen on block neighbor changes. */
 	private int CHECK_MAX = 20 * 7;
 	
@@ -39,10 +41,9 @@ public abstract class MachineCoreEntity extends TileEntity
 	 * @param theTier
 	 * @param machineStructures
 	 */
-	public MachineCoreEntity(MachineTier theTier, MachineStructure... machineStructures)
+	public MachineCoreEntity(MachineTier theTier)
 	{
 		super();
-		structures = machineStructures;
 		tier = theTier;
 	}
 	
@@ -76,9 +77,7 @@ public abstract class MachineCoreEntity extends TileEntity
 		//else checkCountdown++;
 	}
 	
-	public void AcceptAWorld(World world) { worldObj = world; }
-	
-	public void updateStructureOLD()
+	public void updateStructure()
 	{
 		Utils.print("Entered update structure.");
 		// 15 for an initial capacity should be good enough.
@@ -99,7 +98,7 @@ public abstract class MachineCoreEntity extends TileEntity
 		Utils.print("Found forgeDirection " + rotation.name() + ", modX = %d, modZ = %d\n", modX, modZ);
 		
 		// Go through all possible structures
-		for (MachineStructure struct : structures)
+		for (MachineStructure struct : MachineStructureRegistrar.getStructuresForMachineID(getMachineID()))
 		{
 			//Utils.print("Checking " + struct.toString());
 			boolean checkPassed = true;
@@ -111,7 +110,7 @@ public abstract class MachineCoreEntity extends TileEntity
 				currY = yCoord + req.relHeight;
 				currZ = zCoord + (req.relSide == 0 ? req.relSide : modZ + req.relSide);
 				*/
-				Utils.print("Relative coords: behind = %d, height = %d, %d.", req.relBehind, req.relHeight, req.relSide);
+				//Utils.print("Relative coords: behind = %d, height = %d, %d.", req.relBehind, req.relHeight, req.relSide);
 				
 				currX = xCoord + (modX * (isXAxis? req.relBehind : req.relSide));
 				currY = yCoord + req.relHeight;
@@ -151,13 +150,20 @@ public abstract class MachineCoreEntity extends TileEntity
 						worldObj.setBlockMetadataWithNotify(pos.x, pos.y, pos.z, 1, 2);
 					}
 				}
+				for (BlockPosition structBlock : struct.relativeStriped)
+				{
+					worldObj.setBlockMetadataWithNotify(structBlock.x, structBlock.y, structBlock.z, 1, 2);
+				}
 				Utils.print("Valid structure!"); 
-				this.acceptTier(tier);
 				return;
 			}
 			else
 			{
 				foundStructures.clear(); 
+				for (BlockPosition structBlock : struct.relativeStriped)
+				{
+					worldObj.setBlockMetadataWithNotify(structBlock.x, structBlock.y, structBlock.z, 0, 2);
+				}
 				
 			}
 		}
@@ -165,10 +171,5 @@ public abstract class MachineCoreEntity extends TileEntity
 		structureComplete = false;
 	}
 	
-	public void setStructures(MachineStructure... structs)
-	{
-		structures = structs;
-	}
-
-	public abstract void acceptTier(MachineTier tier);
+	public abstract String getMachineID();
 }
