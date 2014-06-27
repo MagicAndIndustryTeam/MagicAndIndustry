@@ -1,5 +1,7 @@
 package magicAndIndustry.machines.structure;
 
+import magicAndIndustry.RelativeFaceCoords;
+
 /**
  * Positional structure requirement class.
  * Defines a requirement of a block relative to the core.
@@ -7,21 +9,19 @@ package magicAndIndustry.machines.structure;
 public class PReq
 {
 	/** The requirement rule for the block */
-	public StructureRequirementBase Requirement;
-	/** The number of blocks behind (+) the core to check. */
-	public int relBehind;
-	/** The number of blocks to the left(+) or right(-) to check. */
-	public int relSide ;
-	/** The number of blocks above (+) or below (-) the core to check. */
-	public int relHeight;
+	public StructureRequirementBase requirement;
+	
+	/** Relative coordinates of block checked. */
+	public RelativeFaceCoords rel;
 	
 	public PReq(StructureRequirementBase structure, int behind, int side, int below)
 	{
-		Requirement = structure; relBehind = behind; relSide = side; relHeight = below;
+		requirement = structure; 
+		rel = new RelativeFaceCoords(behind, below, side);
 	}
 	
 	public String toString()
 	{
-		return Requirement.toString() +  ": targeting " + relBehind + " behind, " + relHeight + " below, " + relSide + " side.";
+		return requirement.toString() +  ": targeting " + rel.behind + " behind, " + rel.height + " below, " + rel.side + " side.";
 	}
 }

@@ -3,6 +3,7 @@ package magicAndIndustry.blocks;
 import magicAndIndustry.MagicAndIndustry;
 import magicAndIndustry.Textures;
 import magicAndIndustry.Utils;
+import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.api.IStructureUpgradeItem;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.StructureUpgrade;
@@ -23,7 +24,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class StructureBlock extends BlockContainer implements IWrenchable
+public class StructureBlock extends BlockContainer implements IWrenchable, IStructureAware
 {
 	@SideOnly(Side.CLIENT)
 	public IIcon striped; //, surrounded;
@@ -72,7 +73,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable
 		if (world.isRemote) return;
 		
 		// This is gonna be reset every block change???
-		world.setBlockMetadataWithNotify(x, y, z, 0, 2);
+		//world.setBlockMetadataWithNotify(x, y, z, 0, 2);
 		
 		// Let's perform a lot of null checks!1!!11!!!1
 		TileEntity ent = world.getTileEntity(x, y, z);
@@ -86,8 +87,8 @@ public class StructureBlock extends BlockContainer implements IWrenchable
 				if (coreEnt != null && coreEnt instanceof MachineCoreEntity)
 				{
 					MachineCoreEntity machineCore = (MachineCoreEntity)coreEnt;
-					//if (machineCore != null && machineCore.structureComplete)
-						//machineCore.updateStructure();
+					if (machineCore != null && machineCore.structureComplete())
+						machineCore.updateStructure();
 					// TODO structure
 				}
 			}
@@ -180,6 +181,20 @@ public class StructureBlock extends BlockContainer implements IWrenchable
 		world.setBlockMetadataWithNotify(x, y, z, 1, 2);
 		StructureTileEntity ste = (StructureTileEntity)world.getTileEntity(x, y, z);
 		if (ste != null) ste.setCoreValues(0, 0, 0);
+	}
+
+	@Override
+	public void onStructureCreated(World world, int x, int y, int z, int coreX,
+			int coreY, int coreZ) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStructureBroken(World world, int x, int y, int z, int coreX,
+			int coreY, int coreZ) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

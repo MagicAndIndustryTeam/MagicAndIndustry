@@ -2,6 +2,7 @@ package magicAndIndustry.machines.structure;
 
 import java.util.HashMap;
 
+import magicAndIndustry.MagicAndIndustry;
 import magicAndIndustry.RelativeFaceCoords;
 import magicAndIndustry.blocks.BlockRegistrar;
 import net.minecraft.init.Blocks;
@@ -20,7 +21,8 @@ public class MachineStructureRegistrar
 		structGlass = new StructOrGlassRequirement(),
 		blockBreaker = new BlockRequirement(BlockRegistrar.blockBreaker);
 	
-	private static HashMap<String, MachineStructure[]> idStructureMap;
+	private static HashMap<String, MachineStructure[]> machineStructureMap;
+	private static HashMap<String, MachineStructure> structureIDMap;
 
 	/**
 	 * Gets the registered possible machine structures for a machine.
@@ -29,11 +31,17 @@ public class MachineStructureRegistrar
 	 */
 	public static MachineStructure[] getStructuresForMachineID(String machineID)
 	{
-		return idStructureMap.get(machineID);
+		return machineStructureMap.get(machineID);
 	}	
+	
+	public static MachineStructure getMachineStructureByID(String structureID)
+	{
+		return structureIDMap.get(structureID);
+	}
 
 	/**
 	 * Registers machine structure(s) for a machine with a specific ID.
+	 * Also registers the machine configurations by ID!
 	 * If the ID already exists, the new structure(s) are added to its collection.
 	 * @param machineID The ID of the machine.
 	 * @param structures A collection of possible machine structures for its core.
@@ -41,10 +49,10 @@ public class MachineStructureRegistrar
 	public static void registerMachineConfiguration(String machineID, MachineStructure... structures)
 	{
 		// If we already have structures, add more
-		if (idStructureMap.containsKey(machineID))
+		if (machineStructureMap.containsKey(machineID))
 		{
 			// Get the entry, make a new array
-			MachineStructure[] entry = idStructureMap.get(machineID);
+			MachineStructure[] entry = machineStructureMap.get(machineID);
 			MachineStructure[] newEntry = new MachineStructure[entry.length + structures.length];
 
 			// Copy stuff over
@@ -55,20 +63,30 @@ public class MachineStructureRegistrar
 				newEntry[i] = structures[j];
 
 			// Update the map.
-			idStructureMap.remove("machineID");
-			idStructureMap.put(machineID, newEntry);
+			machineStructureMap.remove("machineID");
+			machineStructureMap.put(machineID, newEntry);
 		}
-		else idStructureMap.put(machineID, structures);
+		else machineStructureMap.put(machineID, structures);
+		
+		for (MachineStructure structure : structures)
+		{
+			if (!structureIDMap.containsKey(structure.ID))
+			{
+				structureIDMap.put(structure.ID, structure);
+			}
+			// else log silently
+			else MagicAndIndustry.logger.warn("A MachineStructure, " + machineID + ", was registered twice - it will be ignored this time. This is perfectly normal and unavoidable behavior.");
+		}
 	}
 	/**
 	 * Creates internal database in MAI and also registers our machine structures.
 	 */
 	public static void assimilate()
 	{
-		idStructureMap = new HashMap<String, MachineStructure[]>();
+		machineStructureMap = new HashMap<String, MachineStructure[]>();
 		
 		registerMachineConfiguration("furnace", 
-			new MachineStructure(
+			new MachineStructure("furnace",
 				// Center
 				new PReq(needAir,      1,  0, 0),
 				
@@ -92,18 +110,18 @@ public class MachineStructureRegistrar
 		
 		// BEHIND | SIDE | BELOW
 		registerMachineConfiguration("crusher", 
-			new MachineStructure( // Snirk version, bottoms up
+			new MachineStructure("beverlyCrusher",
 				// Bottom
 				new PReq(structure, 0, 1, 0),                                 new PReq(structure, 0, -1, 0),
 				new PReq(structure, 1, -1, 0), new PReq(heatPlate, 1, 0 ,0), new PReq(structure, 1, 1, 0),
 				new PReq(structure, 2, -1, 0), new PReq(structure, 1, 0 ,0), new PReq(structure, 2, 1, 0),
 				
-				// Floor 1
+				// Floor 2
 				new PReq(structure, 0, -1, -1), new PReq(structGlass, 0, 0, -1), new PReq(structure, 0, 1, -1),
 				new PReq(structGlass, 1, -1, -1), new PReq(needAir, 1, 0, -1), new PReq(structGlass, 1, 1, -1),
 				new PReq(structure, 2, -1, -1), new PReq(structGlass, 2, 0, -1), new PReq(structure, 2, 1, -1),
 						
-				// Floor 2
+				// Floor 3
 				new PReq(structure, 0, -1, -2), new PReq(structGlass, 0, 0, -2), new PReq(structure, 0, 1, -2),
 	           new PReq(structGlass, 1, -1, -2), new PReq(blockBreaker, 1, 0, -2), new PReq(structGlass, 1, 1, -2),
 				new PReq(structure, 2, -1, -2), new PReq(structGlass, 2, 0, -2), new PReq(structure, 2, 1, -2),
@@ -115,33 +133,26 @@ public class MachineStructureRegistrar
 				).setStripes(new RelativeFaceCoords(0, -1, 0), new RelativeFaceCoords(0, 1, 0)),
 				
 				
-			new MachineStructure( // Komo version, top down
+			new MachineStructure("wesleyCrusher",
+				// Top
 				new PReq(stoneSlab, 0, -1, -1), new PReq(stoneSlab, 0, 0, -1), new PReq(stoneSlab, 0, 1, -1),
 				new PReq(stoneSlab, 1, -1, -1), new PReq(stoneSlab, 1, 0, -1), new PReq(stoneSlab, 1, 1, -1),
 				new PReq(stoneSlab, 2, -1, -1), new PReq(stoneSlab, 2, 0, -1), new PReq(stoneSlab, 2, 1, -1),
 				
+				// 3rd
 				new PReq(structure, 0, -1, 0),                                 new PReq(structure, 0, 1, 0),
 				new PReq(structure, 1, -1, 0), new PReq(blockBreaker, 1, 0, 0), new PReq(structure, 1, 1, 0),
 				new PReq(structure, 2, -1, 0), new PReq(structure, 2, 0, 0), new PReq(structure, 2, 1, 0),
 				
+				// 2nd
 				new PReq(structGlass, 0, -1, 1), new PReq(structGlass, 0, 0, 1), new PReq(structGlass, 0, 1, 1),
 				new PReq(structGlass, 1, -1, 1), new PReq(needAir, 1, 0, 1), new PReq(structGlass, 1, 1, 1),
 				new PReq(structure, 2, -1, 1), new PReq(structure, 2, 0, 1), new PReq(structure, 2, 1, 1),
 				
+				// ground
 				new PReq(structure, 0, -1, 2), new PReq(structure, 0, 0, 2), new PReq(structure, 0, 1, 2), 
 				new PReq(structure, 1, -1, 2), new PReq(heatPlate, 1, 0, 2), new PReq(structure, 1, 1, 2),
 				new PReq(structure, 2, -1, 2), new PReq(structure, 2, 0, 2), new PReq(structure, 2, 1, 2)
 					).setStripes(new RelativeFaceCoords(0, -1, 0), new RelativeFaceCoords(0, 1, 0)));
-
-		/*
-		ironFurnace = MachineStructure.Transform(cobbleFurnace, 
-				new ReqTransform(stonePlate, new BlockRequirement(BlockRegistrar.ironHeatPlate)),
-				new ReqTransform(cobbleStruct, new BlockRequirement(BlockRegistrar.ironStructure)),
-				new ReqTransform(stoneSlab, new BlockRequirement(BlockRegistrar.cookedSlab)));
-
-		steelFurnace = MachineStructure.Transform(cobbleFurnace, 
-				new ReqTransform(stonePlate, new BlockRequirement(BlockRegistrar.steelHeatPlate)),
-				new ReqTransform(cobbleStruct, new BlockRequirement(BlockRegistrar.steelStructure)),
-				new ReqTransform(stoneSlab, new BlockRequirement(BlockRegistrar.ironSlab))); */
 	}		
 }
