@@ -2,6 +2,7 @@ package magicAndIndustry.machines.structure;
 
 import java.util.HashMap;
 
+import magicAndIndustry.RelativeFaceCoords;
 import magicAndIndustry.blocks.BlockRegistrar;
 import net.minecraft.init.Blocks;
 
@@ -13,7 +14,7 @@ public class MachineStructureRegistrar
 {	
 	public static StructureRequirementBase needAir = new BlockRequirement(Blocks.air),
 		ironBars = new BlockRequirement(Blocks.iron_bars),
-		stonePlate = new BlockRequirement(BlockRegistrar.stoneHeatPlate),
+		heatPlate = new HeatPlateRequirement(),
 		stoneSlab = new BlockRequirement(Blocks.stone_slab),
 		structure = new StructureBlockRequirement(),
 		structGlass = new StructOrGlassRequirement(),
@@ -72,7 +73,7 @@ public class MachineStructureRegistrar
 				new PReq(needAir,      1,  0, 0),
 				
 				// Middle
-				new PReq(stonePlate,   1,  0, -1), new PReq(stonePlate,   1, -1, -1), new PReq(stonePlate,   1,  1, -1),
+				new PReq(heatPlate,   1,  0, -1), new PReq(heatPlate,   1, -1, -1), new PReq(heatPlate,   1,  1, -1),
 				new PReq(ironBars,     1, -1, 0),                                   new PReq(ironBars,     1,  1, 0),
 
 				// Back
@@ -87,14 +88,14 @@ public class MachineStructureRegistrar
 				new PReq(stoneSlab, 0, 0, 1), new PReq(stoneSlab, 0, -1, 1), new PReq(stoneSlab, 0,  1, 1),
 				new PReq(stoneSlab, 1, 0, 1), new PReq(stoneSlab, 1, -1, 1), new PReq(stoneSlab, 1,  1, 1),
 				new PReq(stoneSlab, 2, 0, 1), new PReq(stoneSlab, 2, -1, 1), new PReq(stoneSlab, 2,  1, 1)
-				).setStripes(new BlockPosition(0, -1, 0), new BlockPosition(0, 1, 0)));
+				).setStripes(new RelativeFaceCoords(0, -1, 0), new RelativeFaceCoords(0, 1, 0)));
 		
 		// BEHIND | SIDE | BELOW
 		registerMachineConfiguration("crusher", 
-			new MachineStructure( // Snirk version, bottom up
+			new MachineStructure( // Snirk version, bottoms up
 				// Bottom
 				new PReq(structure, 0, 1, 0),                                 new PReq(structure, 0, -1, 0),
-				new PReq(structure, 1, -1, 0), new PReq(stonePlate, 1, 0 ,0), new PReq(structure, 1, 1, 0),
+				new PReq(structure, 1, -1, 0), new PReq(heatPlate, 1, 0 ,0), new PReq(structure, 1, 1, 0),
 				new PReq(structure, 2, -1, 0), new PReq(structure, 1, 0 ,0), new PReq(structure, 2, 1, 0),
 				
 				// Floor 1
@@ -111,7 +112,7 @@ public class MachineStructureRegistrar
 				new PReq(stoneSlab, 0, -1, -3), new PReq(stoneSlab, 0, 0, -3), new PReq(stoneSlab, 0, 1, -3),
 				new PReq(stoneSlab, 1, -1, -3), new PReq(stoneSlab, 1, 0, -3), new PReq(stoneSlab, 1, 1, -3),
 				new PReq(stoneSlab, 2, -1, -3), new PReq(stoneSlab, 2, 0, -3), new PReq(stoneSlab, 2, 1, -3)
-				).setStripes(new BlockPosition(0, -1, 0), new BlockPosition(0, 1, 0)),
+				).setStripes(new RelativeFaceCoords(0, -1, 0), new RelativeFaceCoords(0, 1, 0)),
 				
 				
 			new MachineStructure( // Komo version, top down
@@ -128,9 +129,9 @@ public class MachineStructureRegistrar
 				new PReq(structure, 2, -1, 1), new PReq(structure, 2, 0, 1), new PReq(structure, 2, 1, 1),
 				
 				new PReq(structure, 0, -1, 2), new PReq(structure, 0, 0, 2), new PReq(structure, 0, 1, 2), 
-				new PReq(structure, 1, -1, 2), new PReq(stonePlate, 1, 0, 2), new PReq(structure, 1, 1, 2),
+				new PReq(structure, 1, -1, 2), new PReq(heatPlate, 1, 0, 2), new PReq(structure, 1, 1, 2),
 				new PReq(structure, 2, -1, 2), new PReq(structure, 2, 0, 2), new PReq(structure, 2, 1, 2)
-					).setStripes(new BlockPosition(0, -1, 0), new BlockPosition(0, 1, 0)));
+					).setStripes(new RelativeFaceCoords(0, -1, 0), new RelativeFaceCoords(0, 1, 0)));
 
 		/*
 		ironFurnace = MachineStructure.Transform(cobbleFurnace, 

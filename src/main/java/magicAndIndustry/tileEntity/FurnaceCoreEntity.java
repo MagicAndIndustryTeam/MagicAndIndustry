@@ -133,6 +133,20 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 		// Machine core checks structure and whatnot
 		super.updateEntity();
 		
+		// Structure incompleteness kills cooking.
+		// Could add a countdown for having a delay betwen structure break and failure, probably not needed.
+		if (!structureComplete)
+		{
+			// If we already are cooking
+			if (fuelBurnTime > 0)
+			{
+				FurnaceCoreBlock.setFurnaceState(false, tier, worldObj, xCoord, yCoord, zCoord);
+				markDirty();
+			}
+			fuelBurnTime = 0; itemCookTime = 0;
+			return;
+		}
+		
 		// Save how the burning is going: if it changed this tick,
 		// update the underlying block's burn settings.
 		boolean startingBurningState = fuelBurnTime > 0;

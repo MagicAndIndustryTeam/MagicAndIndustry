@@ -53,21 +53,20 @@ public class MachineTier
 		return level >= other.level;
 	}
 	
-	public static void Register(MachineTier tier)
+	public static void register(MachineTier tier)
 	{
 		tiers.put(tier.name, tier);
-	}
-	
-	public static void Cry()
-	{
-		tiers = new HashMap<String, MachineTier>();
-		
-		Register(cobble);
 	}
 	
 	public static MachineTier get(String id)
 	{
 		return tiers.get(id);
+	}
+	
+	public static void cry()
+	{
+		tiers = new HashMap<String, MachineTier>();
+		register(cobble); register(iron); register(steel);
 	}
 	
 	/**

@@ -2,6 +2,7 @@ package magicAndIndustry.machines.structure;
 
 import java.util.HashMap;
 
+import magicAndIndustry.RelativeFaceCoords;
 import magicAndIndustry.Utils;
 import magicAndIndustry.blocks.BlockRegistrar;
 import net.minecraft.init.Blocks;
@@ -17,7 +18,7 @@ public class MachineStructure
 	/**
 	 * The relative block coords of all structure blocks which should be striped when the machine is set up.
 	 */
-	public BlockPosition[] relativeStriped;
+	public RelativeFaceCoords[] relativeStriped;
 	
 	/**
 	 * Constructor for the registrar. Call .setStripes after to specify striped structures.
@@ -26,7 +27,7 @@ public class MachineStructure
 	{
 		Requirements = requirements;
 	}
-	public MachineStructure setStripes(BlockPosition... stripedBlocks)
+	public MachineStructure setStripes(RelativeFaceCoords... stripedBlocks)
 	{
 		relativeStriped = stripedBlocks;
 		return this;

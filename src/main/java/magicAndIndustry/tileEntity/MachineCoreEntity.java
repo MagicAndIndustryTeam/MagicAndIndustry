@@ -2,6 +2,7 @@ package magicAndIndustry.tileEntity;
 
 import java.util.ArrayList;
 
+import magicAndIndustry.RelativeFaceCoords;
 import magicAndIndustry.Utils;
 import magicAndIndustry.blocks.StructureBlock;
 import magicAndIndustry.machines.MachineTier;
@@ -31,10 +32,10 @@ public abstract class MachineCoreEntity extends TileEntity
 	public MachineTier tier;
 	
 	/** Countdown between machine checks. */
-	private int checkCountdown;
+	protected int checkCountdown;
 	
 	/** Max time between checks. Note that most checks happen on block neighbor changes. */
-	private int CHECK_MAX = 20 * 7;
+	public static final int CHECK_MAX = 20 * 7;
 	
 	/**
 	 * MachineCoreEntity constructor- pass in the given Tier and an ID.
@@ -49,7 +50,6 @@ public abstract class MachineCoreEntity extends TileEntity
 	
 	public MachineCoreEntity()
 	{
-		
 	}
 	
 	public void writeToNBT(NBTTagCompound tag)
@@ -105,6 +105,7 @@ public abstract class MachineCoreEntity extends TileEntity
 			// Loop through the requirements
 			for (PReq req : struct.Requirements)
 			{
+				if (req == null) Utils.print("TRIED TO GET A NULL REQ!!!!!!");
 				/*
 				currX = xCoord + (req.relBehind == 0 ? 0 : modX + req.relBehind);
 				currY = yCoord + req.relHeight;
@@ -150,9 +151,11 @@ public abstract class MachineCoreEntity extends TileEntity
 						worldObj.setBlockMetadataWithNotify(pos.x, pos.y, pos.z, 1, 2);
 					}
 				}
-				for (BlockPosition structBlock : struct.relativeStriped)
+				for (RelativeFaceCoords structCoords : struct.relativeStriped)
 				{
-					worldObj.setBlockMetadataWithNotify(structBlock.x, structBlock.y, structBlock.z, 1, 2);
+					BlockPosition structBlock = structCoords.getPosition(rotation, xCoord, yCoord, zCoord);
+					if (worldObj.getBlock(structBlock.x, structBlock.y, structBlock.z) instanceof StructureBlock)
+						worldObj.setBlockMetadataWithNotify(structBlock.x, structBlock.y, structBlock.z, 1, 2);
 				}
 				Utils.print("Valid structure!"); 
 				return;
@@ -160,9 +163,12 @@ public abstract class MachineCoreEntity extends TileEntity
 			else
 			{
 				foundStructures.clear(); 
-				for (BlockPosition structBlock : struct.relativeStriped)
+				for (RelativeFaceCoords structCoords : struct.relativeStriped)
 				{
-					worldObj.setBlockMetadataWithNotify(structBlock.x, structBlock.y, structBlock.z, 0, 2);
+					BlockPosition structBlock = structCoords.getPosition(rotation, xCoord, yCoord, zCoord);
+					
+					if (worldObj.getBlock(structBlock.x, structBlock.y, structBlock.z) instanceof StructureBlock)
+						worldObj.setBlockMetadataWithNotify(structBlock.x, structBlock.y, structBlock.z, 0, 2);
 				}
 				
 			}
@@ -170,6 +176,8 @@ public abstract class MachineCoreEntity extends TileEntity
 		// We looped through all the configurations and they didn't work
 		structureComplete = false;
 	}
+	
+	
 	
 	public abstract String getMachineID();
 }

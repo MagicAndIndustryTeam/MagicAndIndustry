@@ -49,7 +49,7 @@ public class MagicAndIndustry
 			logger.info("Magic and Industry, what are we going to do tonight?");
 			logger.info("Magic and Industry, we're going to take over the Minecraft!");
 		}
-		MachineTier.Cry(); // tears
+		MachineTier.cry(); // tears
 		MachineStructureRegistrar.assimilate();    	
 		MachineRegistrar.registrate();
 		
