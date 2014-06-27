@@ -16,7 +16,8 @@ public class MachineStructureRegistrar
 		stonePlate = new BlockRequirement(BlockRegistrar.stoneHeatPlate),
 		stoneSlab = new BlockRequirement(Blocks.stone_slab),
 		structure = new StructureBlockRequirement(),
-		structGlass = new StructOrGlassRequirement();
+		structGlass = new StructOrGlassRequirement(),
+		blockBreaker = new BlockRequirement(BlockRegistrar.blockBreaker);
 	
 	private static HashMap<String, MachineStructure[]> idStructureMap;
 
@@ -90,7 +91,7 @@ public class MachineStructureRegistrar
 		
 		// BEHIND | SIDE | BELOW
 		registerMachineConfiguration("crusher", 
-			new MachineStructure( // Snirk version
+			new MachineStructure( // Snirk version, bottom up
 				// Bottom
 				new PReq(structure, 0, 1, 0),                                 new PReq(structure, 0, -1, 0),
 				new PReq(structure, 1, -1, 0), new PReq(stonePlate, 1, 0 ,0), new PReq(structure, 1, 1, 0),
@@ -103,7 +104,7 @@ public class MachineStructureRegistrar
 						
 				// Floor 2
 				new PReq(structure, 0, -1, -2), new PReq(structGlass, 0, 0, -2), new PReq(structure, 0, 1, -2),
-	new PReq(structGlass, 1, -1, -2), new PReq(new BlockRequirement(BlockRegistrar.blockBreaker), 1, 0, -2), new PReq(structGlass, 1, 1, -2),
+	           new PReq(structGlass, 1, -1, -2), new PReq(blockBreaker, 1, 0, -2), new PReq(structGlass, 1, 1, -2),
 				new PReq(structure, 2, -1, -2), new PReq(structGlass, 2, 0, -2), new PReq(structure, 2, 1, -2),
 				
 				// Top
@@ -112,8 +113,22 @@ public class MachineStructureRegistrar
 				new PReq(stoneSlab, 2, -1, -3), new PReq(stoneSlab, 2, 0, -3), new PReq(stoneSlab, 2, 1, -3)),
 				
 				
-			new MachineStructure( // Komo version
-				new PReq(needAir, 0, 0, 0)
+			new MachineStructure( // Komo version, top down
+				new PReq(stoneSlab, 0, -1, -1), new PReq(stoneSlab, 0, 0, -1), new PReq(stoneSlab, 0, 1, -1),
+				new PReq(stoneSlab, 1, -1, -1), new PReq(stoneSlab, 1, 0, -1), new PReq(stoneSlab, 1, 1, -1),
+				new PReq(stoneSlab, 2, -1, -1), new PReq(stoneSlab, 2, 0, -1), new PReq(stoneSlab, 2, 1, -1),
+				
+				new PReq(structure, 0, -1, 0),                                 new PReq(structure, 0, 1, 0),
+				new PReq(structure, 1, -1, 0), new PReq(blockBreaker, 1, 0, 0), new PReq(structure, 1, 1, 0),
+				new PReq(structure, 2, -1, 0), new PReq(structure, 2, 0, 0), new PReq(structure, 2, 1, 0),
+				
+				new PReq(structGlass, 0, -1, 1), new PReq(structGlass, 0, 0, 1), new PReq(structGlass, 0, 1, 1),
+				new PReq(structGlass, 1, -1, 1), new PReq(needAir, 1, 0, 1), new PReq(structGlass, 1, 1, 1),
+				new PReq(structure, 2, -1, 1), new PReq(structure, 2, 0, 1), new PReq(structure, 2, 1, 1),
+				
+				new PReq(structure, 0, -1, 2), new PReq(structure, 0, 0, 2), new PReq(structure, 0, 1, 2), 
+				new PReq(structure, 1, -1, 2), new PReq(stonePlate, 1, 0, 2), new PReq(structure, 1, 1, 2),
+				new PReq(structure, 2, -1, 2), new PReq(structure, 2, 0, 2), new PReq(structure, 2, 1, 2)
 					));
 
 		/*

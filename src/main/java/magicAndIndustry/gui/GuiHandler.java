@@ -10,7 +10,7 @@ import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler
 {
-	/** Machine GUI IDs.*/ 
+	/** Machine GUI IDs (BEVERLY = crusher).*/ 
 	public static final int FURNACE = 0, BEVERLY = 1, ALLOY_FURNACE = 2;
 	
 	/** Other block GUI IDs. */
