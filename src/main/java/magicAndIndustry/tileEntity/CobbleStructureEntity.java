@@ -12,7 +12,7 @@ public class CobbleStructureEntity extends TileEntity
 	public void AcceptFurnacePlacement(int x, int y, int z)
 	{
 		if (worldObj.getBlock(x, y, z).getUnlocalizedName() 
-			== BlockRegistrar.cobbleFurnaceCore.getUnlocalizedName())
+			== BlockRegistrar.cobbleFurnace.getUnlocalizedName())
 		{
 			furnaceX = x; furnaceY = y; furnaceZ = z;
 		}
@@ -23,7 +23,7 @@ public class CobbleStructureEntity extends TileEntity
 		if (furnaceX == x && furnaceY == y && furnaceZ == z
 			&& !furnaceFinalized 
 			&& this.worldObj.getBlock(x, y, z).getUnlocalizedName() == 
-			BlockRegistrar.cobbleFurnaceCore.getUnlocalizedName())
+			BlockRegistrar.cobbleFurnace.getUnlocalizedName())
 		{
 			furnaceFinalized = true;
 		}

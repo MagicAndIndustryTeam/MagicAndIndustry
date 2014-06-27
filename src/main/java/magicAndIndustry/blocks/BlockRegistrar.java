@@ -43,22 +43,22 @@ public class BlockRegistrar
 		
 		cobbleStructure = doBlock(new StructureBlock(MachineTier.cobble));
 		stoneHeatPlate = doBlock(new HeatPlate(MachineTier.cobble), false, false);
-		cobbleFurnaceCore = doBlock(new FurnaceCoreBlock(MachineTier.cobble, false).setStepSound(Block.soundTypePiston), false, false);
-		cobbleFurnaceCoreLit = doBlock(new FurnaceCoreBlock(MachineTier.cobble, true).setStepSound(Block.soundTypePiston), false, false, false, "cobble_furnace_lit");
+		cobbleFurnace = doBlock(new FurnaceCoreBlock(MachineTier.cobble, false).setStepSound(Block.soundTypePiston), false, false);
+		cobbleFurnaceLit = doBlock(new FurnaceCoreBlock(MachineTier.cobble, true).setStepSound(Block.soundTypePiston), false, false, false, "cobble_furnace_lit");
 		
 		// Iron tier
 		ironStructure = doBlock(new StructureBlock(MachineTier.iron));
 		ironHeatPlate = doBlock(new HeatPlate(MachineTier.iron), false, false);
-		ironFurnaceCore = doBlock(new FurnaceCoreBlock(MachineTier.iron, false).setStepSound(Block.soundTypeAnvil), false, false);
-		ironFurnaceCoreLit = doBlock(new FurnaceCoreBlock(MachineTier.iron, true).setStepSound(Block.soundTypeAnvil), false, false, false, "iron_furnace_lit");
+		ironFurnace = doBlock(new FurnaceCoreBlock(MachineTier.iron, false).setStepSound(Block.soundTypeAnvil), false, false);
+		ironFurnaceLit = doBlock(new FurnaceCoreBlock(MachineTier.iron, true).setStepSound(Block.soundTypeAnvil), false, false, false, "iron_furnace_lit");
 		ironSlab = doBlock(new MachineSlab(false, MachineTier.iron), false, false);	ironSlab_full = doBlock(new MachineSlab(true, MachineTier.iron), false, false);
 		cookedSlab = doBlock(new MachineSlab(false, MachineTier.steel), false, false); cookedSlab_full = doBlock(new MachineSlab(true, MachineTier.steel), false, false);
 
 		// Steel tier
 		steelStructure = doBlock(new StructureBlock(MachineTier.steel));
 		steelHeatPlate = doBlock(new HeatPlate(MachineTier.steel), false, false);
-		steelFurnaceCore = doBlock(new FurnaceCoreBlock(MachineTier.steel, false).setStepSound(Block.soundTypeAnvil), false, false);
-		steelFurnaceCoreLit = doBlock(new FurnaceCoreBlock(MachineTier.steel, true).setStepSound(Block.soundTypeAnvil), false, false, false, "steel_furnace_lit");
+		steelFurnace = doBlock(new FurnaceCoreBlock(MachineTier.steel, false).setStepSound(Block.soundTypeAnvil), false, false);
+		steelFurnaceLit = doBlock(new FurnaceCoreBlock(MachineTier.steel, true).setStepSound(Block.soundTypeAnvil), false, false, false, "steel_furnace_lit");
 		//steelSlab = doBlock(new MachineSlab(false, "steel"));
 		
 		// Others
@@ -140,18 +140,18 @@ public class BlockRegistrar
 	
 	public static Block furnaceForType(String type)
 	{
-		if (type.equals("cobble")) return cobbleFurnaceCore;
-		if (type.equals("steel")) return steelFurnaceCore;
-		if (type.equals("iron")) return ironFurnaceCore;
-		return cobbleFurnaceCore;
+		if (type.equals("cobble")) return cobbleFurnace;
+		if (type.equals("steel")) return steelFurnace;
+		if (type.equals("iron")) return ironFurnace;
+		return cobbleFurnace;
 	}
 	
 	public static Block litFurnaceForType(String type) 
 	{
-		if (type.equals("cobble")) return cobbleFurnaceCoreLit;
-		if (type.equals("steel")) return steelFurnaceCoreLit;
-		if (type.equals("iron")) return ironFurnaceCoreLit;
-		return cobbleFurnaceCoreLit;
+		if (type.equals("cobble")) return cobbleFurnaceLit;
+		if (type.equals("steel")) return steelFurnaceLit;
+		if (type.equals("iron")) return ironFurnaceLit;
+		return cobbleFurnaceLit;
 	}
 	
 	public static Block machineSlabForType(String type)
@@ -159,11 +159,16 @@ public class BlockRegistrar
 		if (type.equals("steel")) return cookedSlab_full;
 		return ironSlab_full;
 	}
-	public static Block cobbleStructure, cobbleFurnaceCore, cobbleFurnaceCoreLit, stoneHeatPlate;
-	public static Block ironStructure, ironFurnaceCore, ironFurnaceCoreLit, ironHeatPlate;
-	public static Block steelStructure, steelFurnaceCore, steelFurnaceCoreLit, steelHeatPlate;
+	public static Block cobbleFurnace, ironFurnace, steelFurnace;
+	public static Block cobbleFurnaceLit, ironFurnaceLit, steelFurnaceLit;
+	public static Block stoneHeatPlate, ironHeatPlate, steelHeatPlate;
+	public static Block cobbleStructure, ironStructure, steelStructure;
+	/** Crushers. Get it? */
+	public static Block cobbleBeverly, ironBeverly, steelBeverly;
+	public static Block cobbleBeverlyLit, ironBeverlyLit, steelBeverlyLit;
 	public static Block ironSlab, cookedSlab, ironSlab_full, cookedSlab_full;
 	public static Block cobbleStructureSafe, ironStructureSafe, steelStructureSafe;
+	public static Block blockBreaker; // TODO replace with others n stuff
 	public static IngotOre oreMeteoric, oreAluminum;
 	public static FortuneOre oreRaisin;
 	public static Block blockRaisin, blockSteel, blockRaisinBunch, blockPigIron, blockMeteoric;

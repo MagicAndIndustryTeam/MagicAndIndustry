@@ -9,6 +9,7 @@ import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -87,6 +88,12 @@ public class MachineSlab extends BlockSlab
 	{
 		return this.field_150004_a;
 	}
+	
+	@Override
+	public boolean getUseNeighborBrightness()
+	{
+		return !this.field_150004_a;
+	}
 
 	@Override
 	public String func_150002_b(int var1) 
@@ -98,4 +105,6 @@ public class MachineSlab extends BlockSlab
 	{
 		return new ItemStack(getItemDropped(world.getBlockMetadata(x, y, z), null, 0));
 	}
+	
+	
 }

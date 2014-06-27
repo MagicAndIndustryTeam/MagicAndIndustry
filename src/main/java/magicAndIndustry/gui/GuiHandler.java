@@ -11,7 +11,7 @@ import cpw.mods.fml.common.network.IGuiHandler;
 public class GuiHandler implements IGuiHandler
 {
 	/** Machine GUI IDs.*/ 
-	public static final int FURNACE = 0, GRINDER = 1, ALLOY_FURNACE = 2;
+	public static final int FURNACE = 0, BEVERLY = 1, ALLOY_FURNACE = 2;
 	
 	/** Other block GUI IDs. */
 	public static final int BLOCK_BREAKER = 10;

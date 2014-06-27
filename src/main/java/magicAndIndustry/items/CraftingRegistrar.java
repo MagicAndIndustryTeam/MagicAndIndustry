@@ -17,7 +17,7 @@ public class CraftingRegistrar
 		{
 			"XX ", "XX ", 'X', Blocks.cobblestone
 		});
-		GameRegistry.addRecipe(new ItemStack(BlockRegistrar.cobbleFurnaceCore), new Object[]
+		GameRegistry.addRecipe(new ItemStack(BlockRegistrar.cobbleFurnace), new Object[]
 		{
 				"CCC",
 				"B B",
@@ -42,7 +42,7 @@ public class CraftingRegistrar
 		{
 			"XX ", "XX ", 'X', Items.iron_ingot
 		});
-		GameRegistry.addRecipe(new ItemStack(BlockRegistrar.ironFurnaceCore), new Object[]
+		GameRegistry.addRecipe(new ItemStack(BlockRegistrar.ironFurnace), new Object[]
 		{
 			"III",
 			"B B",
@@ -65,7 +65,7 @@ public class CraftingRegistrar
 		{
 			"XX ", "XX ", 'X', ItemRegistrar.ingotSteel
 		});
-		GameRegistry.addRecipe(new ItemStack(BlockRegistrar.steelFurnaceCore), new Object[]
+		GameRegistry.addRecipe(new ItemStack(BlockRegistrar.steelFurnace), new Object[]
 		{
 			"TTT",
 			"B B",
