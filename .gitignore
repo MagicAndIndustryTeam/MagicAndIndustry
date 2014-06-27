@@ -1,3 +1,14 @@
+######################
+# Project settings
+######################
+build.gradle
+IGNORED
+IGNORED/*
+gradlew.*
+eclipse
+eclipse/*
+
+
 #################
 ## Eclipse
 #################
