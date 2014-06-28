@@ -12,7 +12,9 @@ import magicAndIndustry.tileEntity.FurnaceCoreEntity;
 import magicAndIndustry.tileEntity.StructureTileEntity;
 import magicAndIndustry.tileEntity.TankUpgradeEntity;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPane;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockRegistrar 
@@ -77,6 +79,7 @@ public class BlockRegistrar
 		// Randoms
 		//
 		discoBlock = doBlock(new DiscoBlockBlock());
+		steelBars = doBlock(new BlockPaneExposingConstructor(Textures.block("steel_bars"), Textures.block("steel_bars"), Material.iron, true, 6F, 20F));
 		
 		
 		// 
@@ -90,6 +93,31 @@ public class BlockRegistrar
 		GameRegistry.registerTileEntity(BlockBreakerEntity.class, "MAIBlockBreaker");
 		GameRegistry.registerTileEntity(DiscoBlockEntity.class, "MAIdiscoBlock");
 	}
+	
+	// Machine blocks
+	public static Block cobbleFurnace, ironFurnace, steelFurnace;
+	public static Block cobbleFurnaceLit, ironFurnaceLit, steelFurnaceLit;
+	public static Block stoneHeatPlate, ironHeatPlate, steelHeatPlate;
+	public static Block cobbleStructure, ironStructure, steelStructure;
+	/** Crushers. Get it? */
+	public static Block cobbleBeverly, ironBeverly, steelBeverly;
+	public static Block cobbleBeverlyLit, ironBeverlyLit, steelBeverlyLit;
+	public static Block ironSlab, cookedSlab, ironSlab_full, cookedSlab_full;
+	public static Block cobbleStructureSafe, ironStructureSafe, steelStructureSafe;
+	// Machines
+	public static Block blockBreaker; // TODO replace with others n stuff
+	//Ores
+	public static IngotOre oreMeteoric, oreAluminum;
+	public static FortuneOre oreRaisin;
+	// Ingot Blocks
+	public static Block blockRaisin, blockSteel, blockRaisinBunch, blockPigIron, blockMeteoric;
+	public static Block blockAluminum;
+	// Other Blocks
+	public static Block industrialGlass;
+	// Research
+	public static Block engineeringTable;
+	// Random
+	public static Block discoBlock, superFurnace, steelBars;
 	
 	private static Block doBlock(Block brock, boolean oneTextureToRuleThemAll, boolean oreDict, boolean creativeTab, String registerName)
 	{
@@ -159,21 +187,6 @@ public class BlockRegistrar
 		if (type.equals("steel")) return cookedSlab_full;
 		return ironSlab_full;
 	}
-	public static Block cobbleFurnace, ironFurnace, steelFurnace;
-	public static Block cobbleFurnaceLit, ironFurnaceLit, steelFurnaceLit;
-	public static Block stoneHeatPlate, ironHeatPlate, steelHeatPlate;
-	public static Block cobbleStructure, ironStructure, steelStructure;
-	/** Crushers. Get it? */
-	public static Block cobbleBeverly, ironBeverly, steelBeverly;
-	public static Block cobbleBeverlyLit, ironBeverlyLit, steelBeverlyLit;
-	public static Block ironSlab, cookedSlab, ironSlab_full, cookedSlab_full;
-	public static Block cobbleStructureSafe, ironStructureSafe, steelStructureSafe;
-	public static Block blockBreaker; // TODO replace with others n stuff
-	public static IngotOre oreMeteoric, oreAluminum;
-	public static FortuneOre oreRaisin;
-	public static Block blockRaisin, blockSteel, blockRaisinBunch, blockPigIron, blockMeteoric;
-	public static Block blockAluminum;
-	public static Block industrialGlass;
-	public static Block engineeringTable;
-	public static Block discoBlock, superFurnace;
+	
+
 }

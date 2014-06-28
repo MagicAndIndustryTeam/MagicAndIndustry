@@ -4,14 +4,10 @@ import magicAndIndustry.MagicAndIndustry;
 import magicAndIndustry.Textures;
 import magicAndIndustry.Utils;
 import magicAndIndustry.blocks.BlockRegistrar;
-import magicAndIndustry.tools.MeteorPickaxe;
 import magicAndIndustry.tools.RecursivePick;
-import magicAndIndustry.tools.SteelAxe;
-import magicAndIndustry.tools.SteelPickaxe;
 import magicAndIndustry.tools.Wrench;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemSword;
@@ -33,6 +29,7 @@ public class ItemRegistrar
 		ingotSteel = doIngot("steel");
 		ingotMeteorIron = doIngot("meteoric_iron");
 		ingotAluminum = doIngot("aluminum");
+		ingotTitanium = doIngot("titanium");
 		//ingotCopper = doIngot("Copper");
 		//ingotTin = doIngot("Tin");
 		//ingotBronze = doIngot("Bronze");
@@ -85,7 +82,7 @@ public class ItemRegistrar
 	
 	public static Item bookEngineering, bookPhysics, bookChemistry, bookBiology, bookOScience, bookMagic;
 	public static Item ingotMeteorIron, ingotSteel, ingotPigIron, piglets;
-	public static Item ingotAluminum; //ingotCopper, ingotTin, ingotBronze;
+	public static Item ingotAluminum, ingotTitanium; //ingotCopper, ingotTin, ingotBronze, ingotTitanium;
 	public static Item wrench, weldingTorch; 
 	public static Item meteorSword, meteorShovel, meteorPickaxe, meteorAxe, steelShovel, steelPickaxe, steelAxe, steelSword;
 	public static Item giflte, raisin, raisinBunch;

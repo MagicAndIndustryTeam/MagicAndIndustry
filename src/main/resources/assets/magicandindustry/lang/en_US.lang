@@ -8,6 +8,7 @@ category=Ingots
 item.steel_ingot.name=Steel Ingot
 item.meteoric_iron_ingot.name=Meteoric Iron Ingot
 item.aluminum_ingot.name=Aluminum Ingot
+item.titanium_ingot.name=Titanium Ingot
 item.piglets.name=Piglets
 
 
@@ -17,6 +18,7 @@ tile.raisin_block.name=Raisin Block
 tile.raisin_bunch_block.name=Raisin Bunch Block
 tile.meteoric_block.name=Meteoric Iron Block
 tile.aluminum_block.name=Aluminum Block
+tile.titanium_block.name=Titanium Block
 tile.pig_iron_block.name=Pig Iron Block
 
 

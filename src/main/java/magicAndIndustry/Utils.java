@@ -13,8 +13,9 @@ public class Utils
 {
 	/** The ID of the mod. Forge recommends all lowercase IDs. */
 	public static final String ModID = "magicandindustry";
+	
 	/** Whee, storing versions as strings! */
-	public static final String Version = "0.0.3";
+	public static final String Version = "0.0.4";
 	
 	// Toolmaterials: This code can be moved if Utils gets too full.
 	
@@ -35,9 +36,6 @@ public class Utils
 	
 	/**
 	 * Returns which ForgeDirection the meta refers to!!!
-	 * If you call this from a block, giving it the block's meta,
-	 * it will tell you what SIDE to compare the SIDE parameter to
-	 * in order to determine if the returned SIDE is the front.
 	 * @param meta The metadata of the block
 	 * @return The ForgeDirection corresponding to the front.
 	 */
