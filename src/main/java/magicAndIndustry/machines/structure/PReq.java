@@ -17,7 +17,7 @@ public class PReq
 	public PReq(StructureRequirementBase structure, int behind, int side, int below)
 	{
 		requirement = structure; 
-		rel = new RelativeFaceCoords(behind, below, side);
+		rel = new RelativeFaceCoords(behind, side, below);
 	}
 	
 	public String toString()

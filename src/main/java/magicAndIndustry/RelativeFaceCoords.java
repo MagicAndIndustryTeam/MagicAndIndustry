@@ -14,9 +14,9 @@ public class RelativeFaceCoords
 {
 	public int behind, height, side;
 	
-	public RelativeFaceCoords(int relBehind, int relAbove, int relSide)
+	public RelativeFaceCoords(int relBehind, int relSide, int relHeight)
 	{
-		behind = relBehind; height = relAbove; side = relSide;
+		behind = relBehind; height = relHeight; side = relSide;
 	}
 	
 	public BlockPosition getPosition(ForgeDirection rotation, int startX, int startY, int startZ)

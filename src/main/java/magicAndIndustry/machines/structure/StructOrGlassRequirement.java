@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 public class StructOrGlassRequirement extends StructureRequirementBase 
 {
 	@Override
-	public boolean isMatch(MachineTier tier, World world, int x, int y, int z) 
+	public boolean isMatch(MachineTier tier, World world, int x, int y, int z, int coreX, int coreY, int coreZ) 
 	{
 		Block brock = world.getBlock(x, y, z);
 		

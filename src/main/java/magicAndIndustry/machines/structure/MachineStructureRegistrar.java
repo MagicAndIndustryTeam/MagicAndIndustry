@@ -16,7 +16,7 @@ public class MachineStructureRegistrar
 	public static StructureRequirementBase needAir = new BlockRequirement(Blocks.air),
 		ironBars = new BlockRequirement(Blocks.iron_bars),
 		heatPlate = new HeatPlateRequirement(),
-		stoneSlab = new BlockRequirement(Blocks.stone_slab),
+		slab = new MachineSlabRequirement(),
 		structure = new StructureBlockRequirement(),
 		structGlass = new StructOrGlassRequirement(),
 		blockBreaker = new BlockRequirement(BlockRegistrar.blockBreaker);
@@ -84,6 +84,7 @@ public class MachineStructureRegistrar
 	public static void assimilate()
 	{
 		machineStructureMap = new HashMap<String, MachineStructure[]>();
+		structureIDMap = new HashMap<String, MachineStructure>();
 		
 		registerMachineConfiguration("furnace", 
 			new MachineStructure("furnace",
@@ -103,9 +104,9 @@ public class MachineStructureRegistrar
 				new PReq(structure, 0,  1, -1), new PReq(structure, 0, -1, -1), new PReq(structure, 0,  0, -1),
 
 				// Top
-				new PReq(stoneSlab, 0, 0, 1), new PReq(stoneSlab, 0, -1, 1), new PReq(stoneSlab, 0,  1, 1),
-				new PReq(stoneSlab, 1, 0, 1), new PReq(stoneSlab, 1, -1, 1), new PReq(stoneSlab, 1,  1, 1),
-				new PReq(stoneSlab, 2, 0, 1), new PReq(stoneSlab, 2, -1, 1), new PReq(stoneSlab, 2,  1, 1)
+				new PReq(slab, 0, 0, 1), new PReq(slab, 0, -1, 1), new PReq(slab, 0,  1, 1),
+				new PReq(slab, 1, 0, 1), new PReq(slab, 1, -1, 1), new PReq(slab, 1,  1, 1),
+				new PReq(slab, 2, 0, 1), new PReq(slab, 2, -1, 1), new PReq(slab, 2,  1, 1)
 				).setStripes(new RelativeFaceCoords(0, -1, 0), new RelativeFaceCoords(0, 1, 0)));
 		
 		// BEHIND | SIDE | BELOW
@@ -127,17 +128,17 @@ public class MachineStructureRegistrar
 				new PReq(structure, 2, -1, -2), new PReq(structGlass, 2, 0, -2), new PReq(structure, 2, 1, -2),
 				
 				// Top
-				new PReq(stoneSlab, 0, -1, -3), new PReq(stoneSlab, 0, 0, -3), new PReq(stoneSlab, 0, 1, -3),
-				new PReq(stoneSlab, 1, -1, -3), new PReq(stoneSlab, 1, 0, -3), new PReq(stoneSlab, 1, 1, -3),
-				new PReq(stoneSlab, 2, -1, -3), new PReq(stoneSlab, 2, 0, -3), new PReq(stoneSlab, 2, 1, -3)
+				new PReq(slab, 0, -1, -3), new PReq(slab, 0, 0, -3), new PReq(slab, 0, 1, -3),
+				new PReq(slab, 1, -1, -3), new PReq(slab, 1, 0, -3), new PReq(slab, 1, 1, -3),
+				new PReq(slab, 2, -1, -3), new PReq(slab, 2, 0, -3), new PReq(slab, 2, 1, -3)
 				).setStripes(new RelativeFaceCoords(0, -1, 0), new RelativeFaceCoords(0, 1, 0)),
 				
 				
 			new MachineStructure("wesleyCrusher",
 				// Top
-				new PReq(stoneSlab, 0, -1, -1), new PReq(stoneSlab, 0, 0, -1), new PReq(stoneSlab, 0, 1, -1),
-				new PReq(stoneSlab, 1, -1, -1), new PReq(stoneSlab, 1, 0, -1), new PReq(stoneSlab, 1, 1, -1),
-				new PReq(stoneSlab, 2, -1, -1), new PReq(stoneSlab, 2, 0, -1), new PReq(stoneSlab, 2, 1, -1),
+				new PReq(slab, 0, -1, -1), new PReq(slab, 0, 0, -1), new PReq(slab, 0, 1, -1),
+				new PReq(slab, 1, -1, -1), new PReq(slab, 1, 0, -1), new PReq(slab, 1, 1, -1),
+				new PReq(slab, 2, -1, -1), new PReq(slab, 2, 0, -1), new PReq(slab, 2, 1, -1),
 				
 				// 3rd
 				new PReq(structure, 0, -1, 0),                                 new PReq(structure, 0, 1, 0),

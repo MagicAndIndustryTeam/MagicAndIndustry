@@ -2,8 +2,11 @@ package magicAndIndustry.machines;
 
 import java.util.HashMap;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import magicAndIndustry.Textures;
-import magicAndIndustry.Utils;
+import magicAndIndustry.blocks.BlockRegistrar;
+import magicAndIndustry.blocks.MachineSlab;
 
 
 /**
@@ -14,12 +17,12 @@ public class MachineTier
 	private static HashMap<String, MachineTier> tiers;
 	
 	// MAI Tiers
-	public static MachineTier cobble = new MachineTier("cobble", 0, Textures.block("stoneSlab"), 3F, 30F);
-	public static MachineTier iron = new MachineTier("iron", 2, Textures.block("ironAnvilSide"), 3.5F, 40F);
-	public static MachineTier steel = new MachineTier("steel", 4, Textures.block("iron_side"), 4F, 45F);
+	public static MachineTier cobble = new MachineTier("cobble", 0, Textures.block("stoneSlab"), 3F, 30F, Blocks.stone_slab);
+	public static MachineTier iron = new MachineTier("iron", 2, Textures.block("ironAnvilSide"), 3.5F, 40F, BlockRegistrar.cookedSlab);
+	public static MachineTier steel = new MachineTier("steel", 4, Textures.block("iron_side"), 4F, 45F, BlockRegistrar.ironSlab);
 	// THESE WOULD BE SO AWESOME DAMMIT
 	public static MachineTier tungsten, titanium;
-	
+
 	
 	/** The name of the tier, i.e. "cobble", used in creating StructureBlocks and getting textures. */
 	public String name;
@@ -35,11 +38,15 @@ public class MachineTier
 	/** Resistance of the tier's blocks - the machines may reduce it slightly. */
 	public float standardResistance;
 	
-	public MachineTier(String theName, int theLevel, String altTexture, float hardness, float futile)
+	/** Slab to put on machines of this tier */
+	public Block slabType;
+	
+	public MachineTier(String theName, int theLevel, String altTexture, float hardness, float futile, Block machineSlab)
 	{
 		name = theName; level = theLevel; 
 		this.altTexture = altTexture;
 		standardHardness = hardness; standardResistance = futile;
+		slabType = machineSlab;
 	}
 	
 	

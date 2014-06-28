@@ -10,7 +10,7 @@ public class GlassRequirement extends StructureRequirementBase
 {
 	
 	@Override
-	public boolean isMatch(MachineTier tier, World world, int x, int y, int z) 
+	public boolean isMatch(MachineTier tier, World world, int x, int y, int z, int coreX, int coreY, int coreZ) 
 	{
 		return Block.isEqualTo(world.getBlock(x, y, z), BlockRegistrar.industrialGlass);
 	}

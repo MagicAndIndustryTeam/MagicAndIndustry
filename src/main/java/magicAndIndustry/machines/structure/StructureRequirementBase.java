@@ -20,7 +20,7 @@ public abstract class StructureRequirementBase
 	 * @param z block z coord
 	 * @return Whether the block at this position is compatable with a machine of this tier with the type of requirement.
 	 */
-	public abstract boolean isMatch(MachineTier tier, World world, int x, int y, int z);
+	public abstract boolean isMatch(MachineTier tier, World world, int x, int y, int z, int coreX, int coreY, int coreZ);
 	
 	/**
 	 * TODO NOT IMPLEMENTED

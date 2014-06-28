@@ -61,7 +61,7 @@ public class FurnaceCoreBlock extends MachineCoreBlock
 		
 		System.out.println("Getting furnace core...");
 		FurnaceCoreEntity furnace = (FurnaceCoreEntity)world.getTileEntity(x, y, z);
-		if (furnace != null && furnace.structureComplete)
+		if (furnace != null && furnace.structureComplete())
 			player.openGui(MagicAndIndustry.instance, GuiHandler.FURNACE, world, x, y, z);
 		else Utils.print("Structure invalid.");
 		return true;

@@ -71,7 +71,7 @@ public abstract class MachineCoreEntity extends TileEntity
 	@Override
 	public void updateEntity()
 	{
-		if (checkCountdown >= CHECK_MAX)
+		if (structureComplete() && checkCountdown >= CHECK_MAX)
 		{
 			checkCountdown = 0;
 			
@@ -82,123 +82,13 @@ public abstract class MachineCoreEntity extends TileEntity
 	}
 	
 	public void updateStructure()
-	{
-		Utils.print("Entered update structure.");
-		// 15 for an initial capacity should be good enough.
-		ArrayList<BlockPosition> foundStructures = new ArrayList<BlockPosition>(15);
-		
-		// Get the direction
-		ForgeDirection rotation = ForgeDirection.getOrientation(Utils.backFromMeta(worldObj.getBlockMetadata(xCoord, yCoord, zCoord)));
-		Utils.print("Found rotation: " + rotation.name());
-		// Get numbers to offset x and z
-		int modX = rotation.offsetX, modZ = rotation.offsetZ, currX, currY, currZ;
-		boolean isXAxis;
-		// Set the zeros to work with multiplication
-		// Using an else if here as the machine will face either x or z.
-		if (modX == 0) { modX = 1; isXAxis = false; }
-		else /*if (modZ == 0)*/ { modZ = 1; isXAxis = true; }
-		
-		// Debug
-		Utils.print("Found forgeDirection " + rotation.name() + ", modX = %d, modZ = %d\n", modX, modZ);
-		
-		// Go through all possible structures
-		for (MachineStructure struct : MachineStructureRegistrar.getStructuresForMachineID(getMachineID()))
-		{
-			//Utils.print("Checking " + struct.toString());
-			boolean checkPassed = true;
-			// Loop through the requirements
-			for (PReq req : struct.requirements)
-			{
-				if (req == null) Utils.print("TRIED TO GET A NULL REQ!!!!!!");
-				/*
-				currX = xCoord + (req.relBehind == 0 ? 0 : modX + req.relBehind);
-				currY = yCoord + req.relHeight;
-				currZ = zCoord + (req.relSide == 0 ? req.relSide : modZ + req.relSide);
-				*/
-				Utils.print("Relative coords: behind = %d, height = %d, %d.", req.rel.behind, req.rel.height, req.rel.side);
-				
-				currX = xCoord + (modX * (isXAxis? req.rel.behind : req.rel.side));
-				currY = yCoord + req.rel.height;
-				currZ = zCoord + (modZ * (isXAxis? req.rel.side : req.rel.behind));
-				
-				Utils.print("Found %d, %d, %d for req " + req.requirement.toString(), currX, currY, currZ);
-				
-				if (req.requirement.isMatch(tier, worldObj, currX, currY, currZ))
-				{
-					if (worldObj.getBlock(currX, currY, currZ) instanceof StructureBlock)
-					{
-						TileEntity ent = worldObj.getTileEntity(currX, currY, currZ);
-						if (ent != null && ent instanceof StructureTileEntity)
-						{
-							// WARNING: saving block positions as nonrelative coordinates!!!
-							foundStructures.add(new BlockPosition(currX, currY, currZ));
-						}
-					}
-				}
-				else 
-				{ 
-					checkPassed = false; 
-					Utils.print("Check failed at %d, %d, %d: expecting " + req.toString(), currX, currY, currZ);
-					break; 
-				}
-			}
-			if (checkPassed)
-			{
-				structureComplete = true;
-				ArrayList<StructureUpgrade> upgrades = new ArrayList<StructureUpgrade>(10);
-				for (BlockPosition pos : foundStructures)
-				{
-					TileEntity ent = worldObj.getTileEntity(pos.x, pos.y, pos.z);
-					
-					// Structure Upgrade: save its upgrade.
-					if (ent instanceof StructureUpgradeEntity) upgrades.add(((StructureUpgradeEntity)ent).upgrade);
-					
-					// Machine Structure (also upgrades): set the core coords.
-					if (ent instanceof StructureTileEntity) 
-					{
-						((StructureTileEntity)ent).setCoreValues(pos.x, pos.y, pos.z);
-						//aaaaaaaworldObj.setBlockMetadataWithNotify(pos.x, pos.y, pos.z, 1, 2);
-					}
-				}
-				for (RelativeFaceCoords structCoords : struct.relativeStriped)
-				{
-					BlockPosition structBlock = structCoords.getPosition(rotation, xCoord, yCoord, zCoord);
-					if (worldObj.getBlock(structBlock.x, structBlock.y, structBlock.z) instanceof StructureBlock)
-						worldObj.setBlockMetadataWithNotify(structBlock.x, structBlock.y, structBlock.z, 1, 2);
-				}
-				Utils.print("Valid structure!"); 
-				return;
-			}
-			else
-			{
-				// Sure, this is temp, it's not gonna have everything in it
-				foundStructures.clear();
-				
-				// I was very tired when I wrote this
-				if (structureBlocks != null)
-				for (RelativeFaceCoords main : structureBlocks)
-				{
-					resetStructure(main, rotation);
-				}
-				if (struct.relativeStriped != null)
-				for (RelativeFaceCoords structCoords : struct.relativeStriped)
-				{
-					resetStructure(structCoords, rotation);
-				}
-				
-			}
-		}
-		// We looped through all the configurations and they didn't work
-		//structureComplete = false;
-	}
-	
-	public void updateStructure2()
 	{	
+		Utils.print("Entered update structure.");
 		boolean itWorked = true;
 		//String tempStruct;
 		
 		// Get block's rotational information as a ForgeDirection
-		ForgeDirection rotation = ForgeDirection.getOrientation(Utils.sideFromMeta(worldObj.getBlockMetadata(xCoord, yCoord, zCoord)));
+		ForgeDirection rotation = ForgeDirection.getOrientation(Utils.backFromMeta(worldObj.getBlockMetadata(xCoord, yCoord, zCoord)));
 		
 		//
 		// Step one: validate all blocks
@@ -208,14 +98,16 @@ public abstract class MachineCoreEntity extends TileEntity
 		// But if the machine is already set up it should only check the desired structure.
 		for (MachineStructure struct : (structureComplete() ? MachineStructureRegistrar.getStructuresForMachineID(getMachineID()) : MachineStructureRegistrar.getStructuresForMachineID(getMachineID())))
 		{
+			//Utils.print("Got machine structure " + struct.toString() + ", ID " + struct.ID + ".");
 			//tempStruct = struct.ID;
 			for (PReq req : struct.requirements)
 			{
 				// Get the rotated block coordinates.
 				BlockPosition pos = req.rel.getPosition(rotation, xCoord, yCoord, zCoord);
 				
-				if (!req.requirement.isMatch(tier, worldObj, pos.x, pos.y, pos.z))
+				if (!req.requirement.isMatch(tier, worldObj, pos.x, pos.y, pos.z, xCoord, yCoord, zCoord))
 				{
+					Utils.print("Requirement did not work! " + req.toString());
 					itWorked = false; break;
 				}
 			}
@@ -223,11 +115,13 @@ public abstract class MachineCoreEntity extends TileEntity
 			// We've gone through all the blocks. They all match up!
 			if (itWorked)
 			{
+				//Utils.print("Valid structure.");
 				// If the structure is new only
 				// This does not erase the old one
 				// We hope for a break between the two
 				if (struct.ID != structureID)
 				{
+					//Utils.print("Creating new structure.");
 					// Save what structure we have.
 					structureID = struct.ID;
 
@@ -235,10 +129,13 @@ public abstract class MachineCoreEntity extends TileEntity
 					for (PReq req : struct.requirements)
 					{
 						BlockPosition pos = req.rel.getPosition(rotation, xCoord, yCoord, zCoord);
-						Block brock = worldObj.getBlock(pos.x, pos.y, pos.z);
+						Block brock = worldObj.getBlock(pos.x, pos.y, pos.z); if (brock == null) continue;
 
-						if (brock != null && brock instanceof IStructureAware)
+						if (brock instanceof IStructureAware)
 							((IStructureAware)brock).onStructureCreated(worldObj, pos.x, pos.y, pos.z, xCoord, yCoord, zCoord);
+						
+						//if (brock instanceof UpgradeStructureEntity)
+						// do stuff with that	
 					}
 
 					// Tell all of the structure blocks to stripe it up!

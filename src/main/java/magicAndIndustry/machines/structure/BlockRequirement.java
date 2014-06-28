@@ -35,7 +35,7 @@ public class BlockRequirement extends StructureRequirementBase
 	/**
 	 * Checks to confirm that the block (and optionally metadata) is the same.
 	 */
-	public boolean isMatch(MachineTier tier, World world, int x, int y, int z) 
+	public boolean isMatch(MachineTier tier, World world, int x, int y, int z, int coreX, int coreY, int coreZ) 
 	{
 		Block brock2 = world.getBlock(x, y, z);
 		

@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 public class StructureBlockRequirement extends StructureRequirementBase
 {	
 	@Override
-	public boolean isMatch(MachineTier tier, World world, int x, int y, int z)
+	public boolean isMatch(MachineTier tier, World world, int x, int y, int z, int coreX, int coreY, int coreZ)
 	{
 		Block brock = world.getBlock(x, y, z);
 		// Uses the tier level check here.
@@ -20,7 +20,11 @@ public class StructureBlockRequirement extends StructureRequirementBase
 			if (!sbrock.tier.isStrongEnoughFor(tier)) return false;
 			
 			StructureTileEntity ent = (StructureTileEntity)world.getTileEntity(x, y, z);
-			if (ent != null) return !ent.hasCore(); // Structures cannot overlap.
+			if (ent != null && ent.hasCore())// Structures cannot overlap.
+			{
+				return ent.coreX == coreX && ent.coreY == coreY && ent.coreZ == coreZ;
+			}
+			return true;
 		}
 		return false;
 	}

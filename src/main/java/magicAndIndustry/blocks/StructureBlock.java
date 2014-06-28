@@ -1,8 +1,6 @@
 package magicAndIndustry.blocks;
 
 import magicAndIndustry.MagicAndIndustry;
-import magicAndIndustry.Textures;
-import magicAndIndustry.Utils;
 import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.api.IStructureUpgradeItem;
 import magicAndIndustry.machines.MachineTier;
@@ -69,6 +67,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	// TODO use tile entity code
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor)
 	{
+		/*
 		// Is this needed?????????
 		if (world.isRemote) return;
 		
@@ -93,7 +92,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 				}
 			}
 		}
-		
+		*/
 	}
 
 	@Override
@@ -184,17 +183,30 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	}
 
 	@Override
-	public void onStructureCreated(World world, int x, int y, int z, int coreX,
-			int coreY, int coreZ) {
-		// TODO Auto-generated method stub
+	public void onStructureCreated(World world, int x, int y, int z, int coreX, int coreY, int coreZ) 
+	{
+		TileEntity te = world.getTileEntity(x, y, z); if (te == null) return;
 		
+		// Set structure core ref stuff
+		if (te instanceof StructureTileEntity)
+			((StructureTileEntity)te).setCoreValues(coreX, coreY, coreZ);
+		
+		if (te instanceof StructureUpgradeEntity)
+		{
+			// TODO add upgrade here????????
+			//MachineCoreEntity core = (MachineCoreEntity)world.getTileEntity(coreX, coreY, coreZ);
+		}
+			
 	}
 
 	@Override
-	public void onStructureBroken(World world, int x, int y, int z, int coreX,
-			int coreY, int coreZ) {
-		// TODO Auto-generated method stub
-		
+	public void onStructureBroken(World world, int x, int y, int z, int coreX, int coreY, int coreZ) 
+	{
+		world.setBlockMetadataWithNotify(x, y, z, 0, 2);
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te != null && te instanceof StructureTileEntity)
+			((StructureTileEntity)te).setCoreValues(0, 0, 0);
+		// Remove upgrade here? Should be automatic
 	}
 
 }

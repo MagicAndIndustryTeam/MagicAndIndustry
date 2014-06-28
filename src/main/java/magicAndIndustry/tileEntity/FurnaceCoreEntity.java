@@ -135,7 +135,7 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 		
 		// Structure incompleteness kills cooking.
 		// Could add a countdown for having a delay betwen structure break and failure, probably not needed.
-		if (!structureComplete)
+		if (!structureComplete())
 		{
 			// If we already are cooking
 			if (fuelBurnTime > 0)
