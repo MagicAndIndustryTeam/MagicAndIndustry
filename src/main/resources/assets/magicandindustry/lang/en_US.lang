@@ -95,12 +95,17 @@ tile.steel_furnace.name=Steel Furnace
 
 category=Other blocks
 tile.disco_block.name=Disco Block
+tile.cobble_structure_safe.name=Cobblestone Decorative Block
+tile.iron_structure_safe.name=Iron Decorative Block
+tile.steel_structure_safe.name=Steel Decorative Block
+
 
 category=TODO name change
 tile.iron_slab.name=Iron Slab
 tile.iron_slab_full.name=Iron Slab
 tile.steel_slab.name=Cooked Iron Slab
 tile.steel_slab_full.name=Cooked Iron Slab
+
 
 category=Engineering
 tile.engineering_table.name=Engineering Table
@@ -117,6 +122,9 @@ container.cobble_furnace=Cobblestone Structure Furnace
 container.iron_furnace=Iron Furnace
 container.steel_furnace=Steel Furnace
 container.engineering_table=Engineering Table
+
+
+category=Research Books
 
 
 category=Other

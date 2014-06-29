@@ -1,16 +1,13 @@
 package magicAndIndustry.rendering;
 
+import magicAndIndustry.blocks.BlockRegistrar;
 import magicAndIndustry.blocks.StructureBlock;
 import magicAndIndustry.tileEntity.StructureEntity;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-import net.minecraftforge.common.util.ForgeDirection;
-
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -27,6 +24,10 @@ public class StructureTileEntityRenderer extends TileEntitySpecialRenderer
 	public void renderTileEntityAt(TileEntity entity, double x, double y, double z, float whoKnows) 
 	{
 		/*
+		StructureEntity struct = (StructureEntity)entity;
+		Tessellator tess = Tessellator.instance;
+		
+		
 		bindTexture(TextureMap.locationBlocksTexture);
 		StructureTileEntity structure = (StructureTileEntity)entity;
 		StructureBlock brock = (StructureBlock)entity.getWorldObj().getBlock(entity.xCoord, entity.yCoord, entity.zCoord);

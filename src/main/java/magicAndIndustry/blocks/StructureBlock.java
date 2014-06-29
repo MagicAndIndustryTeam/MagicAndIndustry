@@ -6,6 +6,7 @@ import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.api.IStructureUpgradeItem;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.StructureUpgrade;
+import magicAndIndustry.rendering.IConnectedTexture;
 import magicAndIndustry.tileEntity.MachineCoreEntity;
 import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.tileEntity.StructureUpgradeEntity;
@@ -23,10 +24,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class StructureBlock extends BlockContainer implements IWrenchable, IStructureAware
+public class StructureBlock extends BlockContainer implements IWrenchable, IStructureAware, IConnectedTexture
 {
 	@SideOnly(Side.CLIENT)
-	public IIcon striped; //, surrounded;
+	private IIcon striped, surrounded;
 	
 	/** The type of block - iron, steel, etc. */
 	public final MachineTier tier;
@@ -46,6 +47,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	{
 		blockIcon = reg.registerIcon(tier.getFaceTexture()); 
 		striped = reg.registerIcon(tier.getStripedTexture());
+		surrounded = reg.registerIcon(tier.getFaceTexture() + "_ct");
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -216,5 +218,14 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 		if (te != null && te instanceof StructureEntity)
 			((StructureEntity)te).setCoreValues(0, 0, 0);
 	}
+
+	@Override
+	public float getTextureWidth() { return 1F/16F; }
+
+	@Override
+	public IIcon getBaseTexture(int side, int meta) { return getIcon(side, meta); }
+
+	@Override
+	public IIcon getWallsTexture() { return surrounded; }
 
 }

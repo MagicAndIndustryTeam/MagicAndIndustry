@@ -1,5 +1,8 @@
 package magicAndIndustry;
 
+import org.lwjgl.input.Keyboard;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.util.MathHelper;
@@ -86,5 +89,15 @@ public class Utils
 	public static void print(String string, Object... args)
 	{
 		System.out.printf(string, args); System.out.println();
+	}
+
+	public static boolean isSneakKey() 
+	{
+		return Minecraft.getMinecraft().gameSettings.keyBindSneak.isPressed();
+	}
+	
+	public static String getSneakKey()
+	{
+		return Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyDescription();
 	}
 }

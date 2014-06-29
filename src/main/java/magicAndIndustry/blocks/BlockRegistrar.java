@@ -187,6 +187,14 @@ public class BlockRegistrar
 		if (type.equals("steel")) return cookedSlab_full;
 		return ironSlab_full;
 	}
+
+	public static Block structureBlockForTier(MachineTier tier) 
+	{
+		if (tier.name.equals("cobble")) return cobbleStructure;
+		if (tier.name.equals("iron")) return ironStructure;
+		if (tier.name.equals("steel")) return steelStructure;
+		return null;
+	}
 	
 
 }
