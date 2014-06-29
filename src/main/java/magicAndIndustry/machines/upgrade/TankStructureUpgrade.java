@@ -1,7 +1,7 @@
 package magicAndIndustry.machines.upgrade;
 
 import magicAndIndustry.machines.StructureUpgrade;
-import magicAndIndustry.tileEntity.StructureTileEntity;
+import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.tileEntity.StructureUpgradeEntity;
 import magicAndIndustry.tileEntity.TankUpgradeEntity;
 import net.minecraft.item.ItemStack;

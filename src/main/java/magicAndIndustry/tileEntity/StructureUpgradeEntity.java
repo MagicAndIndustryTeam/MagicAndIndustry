@@ -20,7 +20,7 @@ import cpw.mods.fml.common.FMLLog;
  * <br/>
  * Most machine-type code should be called from the StructureUpgrade itself through machine events.
  */
-public class StructureUpgradeEntity extends StructureTileEntity
+public class StructureUpgradeEntity extends StructureEntity
 {
 	/**
 	 * Structure upgrade stored in this tile entity.
@@ -147,7 +147,7 @@ public class StructureUpgradeEntity extends StructureTileEntity
 		
 		// Clear us out.
 		worldObj.removeTileEntity(xCoord, yCoord, zCoord);
-		worldObj.setTileEntity(xCoord, yCoord, zCoord, new StructureTileEntity());
+		worldObj.setTileEntity(xCoord, yCoord, zCoord, new StructureEntity());
 	}
 	
 	/**
@@ -188,7 +188,7 @@ public class StructureUpgradeEntity extends StructureTileEntity
 
 			}
 			worldObj.removeTileEntity(xCoord, yCoord, zCoord);
-			worldObj.setTileEntity(xCoord, yCoord, zCoord, new StructureTileEntity(coreX, coreY, coreZ));
+			worldObj.setTileEntity(xCoord, yCoord, zCoord, new StructureEntity(coreX, coreY, coreZ));
 		}
 	}
 }

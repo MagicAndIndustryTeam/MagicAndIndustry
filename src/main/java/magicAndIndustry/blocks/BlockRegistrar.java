@@ -9,7 +9,7 @@ import magicAndIndustry.tileEntity.BlockBreakerEntity;
 import magicAndIndustry.tileEntity.DiscoBlockEntity;
 import magicAndIndustry.tileEntity.EngineeringTableEntity;
 import magicAndIndustry.tileEntity.FurnaceCoreEntity;
-import magicAndIndustry.tileEntity.StructureTileEntity;
+import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.tileEntity.TankUpgradeEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
@@ -85,7 +85,7 @@ public class BlockRegistrar
 		// 
 		// Register Tile Entities
 		//
-		GameRegistry.registerTileEntity(StructureTileEntity.class, "MAIstructure");
+		GameRegistry.registerTileEntity(StructureEntity.class, "MAIstructure");
 		GameRegistry.registerTileEntity(TankUpgradeEntity.class, "MAItankUpgradey");
 		GameRegistry.registerTileEntity(AutomationStructureEntity.class, "MAIautomationStructure");
 		GameRegistry.registerTileEntity(EngineeringTableEntity.class, "MAIengineeringTable");

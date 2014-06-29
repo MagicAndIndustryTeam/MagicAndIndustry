@@ -2,7 +2,7 @@ package magicAndIndustry.machines.structure;
 
 import magicAndIndustry.blocks.StructureBlock;
 import magicAndIndustry.machines.MachineTier;
-import magicAndIndustry.tileEntity.StructureTileEntity;
+import magicAndIndustry.tileEntity.StructureEntity;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
@@ -19,7 +19,7 @@ public class StructureBlockRequirement extends StructureRequirementBase
 			
 			if (!sbrock.tier.isStrongEnoughFor(tier)) return false;
 			
-			StructureTileEntity ent = (StructureTileEntity)world.getTileEntity(x, y, z);
+			StructureEntity ent = (StructureEntity)world.getTileEntity(x, y, z);
 			if (ent != null && ent.hasCore())// Structures cannot overlap.
 			{
 				return ent.coreX == coreX && ent.coreY == coreY && ent.coreZ == coreZ;

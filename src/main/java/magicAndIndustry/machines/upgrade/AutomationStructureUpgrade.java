@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import magicAndIndustry.machines.StructureUpgrade;
-import magicAndIndustry.tileEntity.StructureTileEntity;
+import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.tileEntity.StructureUpgradeEntity;
 
 public class AutomationStructureUpgrade extends StructureUpgrade

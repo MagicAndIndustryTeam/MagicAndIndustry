@@ -2,7 +2,7 @@ package magicAndIndustry.machines;
 
 import java.util.HashMap;
 
-import magicAndIndustry.tileEntity.StructureTileEntity;
+import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.tileEntity.StructureUpgradeEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

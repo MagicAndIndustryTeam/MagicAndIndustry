@@ -1,12 +1,13 @@
 package magicAndIndustry.blocks;
 
 import magicAndIndustry.MagicAndIndustry;
+import magicAndIndustry.Utils;
 import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.api.IStructureUpgradeItem;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.StructureUpgrade;
 import magicAndIndustry.tileEntity.MachineCoreEntity;
-import magicAndIndustry.tileEntity.StructureTileEntity;
+import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.tileEntity.StructureUpgradeEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -50,14 +51,8 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		//if (meta == 2) return surrounded;
-		// TODO check for upgrades!! FUN
-		if ((side == ForgeDirection.EAST.ordinal() 
-				|| side == ForgeDirection.WEST.ordinal()
-				|| side == ForgeDirection.NORTH.ordinal()
-				|| side == ForgeDirection.SOUTH.ordinal()) 
-				&& meta == 1)
-			return striped;
+		// Icon checks should be handled by tileentityrenderer.
+		if (side > 1 && meta == 2) return striped;
 		return blockIcon;
 	}
 	
@@ -102,9 +97,9 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 		TileEntity struct = world.getTileEntity(x, y, z);
 		if (struct != null && struct instanceof StructureUpgradeEntity)
 				((StructureUpgradeEntity)struct).onWrenched(player, side);
-		if (struct != null && struct instanceof StructureTileEntity)
+		if (struct != null && struct instanceof StructureEntity)
 		{
-			StructureTileEntity strutE = (StructureTileEntity)struct;
+			StructureEntity strutE = (StructureEntity)struct;
 			player.addChatMessage(new ChatComponentText("X=" + strutE.coreX + ", Y=" + strutE.coreY + ", Z=" + strutE.coreZ + ", hasCore=" + strutE.hasCore()));
 		}
 	}
@@ -119,16 +114,17 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitx, float hity, float hitz)
 	{
-		if (world.isRemote) return true;
+		// Metadata for client: 0=none, 1=core, 2=striped
+		if (world.isRemote) return world.getBlockMetadata(x, y, z) != 0;
 		
 		TileEntity te = world.getTileEntity(x, y, z);
 		if (te instanceof StructureUpgradeEntity)
 		{
 			return ((StructureUpgradeEntity)te).onBlockActivated(player, side, hitx, hity, hitz);
 		}
-		if (te instanceof StructureTileEntity)
+		if (te instanceof StructureEntity)
 		{
-			StructureTileEntity structEnt = (StructureTileEntity)te;
+			StructureEntity structEnt = (StructureEntity)te;
 			ItemStack held = player.getHeldItem();
 			if (held != null && held.getItem() instanceof IStructureUpgradeItem)
 			{
@@ -156,7 +152,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 				catch (Exception ex)
 				{
 					MagicAndIndustry.logger.error("Unable to create " + (upgrade == null ? id : upgrade.toString()) + "from " + player.getGameProfile().getName() + "'s " + player.getHeldItem().toString() + ".");
-					return true;
+					return false;
 				}
 				if (upgrade != null)
 				{
@@ -166,9 +162,9 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 					world.removeTileEntity(x, y, z);
 					world.setTileEntity(x, y, z, upgrade.getTileEntity());
 				}
-				return false;
+				return true;
 			}
-			if (((StructureTileEntity) te).hasCore())
+			if (((StructureEntity) te).hasCore())
 			{
 				// Right click on core from blocks.
 				Block brock = world.getBlock(structEnt.coreX, structEnt.coreY, structEnt.coreZ);
@@ -183,24 +179,22 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) 
 	{
-		return new StructureTileEntity();
+		return new StructureEntity();
 	}
-
-	public void resetStructure(World world, int x, int y, int z) 
-	{
-		world.setBlockMetadataWithNotify(x, y, z, 1, 2);
-		StructureTileEntity ste = (StructureTileEntity)world.getTileEntity(x, y, z);
-		if (ste != null) ste.setCoreValues(0, 0, 0);
-	}
+	
+	// Machine structure handling
 
 	@Override
 	public void onStructureCreated(World world, int x, int y, int z, int coreX, int coreY, int coreZ) 
 	{
 		TileEntity te = world.getTileEntity(x, y, z); if (te == null) return;
 		
+		// Notify clients with 1: has core
+		world.setBlockMetadataWithNotify(x, y, z, 1, 2);
+		
 		// Set structure core ref stuff
-		if (te instanceof StructureTileEntity)
-			((StructureTileEntity)te).setCoreValues(coreX, coreY, coreZ);
+		if (te instanceof StructureEntity)
+			((StructureEntity)te).setCoreValues(coreX, coreY, coreZ);
 		
 		if (te instanceof StructureUpgradeEntity)
 		{
@@ -213,11 +207,14 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	@Override
 	public void onStructureBroken(World world, int x, int y, int z, int coreX, int coreY, int coreZ) 
 	{
+		Utils.print("Structure broken!!!");
+		
 		world.setBlockMetadataWithNotify(x, y, z, 0, 2);
+		
 		TileEntity te = world.getTileEntity(x, y, z);
-		if (te != null && te instanceof StructureTileEntity)
-			((StructureTileEntity)te).setCoreValues(0, 0, 0);
-		// Remove upgrade here? Should be automatic
+		
+		if (te != null && te instanceof StructureEntity)
+			((StructureEntity)te).setCoreValues(0, 0, 0);
 	}
 
 }

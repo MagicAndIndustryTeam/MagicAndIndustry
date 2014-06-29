@@ -82,10 +82,8 @@ public abstract class MachineCoreEntity extends TileEntity
 	}
 	
 	public void updateStructure()
-	{	
-		Utils.print("Entered update structure.");
+	{
 		boolean itWorked = true;
-		//String tempStruct;
 		
 		// Get block's rotational information as a ForgeDirection
 		ForgeDirection rotation = ForgeDirection.getOrientation(Utils.backFromMeta(worldObj.getBlockMetadata(xCoord, yCoord, zCoord)));
@@ -98,18 +96,19 @@ public abstract class MachineCoreEntity extends TileEntity
 		// But if the machine is already set up it should only check the desired structure.
 		for (MachineStructure struct : (structureComplete() ? MachineStructureRegistrar.getStructuresForMachineID(getMachineID()) : MachineStructureRegistrar.getStructuresForMachineID(getMachineID())))
 		{
-			//Utils.print("Got machine structure " + struct.toString() + ", ID " + struct.ID + ".");
-			//tempStruct = struct.ID;
+			// Check each block in requirements
 			for (PReq req : struct.requirements)
 			{
 				// Get the rotated block coordinates.
 				BlockPosition pos = req.rel.getPosition(rotation, xCoord, yCoord, zCoord);
-				
+
+				// Check the requirement.
 				if (!req.requirement.isMatch(tier, worldObj, pos.x, pos.y, pos.z, xCoord, yCoord, zCoord))
 				{
-					Utils.print("Requirement did not work! " + req.toString());
+					// If it didn't work, stop checking.
 					itWorked = false; break;
 				}
+				// If it did work keep calm and carry on
 			}
 			
 			// We've gone through all the blocks. They all match up!
@@ -117,11 +116,9 @@ public abstract class MachineCoreEntity extends TileEntity
 			{
 				//Utils.print("Valid structure.");
 				// If the structure is new only
-				// This does not erase the old one
-				// We hope for a break between the two
+				// Which sorta implies the blocks have changed between checks
 				if (struct.ID != structureID)
 				{
-					//Utils.print("Creating new structure.");
 					// Save what structure we have.
 					structureID = struct.ID;
 
@@ -146,7 +143,7 @@ public abstract class MachineCoreEntity extends TileEntity
 						
 						// If it's a structure block tell it to stripe up
 						if (brock != null && brock instanceof StructureBlock)
-							worldObj.setBlockMetadataWithNotify(pos.x, pos.y, pos.z, 1, 2);
+							worldObj.setBlockMetadataWithNotify(pos.x, pos.y, pos.z, 2, 2);
 					}
 				}
 				return;
@@ -182,13 +179,8 @@ public abstract class MachineCoreEntity extends TileEntity
 	 */
 	public boolean structureComplete() { return structureID != null && structureID.length() != 0; }
 	
-	private void resetStructure(RelativeFaceCoords rfc, ForgeDirection dir)
-	{
-		BlockPosition pos = rfc.getPosition(dir, xCoord, yCoord, zCoord);
-		Block brock = worldObj.getBlock(pos.x, pos.y, pos.z);
-		if (brock != null && brock instanceof StructureBlock) 
-			((StructureBlock)brock).resetStructure(worldObj, pos.x, pos.y, pos.z);
-	}
-	
+	/**
+	 * Return the machine ID used to look up machine structures.
+	 */
 	public abstract String getMachineID();
 }
