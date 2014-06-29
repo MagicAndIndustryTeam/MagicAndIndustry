@@ -1,6 +1,6 @@
 package magicAndIndustry.items;
 
-import magicAndIndustry.machines.StructureUpgradeBase;
+import magicAndIndustry.machines.StructureUpgrade;
 import net.minecraft.item.Item;
 
 /*
@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
  */
 public class ItemStructureUpgrade extends Item
 {
-	public StructureUpgradeBase Upgrade;
+	public StructureUpgrade Upgrade;
 	
 	public ItemStructureUpgrade()
 	{

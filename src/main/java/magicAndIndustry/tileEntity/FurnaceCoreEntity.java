@@ -45,7 +45,7 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 	public FurnaceCoreEntity(MachineTier tier)
 	{
 		super(tier);
-		items = new ItemStack[3];
+		items = new ItemStack[getSizeInventory()];
 		// Set the max cook times
 		if    (tier.name.equals("cobble")) { maxCookTime = 20 * 9; } //  setStructures(MachineStructure.cobbleFurnace); }
 		else if (tier.name.equals("iron")) { maxCookTime = 20 * 8; } // setStructures(MachineStructure.ironFurnace); }
@@ -62,7 +62,7 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 		
 		// Get the items from the tag.
 		NBTTagList itemsList = tag.getTagList("Items", 10);
-		items = new ItemStack[3];
+		items = new ItemStack[getSizeInventory()];
 		//System.out.println("Created items array: length " + items.length);
 		
 		// Loop through the items and add them.

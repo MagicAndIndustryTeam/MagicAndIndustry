@@ -128,6 +128,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 		}
 		if (te instanceof StructureTileEntity)
 		{
+			StructureTileEntity structEnt = (StructureTileEntity)te;
 			ItemStack held = player.getHeldItem();
 			if (held != null && held.getItem() instanceof IStructureUpgradeItem)
 			{
@@ -137,14 +138,14 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 				{
 					// If this is us I'm so sorry.
 					MagicAndIndustry.logger.error("Item " + held.toString() + " does not have a valid IStructureUpgrade implementation! It is bugged, contact its mod author.");
-					return true;
+					return false;
 				}
 				Class<? extends StructureUpgrade> upgradeClass = StructureUpgrade.getUpgradeClassByID(id);
 				if (upgradeClass == null)
 				{
 					// If this is us we'll look soo silly.
 					MagicAndIndustry.logger.error("Item " + held.toString() + "'s IStructureUpgrade's upgrade ID - " + id + " - is an unregistered StructureUpgrade! It is bugged, contact its mod author.");
-					return true;
+					return false;
 				}
 				StructureUpgrade upgrade = null;
 				try
@@ -159,10 +160,20 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 				}
 				if (upgrade != null)
 				{
+					// This is untested and could require placing a new block.
+					// So far all structure upgrade is planned to be through
+					// tile entity but that could change.
 					world.removeTileEntity(x, y, z);
 					world.setTileEntity(x, y, z, upgrade.getTileEntity());
 				}
-				return true;
+				return false;
+			}
+			if (((StructureTileEntity) te).hasCore())
+			{
+				// Right click on core from blocks.
+				Block brock = world.getBlock(structEnt.coreX, structEnt.coreY, structEnt.coreZ);
+				if (brock != null) return brock.onBlockActivated(world, structEnt.coreX, structEnt.coreY, structEnt.coreZ, player, side, hitx, hity, hitz);
+				return false; // brock is null
 			}
 			// Structure upgrades have no other item code, and wrenching should pass through separately.
 		}
