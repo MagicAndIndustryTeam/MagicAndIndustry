@@ -1,5 +1,8 @@
 package magicAndIndustry.rendering;
 
+import java.util.ArrayList;
+
+import magicAndIndustry.BlockPosition;
 import magicAndIndustry.blocks.StructureBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -7,10 +10,19 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class StructureBlockRenderer implements ISimpleBlockRenderingHandler
 {
+	private int renderID;
+	
+	public StructureBlockRenderer()
+	{
+		renderID = RenderingRegistry.getNextAvailableRenderId();
+	}
+	
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) 
 	{
@@ -63,16 +75,59 @@ public class StructureBlockRenderer implements ISimpleBlockRenderingHandler
 			blue = ((red * 30F) + (blue * 70F)) / 100F;
 		}
 		
-		
+		// Okay, now check all six faces and render.
+		BlockPosition original = new BlockPosition(x, y, z);
+		for (ForgeDirection currSide : ForgeDirection.VALID_DIRECTIONS)
+		{
+			BlockPosition neighbor = original.move(currSide);
+
+			if (renderer.renderAllFaces || neighbor.isValid(world) 
+					|| block.shouldSideBeRendered(world, neighbor.x, neighbor.y, neighbor.z, currSide.ordinal()))
+			{
+				// Render the default stuff
+				// TODO set texture
+				tess.setColorOpaque_F(red, green, blue);
+				tess.addVertexWithUV(x, y, z, x+1, y+1);
+				
+				Block neighBlock = world.getBlock(neighbor.x, neighbor.y, neighbor.z);
+				if (!(neighBlock instanceof IConnectedTexture)) continue; // TODO draw texture
+				IConnectedTexture conTextBlock = (IConnectedTexture)neighBlock;
+				
+				IIcon regular = struct.getBaseTexture(currSide.ordinal(), meta), 
+						connected = struct.getWallsTexture();
+				
+				ArrayList<ForgeDirection> neighborChecks = new ArrayList<ForgeDirection>(4);
+				for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
+					if (dir != currSide && dir != currSide.getOpposite()) neighborChecks.add(dir);
+				
+				for (ForgeDirection neighborDir : neighborChecks)
+				{
+					// They have the same textures on that side
+					if (!struct.getTextureID(neighborDir.ordinal(), meta).equals(conTextBlock.getTextureID(neighborDir.ordinal(), 
+							world.getBlockMetadata(neighbor.x, neighbor.y, neighbor.z))))
+					{
+						double startX, startY, endX, endY;
+						
+						// Set the combined texture
+						// Render that
+
+					}
+					// else: they have the same textures, do nothing.
+				}
+				// TODO corners
+			}
+		}
 		
 		
 		// Always returns true
 		return true;
 	}
+	
+	private void drawBlock() { }
 
 	@Override
 	public boolean shouldRender3DInInventory(int modelId) { return true; }
 
 	@Override
-	public int getRenderId() { return 0; }
+	public int getRenderId() { return renderID; }
 }

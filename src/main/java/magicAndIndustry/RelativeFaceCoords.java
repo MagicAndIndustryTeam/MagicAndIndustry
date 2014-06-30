@@ -1,6 +1,5 @@
 package magicAndIndustry;
 
-import magicAndIndustry.machines.structure.BlockPosition;
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**

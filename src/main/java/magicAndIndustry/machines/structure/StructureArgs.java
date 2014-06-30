@@ -1,5 +1,7 @@
 package magicAndIndustry.machines.structure;
 
+import magicAndIndustry.BlockPosition;
+
 
 public class StructureArgs 
 {

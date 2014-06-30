@@ -1,6 +1,7 @@
 package magicAndIndustry.blocks;
 
 import magicAndIndustry.MagicAndIndustry;
+import magicAndIndustry.TextureSide;
 import magicAndIndustry.Utils;
 import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.api.IStructureUpgradeItem;
@@ -53,7 +54,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		// Icon checks should be handled by tileentityrenderer.
+		// Icon checks should be handled by rendering.
 		if (side > 1 && meta == 2) return striped;
 		return blockIcon;
 	}
@@ -227,5 +228,15 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 
 	@Override
 	public IIcon getWallsTexture() { return surrounded; }
+
+	@Override
+	public boolean shouldConnect(ForgeDirection side, TextureSide textSide, int meta) 
+	{
+		return meta == 2 ? textSide.blockSide == ForgeDirection.UP : true;
+	}
+	
+	@Override
+	public String getTextureID(int side, int meta) 
+	{ return tier.name; }
 
 }

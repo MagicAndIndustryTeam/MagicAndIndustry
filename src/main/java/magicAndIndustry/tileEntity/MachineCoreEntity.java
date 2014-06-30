@@ -2,13 +2,13 @@ package magicAndIndustry.tileEntity;
 
 import java.util.ArrayList;
 
+import magicAndIndustry.BlockPosition;
 import magicAndIndustry.RelativeFaceCoords;
 import magicAndIndustry.Utils;
 import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.blocks.StructureBlock;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.StructureUpgrade;
-import magicAndIndustry.machines.structure.BlockPosition;
 import magicAndIndustry.machines.structure.MachineStructure;
 import magicAndIndustry.machines.structure.MachineStructureRegistrar;
 import magicAndIndustry.machines.structure.PReq;
