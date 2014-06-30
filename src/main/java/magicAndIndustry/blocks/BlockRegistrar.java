@@ -187,6 +187,14 @@ public class BlockRegistrar
 		if (type.equals("steel")) return cookedSlab_full;
 		return ironSlab_full;
 	}
+
+	public static Block crusherForType(MachineTier tier, boolean dammitWesley)
+	{
+		if (tier.name == "cobble") return dammitWesley ? cobbleBeverlyLit : cobbleBeverly;
+		if (tier.name == "iron") return dammitWesley ?  ironBeverlyLit : ironBeverly;
+		if (tier.name == "steel") return dammitWesley ? steelBeverlyLit : steelBeverly;
+		return null;
+	}
 	
 
 }

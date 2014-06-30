@@ -1,8 +1,11 @@
 package magicAndIndustry.blocks;
 
+import java.util.Random;
+
 import magicAndIndustry.Textures;
 import magicAndIndustry.Utils;
 import magicAndIndustry.machines.MachineTier;
+import magicAndIndustry.tileEntity.CrusherCoreEntity;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
@@ -13,10 +16,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class CrusherCoreBlock extends MachineCoreBlock 
 {
-	/**
-	 * Woooooooorrrrrrrkkiiiiiiiiiinnnnggg...
-	 */
-	private boolean isWorking;
+	// Not storing this in metadata ATM because of rotation comparison, may implement in the future
+	// for machines which do not need a separate block for lighting reasons.
+	private final boolean isWorking;
+	private static boolean switchingCrushers = false;
+	private final Random rand = new Random();
 	
 	public CrusherCoreBlock(MachineTier tier, boolean working)
 	{
@@ -45,15 +49,41 @@ public class CrusherCoreBlock extends MachineCoreBlock
 		return textureSide;
 	}
 	
-	public void onDisplayTick()
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(World world, int x, int y, int z, Random rand)
 	{
 		// Particle effects????
+		// Should these be done from something else?
+		if (isWorking)
+		{
+			
+		}
 	}
 	
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) 
 	{
-		return null;
+		return new CrusherCoreEntity(tier);
+	}
+	
+	public static void setCrusherState(World world, int x, int y, int z, MachineTier tier, boolean dammitWesley)
+	{
+		int meta = world.getBlockMetadata(x, y, z);
+		TileEntity crusher = world.getTileEntity(x, y, z);
+		
+		switchingCrushers = true;
+		world.setBlock(x, y, z, BlockRegistrar.crusherForType(tier, dammitWesley));
+		switchingCrushers = false;
+		
+		world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+		
+		if (crusher != null)
+		{
+			crusher.validate();
+			world.setTileEntity(x, y, z, crusher);
+		}
+		
 	}
 
 }

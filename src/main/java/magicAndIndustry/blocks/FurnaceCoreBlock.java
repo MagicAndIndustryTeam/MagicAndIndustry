@@ -24,8 +24,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class FurnaceCoreBlock extends MachineCoreBlock
 {
-	private final Random rand = new Random();
+	//private final Random rand = new Random();
 	private final boolean isBurningFurnace;
+	// Shut up this is used
 	private static boolean updatingFurnace = false;
 	
 	public FurnaceCoreBlock(MachineTier tier, boolean burning)

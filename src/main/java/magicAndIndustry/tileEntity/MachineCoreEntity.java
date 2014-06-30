@@ -1,7 +1,5 @@
 package magicAndIndustry.tileEntity;
 
-import java.util.ArrayList;
-
 import magicAndIndustry.RelativeFaceCoords;
 import magicAndIndustry.Utils;
 import magicAndIndustry.api.IStructureAware;
