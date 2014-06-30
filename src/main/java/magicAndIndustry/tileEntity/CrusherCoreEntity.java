@@ -9,7 +9,9 @@ public class CrusherCoreEntity extends MachineCoreEntity implements IInventory
 {
 	private ItemStack[] items;
 	private static final int SLOT_FUEL = 0, SLOT_INPUT = 1, SLOT_OUTPUT = 2;
+	
 	public int maxCrushTime;
+	public int crushProgress;
 	
 	public CrusherCoreEntity(MachineTier tier)
 	{

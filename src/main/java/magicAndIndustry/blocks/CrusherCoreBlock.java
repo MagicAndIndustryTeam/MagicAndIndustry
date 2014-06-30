@@ -19,7 +19,7 @@ public class CrusherCoreBlock extends MachineCoreBlock
 	// Not storing this in metadata ATM because of rotation comparison, may implement in the future
 	// for machines which do not need a separate block for lighting reasons.
 	private final boolean isWorking;
-	private static boolean switchingCrushers = false;
+	private static boolean switchingCrushers;
 	private final Random rand = new Random();
 	
 	public CrusherCoreBlock(MachineTier tier, boolean working)
@@ -55,7 +55,7 @@ public class CrusherCoreBlock extends MachineCoreBlock
 	{
 		// Particle effects????
 		// Should these be done from something else?
-		if (isWorking)
+		if (isWorking && !switchingCrushers)
 		{
 			
 		}
