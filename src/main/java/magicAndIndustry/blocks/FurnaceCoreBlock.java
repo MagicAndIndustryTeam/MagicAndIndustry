@@ -22,7 +22,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SuppressWarnings("unused")
 public class FurnaceCoreBlock extends MachineCoreBlock
 {
 	private final Random rand = new Random();

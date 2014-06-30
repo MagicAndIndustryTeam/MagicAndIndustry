@@ -13,7 +13,6 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SuppressWarnings("unused") // They're used.
 public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 {
 	// Cooking, fuel, output
