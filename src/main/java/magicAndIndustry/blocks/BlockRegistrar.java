@@ -97,25 +97,36 @@ public class BlockRegistrar
 	// Machine blocks
 	public static Block cobbleFurnace, ironFurnace, steelFurnace;
 	public static Block cobbleFurnaceLit, ironFurnaceLit, steelFurnaceLit;
+	
 	public static Block stoneHeatPlate, ironHeatPlate, steelHeatPlate;
+	
 	public static Block cobbleStructure, ironStructure, steelStructure;
+	
 	/** Crushers. Get it? */
 	public static Block cobbleBeverly, ironBeverly, steelBeverly;
 	public static Block cobbleBeverlyLit, ironBeverlyLit, steelBeverlyLit;
+	
 	public static Block ironSlab, cookedSlab, ironSlab_full, cookedSlab_full;
+	
 	public static Block cobbleStructureSafe, ironStructureSafe, steelStructureSafe;
+	
 	// Machines
 	public static Block blockBreaker; // TODO replace with others n stuff
+	
 	//Ores
 	public static IngotOre oreMeteoric, oreAluminum;
 	public static FortuneOre oreRaisin;
+	
 	// Ingot Blocks
 	public static Block blockRaisin, blockSteel, blockRaisinBunch, blockPigIron, blockMeteoric;
 	public static Block blockAluminum;
+	
 	// Other Blocks
 	public static Block industrialGlass;
+	
 	// Research
 	public static Block engineeringTable;
+	
 	// Random
 	public static Block discoBlock, superFurnace, steelBars;
 	

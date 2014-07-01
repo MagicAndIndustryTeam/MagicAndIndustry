@@ -16,11 +16,13 @@ public class MachineTier
 {
 	private static HashMap<String, MachineTier> tiers;
 	
-	// MAI Tiers
+	// MAI Tiers - the big three
 	public static MachineTier cobble = new MachineTier("cobble", 0, Textures.block("stoneSlab"), 3F, 30F, Blocks.stone_slab);
 	public static MachineTier iron = new MachineTier("iron", 2, Textures.block("ironAnvilSide"), 3.5F, 40F, BlockRegistrar.cookedSlab);
 	public static MachineTier steel = new MachineTier("steel", 4, Textures.block("iron_side"), 4F, 45F, BlockRegistrar.ironSlab);
-	// THESE WOULD BE SO AWESOME DAMMIT
+	
+	public static MachineTier aluminum = new MachineTier("aluminum", 1, "", 3F, 30F, null);
+	// THESE WOULD BE SO AWESOME 
 	public static MachineTier tungsten, titanium;
 
 	

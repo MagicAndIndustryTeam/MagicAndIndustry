@@ -36,7 +36,9 @@ public class MachineSlab extends BlockSlab
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg)
 	{
-		blockIcon = reg.registerIcon(tier.getFaceTexture());
+		//blockIcon = reg.registerIcon(tier.getAltTexture());
+		if (tier.name == "steel") blockIcon = reg.registerIcon(Textures.block("ironAnvilSide"));
+		else if (tier.name == "iron") blockIcon = reg.registerIcon(MachineTier.iron.getFaceTexture());
 		sideIcon = reg.registerIcon(Textures.block(tier.name, "slab"));
 	}
 	
