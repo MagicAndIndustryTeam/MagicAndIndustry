@@ -24,4 +24,5 @@ public class BlockPosition
 	}
 	
 	public boolean isValid() { return y >= 0; }
+	
 }
