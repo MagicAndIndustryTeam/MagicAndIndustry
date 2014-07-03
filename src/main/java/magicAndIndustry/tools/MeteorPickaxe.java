@@ -1,6 +1,6 @@
 package magicAndIndustry.tools;
 
-import magicAndIndustry.Utils;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.item.ItemPickaxe;
 
 public class MeteorPickaxe extends ItemPickaxe 

@@ -2,9 +2,9 @@ package magicAndIndustry.gui;
 
 import java.util.Random;
 
-import magicAndIndustry.Textures;
-import magicAndIndustry.Utils;
 import magicAndIndustry.tileEntity.EngineeringTableEntity;
+import magicAndIndustry.utils.Textures;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;

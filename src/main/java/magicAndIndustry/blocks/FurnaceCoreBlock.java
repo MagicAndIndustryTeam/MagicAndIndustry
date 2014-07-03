@@ -3,11 +3,11 @@ package magicAndIndustry.blocks;
 import java.util.Random;
 
 import magicAndIndustry.MagicAndIndustry;
-import magicAndIndustry.Textures;
-import magicAndIndustry.Utils;
 import magicAndIndustry.gui.GuiHandler;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.tileEntity.FurnaceCoreEntity;
+import magicAndIndustry.utils.Textures;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;

@@ -31,7 +31,7 @@ public class DiscoBlockEntity extends TileEntity
 			//System.out.println("Updating mobs: " +worldObj.getWorldTime());
 			// Create a box around the block to search for entities in
 			int radius = 9;                                    // Create around x, y, and z                             // make it 10 in radius but not in height
-			AxisAlignedBB box = AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1).expand(radius, 1, radius);
+			AxisAlignedBB box = AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1).expand(radius, 1, radius);
 			// Make sure it's not taller than the world.            // y + 1 + height
 			box.maxY = Math.min((double)worldObj.getHeight(), (double)(yCoord + 1 + 1));
 			

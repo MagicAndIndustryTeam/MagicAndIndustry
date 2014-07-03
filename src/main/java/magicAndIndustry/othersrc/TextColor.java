@@ -1,6 +1,6 @@
 package magicAndIndustry.othersrc;
 
-import magicAndIndustry.Utils;
+import magicAndIndustry.utils.Utils;
 
 /**
  * Copy of Mekanism mod's EnumColor.java.

@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 public class renderEngineeringTable extends TileEntitySpecialRenderer
 {
 	
-	public static final ResourceLocation texture = new ResourceLocation(magicAndIndustry.Utils.ModID + ";" + "textures/models/EngineeringTable.png");
+	public static final ResourceLocation texture = new ResourceLocation(magicAndIndustry.utils.Utils.ModID + ";" + "textures/models/EngineeringTable.png");
 	
 	private ModelEngineeringTable model;
 	

@@ -3,8 +3,8 @@ package magicAndIndustry.machines.structure;
 import java.util.HashMap;
 
 import magicAndIndustry.MagicAndIndustry;
-import magicAndIndustry.RelativeFaceCoords;
 import magicAndIndustry.blocks.BlockRegistrar;
+import magicAndIndustry.utils.RelativeFaceCoords;
 import net.minecraft.init.Blocks;
 
 /**

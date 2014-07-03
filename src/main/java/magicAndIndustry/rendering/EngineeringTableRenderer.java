@@ -2,8 +2,8 @@ package magicAndIndustry.rendering;
 
 import org.lwjgl.opengl.GL11;
 
-import magicAndIndustry.Utils;
 import magicAndIndustry.rendering.models.EngineeringTableModel;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;

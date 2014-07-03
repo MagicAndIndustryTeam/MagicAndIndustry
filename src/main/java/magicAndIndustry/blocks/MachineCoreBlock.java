@@ -1,9 +1,9 @@
 package magicAndIndustry.blocks;
 
-import magicAndIndustry.Textures;
-import magicAndIndustry.Utils;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.tileEntity.MachineCoreEntity;
+import magicAndIndustry.utils.Textures;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

@@ -1,6 +1,6 @@
 package magicAndIndustry.weapons;
 
-import magicAndIndustry.Utils;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.item.ItemSword;
 
 public class SteelSword extends ItemSword

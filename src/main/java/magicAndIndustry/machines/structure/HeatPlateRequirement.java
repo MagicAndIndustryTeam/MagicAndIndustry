@@ -1,8 +1,8 @@
 package magicAndIndustry.machines.structure;
 
-import magicAndIndustry.Utils;
 import magicAndIndustry.blocks.HeatPlate;
 import magicAndIndustry.machines.MachineTier;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 

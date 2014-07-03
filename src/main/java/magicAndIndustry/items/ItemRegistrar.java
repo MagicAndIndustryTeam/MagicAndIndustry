@@ -1,11 +1,11 @@
 package magicAndIndustry.items;
 
 import magicAndIndustry.MagicAndIndustry;
-import magicAndIndustry.Textures;
-import magicAndIndustry.Utils;
 import magicAndIndustry.blocks.BlockRegistrar;
 import magicAndIndustry.tools.RecursivePick;
 import magicAndIndustry.tools.Wrench;
+import magicAndIndustry.utils.Textures;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemFood;

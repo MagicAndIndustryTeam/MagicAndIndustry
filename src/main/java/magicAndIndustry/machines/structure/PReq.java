@@ -1,6 +1,6 @@
 package magicAndIndustry.machines.structure;
 
-import magicAndIndustry.RelativeFaceCoords;
+import magicAndIndustry.utils.RelativeFaceCoords;
 
 /**
  * Positional structure requirement class.

@@ -1,12 +1,12 @@
 package magicAndIndustry.blocks;
 
 import magicAndIndustry.MagicAndIndustry;
-import magicAndIndustry.Textures;
-import magicAndIndustry.Utils;
 import magicAndIndustry.api.IStructureUpgradeItem;
 import magicAndIndustry.gui.GuiHandler;
 import magicAndIndustry.items.ItemRegistrar;
 import magicAndIndustry.tileEntity.EngineeringTableEntity;
+import magicAndIndustry.utils.Textures;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,6 +1,6 @@
 package magicAndIndustry.tools;
 
-import magicAndIndustry.Utils;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

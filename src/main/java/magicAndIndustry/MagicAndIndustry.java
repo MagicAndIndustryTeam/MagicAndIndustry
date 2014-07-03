@@ -9,6 +9,8 @@ import magicAndIndustry.machines.MachineRegistrar;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.structure.MachineStructureRegistrar;
 import magicAndIndustry.proxy.Proxy;
+import magicAndIndustry.utils.BlockPosition;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.creativetab.CreativeTabs;
 
 import org.apache.logging.log4j.LogManager;
@@ -58,6 +60,19 @@ public class MagicAndIndustry
 		ItemRegistrar.RegisterDemItems();
 		CraftingRegistrar.RegisterCraftification();
 		
+		// TEST BLOCK POSITIONS!
+		
+		BlockPosition start = new BlockPosition(101, 101, 101);
+		Utils.print("Start: " + start.toString());
+		
+		BlockPosition finish = new BlockPosition(103, 105, 103);
+		Utils.print("Finish: " + finish.toString());
+		
+		BlockPosition relToFinish = BlockPosition.getOffset(start.x, start.y, start.z, finish.x, finish.y, finish.z);
+		Utils.print("Finish from start: " + relToFinish);
+		
+		BlockPosition getFinish = BlockPosition.fromOffset(relToFinish, start.x, start.y, start.z);
+		Utils.print("Found finish: " + getFinish);
 		
 		proxy.preInit();
 	}

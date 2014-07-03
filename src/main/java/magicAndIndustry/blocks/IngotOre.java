@@ -1,6 +1,6 @@
 package magicAndIndustry.blocks;
 
-import magicAndIndustry.Textures;
+import magicAndIndustry.utils.Textures;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 

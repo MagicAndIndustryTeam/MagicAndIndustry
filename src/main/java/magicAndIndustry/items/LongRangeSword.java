@@ -1,6 +1,6 @@
 package magicAndIndustry.items;
 
-import magicAndIndustry.Utils;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.item.ItemStack;

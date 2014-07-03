@@ -1,15 +1,15 @@
 package magicAndIndustry.tileEntity;
 
-import magicAndIndustry.RelativeFaceCoords;
-import magicAndIndustry.Utils;
 import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.blocks.StructureBlock;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.StructureUpgrade;
-import magicAndIndustry.machines.structure.BlockPosition;
 import magicAndIndustry.machines.structure.MachineStructure;
 import magicAndIndustry.machines.structure.MachineStructureRegistrar;
 import magicAndIndustry.machines.structure.PReq;
+import magicAndIndustry.utils.BlockPosition;
+import magicAndIndustry.utils.RelativeFaceCoords;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

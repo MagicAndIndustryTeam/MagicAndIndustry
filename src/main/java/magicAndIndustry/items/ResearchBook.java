@@ -1,9 +1,9 @@
 package magicAndIndustry.items;
 
 import magicAndIndustry.MagicAndIndustry;
-import magicAndIndustry.Textures;
-import magicAndIndustry.Utils;
 import magicAndIndustry.gui.ResearchBookContainer;
+import magicAndIndustry.utils.Textures;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerPlayer;
@@ -37,5 +37,11 @@ public class ResearchBook extends Item
 			player.openGui(MagicAndIndustry.instance, 30, world, (int)player.posX, (int)player.posY, (int)player.posZ);
 		}
 		return item;
+	}
+	
+	@Override
+	public boolean onItemUse(ItemStack item, EntityPlayer player,  World world, int x, int y, int z, int side, float hitx, float hity, float hitz)
+	{
+		return player.isSneaking();
 	}
 }

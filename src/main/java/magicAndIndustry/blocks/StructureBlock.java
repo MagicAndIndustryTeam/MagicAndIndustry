@@ -1,7 +1,6 @@
 package magicAndIndustry.blocks;
 
 import magicAndIndustry.MagicAndIndustry;
-import magicAndIndustry.Utils;
 import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.api.IStructureUpgradeItem;
 import magicAndIndustry.machines.MachineTier;
@@ -9,6 +8,7 @@ import magicAndIndustry.machines.StructureUpgrade;
 import magicAndIndustry.tileEntity.MachineCoreEntity;
 import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.tileEntity.StructureUpgradeEntity;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

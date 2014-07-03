@@ -2,8 +2,8 @@ package magicAndIndustry.blocks;
 
 import java.util.Random;
 
-import magicAndIndustry.Textures;
 import magicAndIndustry.machines.MachineTier;
+import magicAndIndustry.utils.Textures;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;

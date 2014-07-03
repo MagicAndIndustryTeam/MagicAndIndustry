@@ -1,8 +1,8 @@
 package magicAndIndustry.items;
 
-import magicAndIndustry.Textures;
-import magicAndIndustry.Utils;
 import magicAndIndustry.blocks.BlockRegistrar;
+import magicAndIndustry.utils.Textures;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

@@ -1,9 +1,11 @@
 package magicAndIndustry.gui;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import magicAndIndustry.Utils;
 import magicAndIndustry.tileEntity.FurnaceCoreEntity;
+import magicAndIndustry.utils.Utils;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;

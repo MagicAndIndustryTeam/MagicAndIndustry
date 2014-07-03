@@ -1,9 +1,9 @@
 package magicAndIndustry.machines.structure;
 
-import magicAndIndustry.Utils;
 import magicAndIndustry.blocks.BlockRegistrar;
 import magicAndIndustry.blocks.MachineSlab;
 import magicAndIndustry.machines.MachineTier;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
