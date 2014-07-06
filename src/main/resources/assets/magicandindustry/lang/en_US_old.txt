@@ -1,0 +1,85 @@
+itemGroup.magicAndIndustryTab=Magic And Industry
+
+item.wrench.name=Wrench
+item.recursivePick.name=Recursivity Pickaxe
+item.longRangeSword.name=Sword of Ultimate Justice
+item.bagOfWinds.name=Bag of Winds
+item.emptyBag.name=Empty Bag
+tile.discoBlock.name=Disco Block
+item.voidBucket.name=Void Bucket
+
+item.bookBiology.name=Biology Notebook
+item.bookEngineering.name=Engineering Notebook
+item.bookPhysics.name=Physics Notebook
+item.bookChemistry.name=Chemistry Notebook
+item.bookOScience.name=Big Book O' Science
+
+item.bookOMagic.name=Magician's Book
+item.bookSpells.name=Spellcaster's Book
+item.bookPotions.name=Moste Potente Potions
+item.bookOccult.name=Occultist's Book
+item.bookWitchcraft.name=Witchcrafter's Book
+
+item.ingotSteel.name=Steel Ingot
+item.steelSword.name=Steel Sword
+item.steelShovel.name=Steel Shovel
+item.steelAxe.name=Steel Axe
+item.steelPickaxe.name=Steel Pickaxe
+item.steelHoe.name=Steel Hoe
+tile.blockSteel.name=Steel Block
+item.steelChestplate.name=Steel Chestplate
+item.steelHelmet.name=Steel Helmet
+item.steeelPants.name=Steel Leggings
+item.steelBoots.name=Steel Boots
+
+item.fishGefilte.name=Gefilte Fish
+item.raisin.name=Raisin
+item.raisinBunch.name=Raisin Bunch
+tile.blockRaisin.name=Raisin Block
+tile.blockRaisinBunch.name=Raisin Bunch Block
+tile.oreRaisin.name=Raisin Ore
+
+item.meteorSword.name=Meteoric Iron Sword
+item.meteorShovel.name=Meteoric Iron Shovel
+item.meteorPickaxe.name=Meteoric Iron Pickaxe
+item.meteorAxe.name=Meteoric Iron Axe
+item.meteorHoe.name=Meteoric Iron Hoe
+
+item.meteorChestplate.name=Meteoric Iron Chestplate
+item.meteorHelmet.name=Meteoric Iron Helmet
+item.meteorPants.name=Meteoric Iron Leggings
+item.meteorBoots.name=Meteoric Iron Boots
+
+item.ingotMeteoric.name=Meteoric Iron Ingot
+tile.oreMeteoric.name=Meteoric Iron Ore
+tile.blockMeteoric.name=Meteoric Iron Block
+
+item.ingotAluminum.name=Aluminum Ingot
+tile.blockAluminum.name=Aluminum Block
+
+tile.industrialGlass.name=Industrial Glass
+
+tile.cobbleStructure.name=Cobblestone Structure Block
+tile.cobbleFurnaceCore.name=Cobblestone Structure Furnace Core
+tile.stoneHeatPlate.name=Stone Heat Plate
+
+tile.ironStructure.name=Iron Structure Block
+tile.ironFurnaceCore.name=Iron Furnace Core
+tile.ironHeatPlate.name=Iron Heat Plate
+
+tile.steelStructure.name=Steel Structure Block
+tile.steelFurnaceCore.name=Steel Furnace Core
+tile.steelHeatPlate.name=Steel Heat Plate
+
+tile.engineeringTable.name=Engineering Table
+item.engineeringTableItem.name=Engineering Table
+
+item.piglets.name=Piglets
+item.ingotPigIron.name=Pig Iron Ingot
+tile.blockPigIron.name=Pig Iron Block
+
+
+container.cobbleFurnace=Cobblestone Structure Furnace
+container.ironFurnace=Iron Furnace
+container.steelFurnace=Steel Furnace
+container.engineeringTable=Engineering Table

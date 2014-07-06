@@ -1,0 +1,16 @@
+[
+{
+  "modid": "magicandindustry",
+  "name": "Magic And Industry",
+  "description": "Adds some stuff.",
+  "version": "0.0.4",
+  "mcversion": "1.7.2",
+  "url": "",
+  "updateUrl": "unused.com",
+  "authorList": ["Snirk Immington", "komo74", "macchiz"],
+  "credits": "Formor Immington, for supplying two textures, and Minecraft and Forge developers for developing things.",
+  "logoFile": "",
+  "screenshots": [ "unused", "so unused", "why does this exist"],
+  "dependencies": []
+}
+]

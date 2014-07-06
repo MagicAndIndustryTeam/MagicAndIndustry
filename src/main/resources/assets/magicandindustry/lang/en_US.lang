@@ -1,0 +1,123 @@
+category=ores
+tile.raisin_ore.name=Raisin Ore
+tile.meteoric_ore.name=Meteoric Iron Ore
+tile.aluminum_ore.name=Aluminum Ore
+
+
+category=Ingots
+item.steel_ingot.name=Steel Ingot
+item.meteoric_iron_ingot.name=Meteoric Iron Ingot
+item.aluminum_ingot.name=Aluminum Ingot
+item.titanium_ingot.name=Titanium Ingot
+item.piglets.name=Piglets
+
+
+category=Ingot Blocks
+tile.steel_block.name=Steel Block
+tile.raisin_block.name=Raisin Block
+tile.raisin_bunch_block.name=Raisin Bunch Block
+tile.meteoric_block.name=Meteoric Iron Block
+tile.aluminum_block.name=Aluminum Block
+tile.titanium_block.name=Titanium Block
+tile.pig_iron_block.name=Pig Iron Block
+
+
+category=Basic tools
+item.steel_sword.name=Steel Sword
+item.steel_shovel.name=Steel Shovel
+item.steel_axe.name=Steel Axe
+item.steel_pickaxe.name=Steel Pickaxe
+
+item.meteor_sword.name=Meteoric Iron Sword
+item.meteor_shovel.name=Meteoric Iron Shovel
+item.meteor_axe.name=Meteoric Iron Axe
+item.meteor_pickaxe.name=Meteoric Iron Pickaxe
+
+
+category=Basic armor
+item.steel_chestplate.name=Steel Chestplate
+item.steel_helmet.name=Steel Helmet
+item.steel_pants.name=Steel Pants
+item.steel_boots.name=Steel Boots
+
+
+
+category=Books
+item.book_biology.name=Biology Notebook
+item.book_engineering.name=Engineering Notebook
+item.book_physics.name=Physics Notebook
+item.book_chemistry.name=Chemistry Notebook
+item.book_o_science.name=Big Book O' Science
+
+item.book_spells.name=Spellcaster's Book
+item.book_potions.name=Moste Potente Potions
+item.book_occult.name=Occultist's Book
+item.book_witchcraft.name=Witch's Book
+item.book_necromany.name=Necromancer's Book
+item.book_o_magic.name=Big Book O' Magic
+
+
+category=Other tools
+item.wrench.name=Wrench
+item.void_bucket.name=Void Bucket
+
+item.recursive_pick.name=Recursivity Pickaxe
+item.long_range_sword.name=Sword of Ultimate Justice
+item.fire_sword.name=Fire Sword
+item.bag_of_winds.name=Bag of Winds
+item.empty_bag.name=Empty Bag
+
+
+category=Other items
+item.fish_gefilte.name=Gefilte Fish
+item.raisin.name=Raisin
+item.raisin_bunch.name=Raisin Bunch
+
+
+
+category=Machine Blocks
+tile.cobble_structure.name=Cobblestone Structure Block
+tile.iron_structure.name=Iron Structure Block
+tile.steel_structure.name=Steel Structure Block
+
+tile.industrial_glass.name=Industrial Glass
+
+
+category=Machines
+tile.cobble_heatplate.name=Stone Heat Plate
+tile.iron_heatplate.name=Iron Heat Plate
+tile.steel_heatplate.name=Steel Heat Plate
+
+tile.cobble_furnace.name=Cobblestone Structure Furnace
+tile.iron_furnace.name=Iron Furnace
+tile.steel_furnace.name=Steel Furnace
+
+
+category=Other blocks
+tile.disco_block.name=Disco Block
+
+category=TODO name change
+tile.iron_slab.name=Iron Slab
+tile.iron_slab_full.name=Iron Slab
+tile.steel_slab.name=Cooked Iron Slab
+tile.steel_slab_full.name=Cooked Iron Slab
+
+category=Engineering
+tile.engineering_table.name=Engineering Table
+item.engineering_table_item.name=Engineering Table
+item.welding_torch.name=Welding Torch
+item.screw_iron.name=Iron Screw
+item.tape.name=Tape
+item.copper_wire.name=Copper Wire
+
+
+
+category=GUI
+container.cobble_furnace=Cobblestone Structure Furnace
+container.iron_furnace=Iron Furnace
+container.steel_furnace=Steel Furnace
+container.engineering_table=Engineering Table
+
+
+category=Other
+itemGroup.magicAndIndustryTab=Magic And Industry
