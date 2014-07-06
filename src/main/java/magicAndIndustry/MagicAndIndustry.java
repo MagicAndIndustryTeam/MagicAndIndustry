@@ -51,8 +51,8 @@ public class MagicAndIndustry
 		MAIConfig.loadConfig(event.getSuggestedConfigurationFile());
 		if (!MAIConfig.seriousMode)
 		{
-			logger.info("Magic and Industry, what are we going to do tonight?");
-			logger.info("Magic and Industry, we're going to take over the Minecraft!");
+			// Hi sticks
+			logger.info("Just3Sticks says \"i dont want our mod to be saying things to the log\" by the way.");
 		}
 		MachineTier.cry(); // tears
 		MachineStructureRegistrar.assimilate();    	
