@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class ScienceCraftingRenderer extends TileEntitySpecialRenderer 
 {
-	private static final ResourceLocation texture = new ResourceLocation(Utils.ModID, "textures/model/scienceCraftingTable.png");
+	private static final ResourceLocation texture = new ResourceLocation(Utils.ModID + ":textures/model/scienceCraftingTable.png");
 	
 	private ScienceCraftingTableModel model;
 	

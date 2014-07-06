@@ -82,7 +82,6 @@ public class BlockRegistrar
 		//
 		discoBlock = doBlock(new DiscoBlockBlock());
 		steelBars = doBlock(new BlockPaneExposingConstructor("fenceSteel", Textures.block("steel_bars"), Textures.block("steel_bars"), Material.iron, true, 6F, 20F));
-		Blocks.iron_bars;
 		
 		// 
 		// Register Tile Entities

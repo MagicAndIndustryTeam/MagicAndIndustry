@@ -41,7 +41,7 @@ public class ScienceCraftingTableModel extends ModelBase
     ModelRenderer book_4_pages;
     ModelRenderer book_4_bottom;
     ModelRenderer book_4_back;
-    //ModelRenderer book_4_botom;
+    ModelRenderer book_4_top;
   
   public ScienceCraftingTableModel()
   {
@@ -252,12 +252,12 @@ public class ScienceCraftingTableModel extends ModelBase
       book_4_back.setTextureSize(256, 256);
       book_4_back.mirror = true;
       setRotation(book_4_back, 0F, 0.2617994F, 0F);
-      book_4_bottom = new ModelRenderer(this, 64, 238);
-      book_4_bottom.addBox(0F, 0F, 0F, 8, 0, 5);
-      book_4_bottom.setRotationPoint(-4F, 21.9F, -2F);
-      book_4_bottom.setTextureSize(256, 256);
-      book_4_bottom.mirror = true;
-      setRotation(book_4_bottom, 0F, 0.2617994F, 0F);
+      book_4_top = new ModelRenderer(this, 64, 238);
+      book_4_top.addBox(0F, 0F, 0F, 8, 0, 5);
+      book_4_top.setRotationPoint(-4F, 21.9F, -2F);
+      book_4_top.setTextureSize(256, 256);
+      book_4_top.mirror = true;
+      setRotation(book_4_top, 0F, 0.2617994F, 0F);
   }
   
   public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
@@ -298,7 +298,7 @@ public class ScienceCraftingTableModel extends ModelBase
     book_4_pages.render(f5);
     book_4_bottom.render(f5);
     book_4_back.render(f5);
-    book_4_bottom.render(f5);
+    book_4_top.render(f5);
   }
   
   public void renderModel(float scale)
@@ -337,7 +337,7 @@ public class ScienceCraftingTableModel extends ModelBase
 	  book_4_pages.render(scale);
 	  book_4_bottom.render(scale);
 	  book_4_back.render(scale);
-	  book_4_bottom.render(scale);
+	  book_4_top.render(scale);
   }
   
   private void setRotation(ModelRenderer model, float x, float y, float z)
