@@ -114,7 +114,7 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 			if (items[i] != null)
 			{
 				NBTTagCompound item = new NBTTagCompound();
-				tag.setByte("Slot", (byte)i);
+				item.setByte("Slot", (byte)i);
 				items[i].writeToNBT(item);
 				list.appendTag(item);
 			}
