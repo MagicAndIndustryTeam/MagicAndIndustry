@@ -8,6 +8,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -64,9 +65,14 @@ public abstract class MachineCoreBlock extends BlockContainer implements IWrench
 		
 		Utils.print("Began machine core wrench structure.");
 		
-		MachineCoreEntity ent = (MachineCoreEntity)world.getTileEntity(x, y, z);
-		if (ent != null && !ent.structureComplete())
-			ent.updateStructure();
+		TileEntity ent = world.getTileEntity(x, y, z);
+		if (ent != null && ent instanceof MachineCoreEntity)
+		{
+			MachineCoreEntity macEnt = (MachineCoreEntity)ent;
+			// Wrenching only sets structure when it's not set.
+			if (macEnt != null && !macEnt.structureComplete())
+				macEnt.updateStructure();
+		}
 		
 		// Adds to the previous log.
 		//else MagicAndIndustry.logger.error("MachineCoreBlock at %1$i, %2$i, %3$i was unable to load its machine - ID " + machineID + " on wrench event from " + player.getDisplayName(), x, y, z);

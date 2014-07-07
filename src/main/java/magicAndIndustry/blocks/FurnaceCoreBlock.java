@@ -164,20 +164,6 @@ public class FurnaceCoreBlock extends MachineCoreBlock
 		return new FurnaceCoreEntity(furnaceType);
 	}
 	*/
-
-	//@Override
-	// TODO dynamify entity
-	public void OnWrenched2(EntityPlayer player, World world, int x, int y, int z, int meta, int side) 
-	{
-		// Code is not kept here.
-		if (!world.isRemote)
-		{
-			//FurnaceCoreEntity furnaceEntity = (FurnaceCoreEntity)world.getTileEntity(x, y, z);
-		
-			//if (furnaceEntity != null)
-				//furnaceEntity.updateStructure();
-		}
-	}
 	
 	// TODO dynamify!
 	public static void setFurnaceState(boolean weStartedTheFire, MachineTier tier, World world, int x, int y, int z)

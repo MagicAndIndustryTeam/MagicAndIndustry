@@ -100,7 +100,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 		if (struct != null && struct instanceof StructureEntity)
 		{
 			StructureEntity strutE = (StructureEntity)struct;
-			player.addChatMessage(new ChatComponentText("X=" + strutE.coreX + ", Y=" + strutE.coreY + ", Z=" + strutE.coreZ + ", hasCore=" + strutE.hasCore()));
+			player.addChatMessage(new ChatComponentText("Core X=" + strutE.coreX + ", Y=" + strutE.coreY + ", Z=" + strutE.coreZ + ", hasCore=" + strutE.hasCore()));
 		}
 	}
 	
@@ -207,8 +207,6 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	@Override
 	public void onStructureBroken(World world, int x, int y, int z, int coreX, int coreY, int coreZ) 
 	{
-		Utils.print("Structure broken!!!");
-		
 		world.setBlockMetadataWithNotify(x, y, z, 0, 2);
 		
 		TileEntity te = world.getTileEntity(x, y, z);
