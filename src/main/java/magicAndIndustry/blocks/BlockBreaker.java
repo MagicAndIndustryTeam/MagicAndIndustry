@@ -42,11 +42,11 @@ public class BlockBreaker extends BlockContainer implements IWrenchable
 	public void registerBlockIcons(IIconRegister reg)
 	{
 		// Block: tier face
-		blockIcon = reg.registerIcon(Textures.block(tier.name, "breaker"));
+		blockIcon = reg.registerIcon(tier.getSpecialTexture("breaker_front"));
 		// Back: tier front
 		backIcon = reg.registerIcon(tier.getFaceTexture());
 		// Side: tier striped
-		sideIcon = reg.registerIcon(Textures.block(tier.name, "side"));
+		sideIcon = reg.registerIcon(tier.getSpecialTexture("breaker_side"));
 	}
 	
 	@Override
@@ -104,6 +104,6 @@ public class BlockBreaker extends BlockContainer implements IWrenchable
 	{
 		if (world.isRemote)
 			player.addChatMessage(new ChatComponentText("Block side: " + side + ", meta: " + meta + ", assumed front: " 
-					+ Utils.superSideFromMeta(meta) + ", player place: " + Utils.superMetaFromPlayer(x, y, z, player)));
+					+ ForgeDirection.getOrientation(meta) + ", player place: " + Utils.superMetaFromPlayer(x, y, z, player)));
 	}
 }
