@@ -1,5 +1,6 @@
 package magicAndIndustry.utils;
 
+import net.minecraft.block.BlockPistonBase;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.util.MathHelper;
@@ -54,6 +55,7 @@ public class Utils
 			case 1: return 4;
 			case 2: return 2;
 			case 3: return 5;
+			// 4: return 1, 5: return 0?
 			default: return 0;
 		}
 		/*
@@ -72,6 +74,30 @@ public class Utils
 		return MathHelper.floor_double((double)(placer.rotationYaw * 4.0F / 360.0F) + 2.5D) & 3;
 	}
 	
+	/**
+	 * Uses piston code to place a block that can face up/down.
+	 * @param x X coord of block
+	 * @param y Y coord of block
+	 * @param z Z coord of block
+	 * @param placer Placer of block
+	 * @return metadata of block. Uses 3 bits.
+	 */
+	public static int superMetaFromPlayer(int x, int y, int z, EntityLivingBase placer)
+	{
+		return BlockPistonBase.determineOrientation(placer.worldObj, x, y, z, placer);
+	}
+	
+	/**
+	 * Please just use the metadata instead. Thank you.
+	 * @param meta
+	 * @return
+	 */
+	@Deprecated
+	public static int superSideFromMeta(int meta) 
+	{
+		return meta;
+	}
+	
 	@SideOnly(Side.CLIENT)
 	public static String Translate(String input)
 	{
@@ -87,4 +113,6 @@ public class Utils
 	{
 		System.out.printf(string, args); System.out.println();
 	}
+
+
 }

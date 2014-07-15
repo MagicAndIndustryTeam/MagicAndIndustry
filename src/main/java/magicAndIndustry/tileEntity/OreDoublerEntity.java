@@ -1,12 +1,13 @@
 package magicAndIndustry.tileEntity;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
+import magicAndIndustry.items.MiniHammer;
+import magicAndIndustry.items.MiniPickaxe;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.oredict.OreDictionary;
 
-public class OreDoublerEntity extends TileEntity implements IInventory
+public class OreDoublerEntity extends InventoryEntity
 {
 	/*
 	 * 0: ore
@@ -14,7 +15,8 @@ public class OreDoublerEntity extends TileEntity implements IInventory
 	 * 2: hammer
 	 * 
 	 */
-	private ItemStack[] items;
+	// TODO pick and hammer could have different slots
+	private static final int SLOT_ORE = 0, SLOT_PICK = 1, SLOT_HAMMER = 2;
 	
 	// TODO block data
 	// Coord-mapped collection of 
@@ -31,54 +33,17 @@ public class OreDoublerEntity extends TileEntity implements IInventory
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
-		
+		super.writeToNBT(tag);
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
-		
+		super.readFromNBT(tag);
 	}
 
 	@Override
 	public int getSizeInventory() { return 3; }
-
-	@Override
-	public ItemStack getStackInSlot(int slot) 
-	{
-		return items[slot];
-	}
-
-	@Override
-	public ItemStack decrStackSize(int slot, int count) 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public String getInventoryName() 
-	{
-		return "container.oreDoubler";
-	}
-
-	@Override
-	public boolean hasCustomInventoryName() 
-	{
-		return false;
-	}
 
 	@Override
 	public int getInventoryStackLimit() 
@@ -88,21 +53,33 @@ public class OreDoublerEntity extends TileEntity implements IInventory
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) 
+	public boolean isItemValidForSlot(int slot, ItemStack stack) 
 	{
-		return true;
+		switch (slot)
+		{
+			// Ore slot
+			case 0:
+				String name = OreDictionary.getOreName(Item.getIdFromItem(stack.getItem()));
+				if (name != "Unknown") // because null is for boring people
+				{
+					// check our dictionary of ores etc
+					return true;
+				}
+				// I guess check for vanilla ores
+				return false;
+				
+			// Tool slots
+			case 1:
+			case 2:
+				Item item = stack.getItem();
+				return item instanceof MiniPickaxe || item instanceof MiniHammer;
+				
+			// TODO other slots maybe
+			default: return false;
+		}
 	}
 
 	@Override
-	public void openInventory() { }
-
-	@Override
-	public void closeInventory() { }
-
-	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public String getDefaultName() { return "container.oreDoubler"; }
 
 }

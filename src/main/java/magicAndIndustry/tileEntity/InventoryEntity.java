@@ -12,6 +12,8 @@ public abstract class InventoryEntity extends TileEntity implements IInventory
 	protected ItemStack[] items;
 	protected String inventoryName;
 	
+	public abstract String getDefaultName();
+	
 	public InventoryEntity()
 	{
 	}
@@ -30,6 +32,9 @@ public abstract class InventoryEntity extends TileEntity implements IInventory
 			if (slot >= 0 && slot < items.length)
 				items[slot] = ItemStack.loadItemStackFromNBT(item);
 		}
+		
+		if (tag.hasKey("CustomName"))
+			inventoryName = tag.getString("CustomName");
 	}
 	
 	public void writeToNBT(NBTTagCompound tag)
@@ -59,62 +64,67 @@ public abstract class InventoryEntity extends TileEntity implements IInventory
 	@Override
 	public ItemStack decrStackSize(int slot, int count) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ItemStack item = getStackInSlot(slot);
+		if (item != null)
+		{
+			if (item.stackSize <= count)
+				setInventorySlotContents(slot, null);
+			else
+			{
+				ItemStack newer = ItemStack.copyItemStack(item);
+				newer.stackSize -= count;
+				
+				setInventorySlotContents(slot, newer);
+				
+				item = item.splitStack(count);
+			}
+		}
+		return item;
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-		// TODO Auto-generated method stub
-		return null;
+	public ItemStack getStackInSlotOnClosing(int slot) 
+	{
+		ItemStack item = getStackInSlot(slot);
+		setInventorySlotContents(slot, item);
+		return item;
 	}
 
 	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
-		// TODO Auto-generated method stub
-
+	public void setInventorySlotContents(int slot, ItemStack stack) 
+	{
+		items[slot] = stack;
+		if (stack != null && stack.stackSize > getInventoryStackLimit())
+			stack.stackSize = getInventoryStackLimit();
 	}
 
 	@Override
-	public String getInventoryName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getInventoryName() 
+	{ 
+		if (hasCustomInventoryName())
+			return inventoryName;
+		return getDefaultName();
 	}
 
 	@Override
-	public boolean hasCustomInventoryName() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean hasCustomInventoryName() 
+	{
+		return inventoryName.length() != 0;
 	}
 
 	@Override
-	public int getInventoryStackLimit() {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean isUseableByPlayer(EntityPlayer player) 
+	{
+		return player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) <= 16;
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public void openInventory() { }
 
 	@Override
-	public void openInventory() {
-		// TODO Auto-generated method stub
-
-	}
+	public void closeInventory() { }
 
 	@Override
-	public void closeInventory() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean isItemValidForSlot(int slot, ItemStack item) { return true; }
 
 }

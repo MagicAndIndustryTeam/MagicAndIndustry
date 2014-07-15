@@ -79,21 +79,34 @@ public class MachineTier
 	}
 	
 	/**
-	 * Return name + "TierSide"
-	 * @return name + "TierSide";
+	 * Texture safe "{tierName}_side"
 	 */
 	public String getFaceTexture()
 	{
 		return Textures.block(name, "side");
 	}
 	
+	/**
+	 * Texture safe "{tierName}_side_stripe"
+	 */
 	public String getStripedTexture()
 	{
 		return Textures.block(name, "side_stripe");
 	}
 	
+	/**
+	 * Just the alt texture - which should be registered texture safe.
+	 */
 	public String getAltTexture()
 	{
 		return altTexture;
+	}
+	
+	/**
+	 * Texture safe "{tierName}_{appendText}
+	 */
+	public String getSpecialTexture(String appendText)
+	{
+		return Textures.block(name, appendText);
 	}
 }

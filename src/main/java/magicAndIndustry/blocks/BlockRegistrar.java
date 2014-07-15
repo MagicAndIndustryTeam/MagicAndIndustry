@@ -83,6 +83,12 @@ public class BlockRegistrar
 		discoBlock = doBlock(new DiscoBlockBlock());
 		steelBars = doBlock(new BlockPaneExposingConstructor("fenceSteel", Textures.block("steel_bars"), Textures.block("steel_bars"), Material.iron, true, 6F, 20F));
 		
+		
+		//
+		// Testing
+		//
+		blockBreaker = doBlock(new BlockBreaker(MachineTier.iron), false);
+		
 		// 
 		// Register Tile Entities
 		//
@@ -134,6 +140,9 @@ public class BlockRegistrar
 	// Random
 	public static Block discoBlock, superFurnace, steelBars;
 	
+	// Testing
+	//public static Block blockBreaker;
+	
 	private static Block doBlock(Block brock, boolean oneTextureToRuleThemAll, boolean oreDict, boolean creativeTab, String registerName)
 	{
 		if (creativeTab)
@@ -144,6 +153,11 @@ public class BlockRegistrar
 		// Using .substring(5) allows for /give player magicandindustry:blockname instead of magicandindustry:tile.blockname
 		GameRegistry.registerBlock(brock, registerName);
 		return brock;
+	}
+	
+	private static Block doBlock(Block brock, boolean texture)
+	{
+		return doBlock(brock, texture, false, true, brock.getUnlocalizedName().substring(5));
 	}
 	
 	private static Block doBlock(Block brock, boolean texture, boolean oreDict, boolean creative)
