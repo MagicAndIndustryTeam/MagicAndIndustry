@@ -1,6 +1,7 @@
 package magicAndIndustry.tileEntity;
 
 import magicAndIndustry.machines.MachineTier;
+import magicAndIndustry.tileEntity.base.MachineCoreEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

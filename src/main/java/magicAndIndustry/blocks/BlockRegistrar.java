@@ -2,14 +2,14 @@ package magicAndIndustry.blocks;
 
 import magicAndIndustry.MagicAndIndustry;
 import magicAndIndustry.machines.MachineTier;
-import magicAndIndustry.tileEntity.AutomationStructureEntity;
+import magicAndIndustry.machines.upgrade.AutomationStructureEntity;
+import magicAndIndustry.machines.upgrade.TankUpgradeEntity;
 import magicAndIndustry.tileEntity.BlockBreakerEntity;
 import magicAndIndustry.tileEntity.DiscoBlockEntity;
 import magicAndIndustry.tileEntity.EngineeringTableEntity;
 import magicAndIndustry.tileEntity.FurnaceCoreEntity;
 import magicAndIndustry.tileEntity.ScienceCraftingTableEntity;
 import magicAndIndustry.tileEntity.StructureEntity;
-import magicAndIndustry.tileEntity.TankUpgradeEntity;
 import magicAndIndustry.utils.Textures;
 import magicAndIndustry.utils.Utils;
 import net.minecraft.block.Block;

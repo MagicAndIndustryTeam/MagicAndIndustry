@@ -1,6 +1,6 @@
 package magicAndIndustry.rendering;
 
-import magicAndIndustry.tileEntity.StructureUpgradeEntity;
+import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

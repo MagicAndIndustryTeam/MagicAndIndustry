@@ -2,6 +2,7 @@ package magicAndIndustry.tileEntity;
 
 import magicAndIndustry.items.MiniHammer;
 import magicAndIndustry.items.MiniPickaxe;
+import magicAndIndustry.tileEntity.base.InventoryEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

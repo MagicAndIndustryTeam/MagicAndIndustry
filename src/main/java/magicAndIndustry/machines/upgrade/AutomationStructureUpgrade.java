@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import magicAndIndustry.machines.StructureUpgrade;
 import magicAndIndustry.tileEntity.StructureEntity;
-import magicAndIndustry.tileEntity.StructureUpgradeEntity;
+import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
 
 public class AutomationStructureUpgrade extends StructureUpgrade
 {
@@ -27,16 +27,15 @@ public class AutomationStructureUpgrade extends StructureUpgrade
 	}
 
 	@Override
-	public StructureUpgradeEntity getTileEntity()
+	public IIcon getBlockOverlay()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public IIcon getBlockOverlay()
+	public StructureUpgradeEntity getTileEntity(ItemStack usedItem) 
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 

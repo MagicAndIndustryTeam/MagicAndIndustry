@@ -5,7 +5,7 @@ import java.util.HashMap;
 import magicAndIndustry.MagicAndIndustry;
 import magicAndIndustry.blocks.FurnaceCoreBlock;
 import magicAndIndustry.tileEntity.FurnaceCoreEntity;
-import magicAndIndustry.tileEntity.MachineCoreEntity;
+import magicAndIndustry.tileEntity.base.MachineCoreEntity;
 
 public class MachineRegistrar
 {

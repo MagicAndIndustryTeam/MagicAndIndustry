@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import magicAndIndustry.machines.structure.StructureUpgradeRegistrar;
 import magicAndIndustry.tileEntity.StructureEntity;
-import magicAndIndustry.tileEntity.StructureUpgradeEntity;
+import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,7 +22,9 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public abstract class StructureUpgrade
 {
-	/** Write the StructureUpgrade data to file. You MUST call super.writeToNBT() or there will be problems! */
+	/*
+	
+	/** Write the StructureUpgrade data to file. You MUST call super.writeToNBT() or there will be problems! /
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		// Check if its ID has been saved
@@ -35,7 +37,7 @@ public abstract class StructureUpgrade
         	tag.setString("ID", name);
 	}
 	
-	/** Read data from NBT. StructureUpgrade base class does NOT save any data, calling super.readFromNBT() is not required. */
+	/** Read data from NBT. StructureUpgrade base class does NOT save any data, calling super.readFromNBT() is not required. /
 	@Deprecated // Should be structure upgrade code.
 	public abstract void readFromNBT(NBTTagCompound tags);
 	
@@ -43,9 +45,11 @@ public abstract class StructureUpgrade
 	 * Return an ItemStack for this upgrade. Used when upgrade tile entites are being wrenched. <br/>
 	 * It should be of an item which is instanceof IStructureUpgradeItem, or null/other if the upgrade is in a broken/etc state. <br/>
 	 * This is called with isBreaking = true by {@link StructureUpgradeEntity#onBlockBroken}.
-	 */
+	 /
 	@Deprecated // Should be upgrade entity code.
 	public abstract ItemStack GetItemStack(boolean isBreaking);
+	
+	*/
 	
 	/**
 	 * Upgrades create custom tile entities to handle thinks like inventory slots. </br>

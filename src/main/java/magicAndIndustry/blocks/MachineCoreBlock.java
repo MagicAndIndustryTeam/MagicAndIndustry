@@ -1,7 +1,7 @@
 package magicAndIndustry.blocks;
 
 import magicAndIndustry.machines.MachineTier;
-import magicAndIndustry.tileEntity.MachineCoreEntity;
+import magicAndIndustry.tileEntity.base.MachineCoreEntity;
 import magicAndIndustry.utils.Textures;
 import magicAndIndustry.utils.Utils;
 import net.minecraft.block.BlockContainer;

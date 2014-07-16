@@ -1,6 +1,6 @@
 package magicAndIndustry.machines;
 
-import magicAndIndustry.tileEntity.MachineCoreEntity;
+import magicAndIndustry.tileEntity.base.MachineCoreEntity;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;

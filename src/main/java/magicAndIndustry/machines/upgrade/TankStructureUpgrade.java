@@ -2,8 +2,7 @@ package magicAndIndustry.machines.upgrade;
 
 import magicAndIndustry.machines.StructureUpgrade;
 import magicAndIndustry.tileEntity.StructureEntity;
-import magicAndIndustry.tileEntity.StructureUpgradeEntity;
-import magicAndIndustry.tileEntity.TankUpgradeEntity;
+import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
@@ -57,17 +56,17 @@ public class TankStructureUpgrade extends StructureUpgrade
 	}
 
 	@Override
-	public StructureUpgradeEntity getTileEntity()
-	{
-		return new TankUpgradeEntity();
-	}
-
-	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getBlockOverlay()
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public StructureUpgradeEntity getTileEntity(ItemStack usedItem) 
+	{
+		return new TankUpgradeEntity();
 	}
 
 }
