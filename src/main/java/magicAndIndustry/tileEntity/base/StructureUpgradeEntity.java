@@ -4,6 +4,7 @@ import java.util.Random;
 
 import magicAndIndustry.blocks.StructureBlock;
 import magicAndIndustry.machines.StructureUpgrade;
+import magicAndIndustry.machines.structure.FuelFillEvent;
 import magicAndIndustry.tileEntity.StructureEntity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,9 +25,9 @@ import cpw.mods.fml.common.FMLLog;
 public class StructureUpgradeEntity extends StructureEntity
 {
 	/**
-	 * Structure upgrade stored in this tile entity.
+	 * What kind of structure upgrade it is. This is implicit in subclasses, so it shouldn't be needed there.
 	 */
-	public StructureUpgrade upgrade;
+	public String upgradeID;
 	
 	/**
 	 * This random is initialized with the super() constructor (new Random()). 
@@ -34,9 +35,10 @@ public class StructureUpgradeEntity extends StructureEntity
 	 */
 	public Random rand;
 	
-	public StructureUpgradeEntity()
+	public StructureUpgradeEntity(String upgradeID)
 	{
 		super();
+		this.upgradeID = upgradeID;
 		rand = new Random();
 	}
 	
@@ -126,7 +128,7 @@ public class StructureUpgradeEntity extends StructureEntity
 	 */
 	public void onBlockBroken()
 	{
-		ItemStack stack = upgrade.GetItemStack(true);
+		ItemStack stack = getUpgradeStack(null, false);
 		
 		if (stack != null)
 		{
@@ -160,7 +162,7 @@ public class StructureUpgradeEntity extends StructureEntity
 		// Sneak + wrench drops upgrade
 		if (player.isSneaking())
 		{
-			ItemStack stack = upgrade.GetItemStack(false);
+			ItemStack stack = getUpgradeStack(player, true);
 			if (stack != null)
 			{
 				// The items shouldn't be stuck in the blocks.
@@ -193,18 +195,14 @@ public class StructureUpgradeEntity extends StructureEntity
 		}
 	}
 
-	/**
-	 * Called by a Processing Machine when it's looking for fuel sources. 
-	 * @param ent
-	 * @return
-	 */
-	public boolean onFuelInput(ProcessingCoreEntity ent)
-	{
-		
-	}
 	
-	public void onCraftingComplete()
+	/**
+	 * Called when the underlying structure block is destroyed or wrenched. <br/>
+	 * <b>If wrenched is false, {@code player} may be null.</b>
+	 * @return An item to be dropped, for example the upgrade item.
+	 */
+	public ItemStack getUpgradeStack(EntityPlayer player, boolean wrenched)
 	{
-		
+		return null;
 	}
 }
