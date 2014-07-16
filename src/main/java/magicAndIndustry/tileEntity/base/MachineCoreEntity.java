@@ -112,9 +112,9 @@ public abstract class MachineCoreEntity extends TileEntity
 			// We've gone through all the blocks. They all match up!
 			if (itWorked)
 			{
-				//Utils.print("Valid structure.");
 				// If the structure is new only
 				// Which sorta implies the blocks have changed between checks
+				// It should take more than two seconds to change a structure...
 				if (struct.ID != structureID)
 				{
 					// Save what structure we have.
@@ -123,9 +123,11 @@ public abstract class MachineCoreEntity extends TileEntity
 					// Tell all of the blocks to join us!
 					for (PReq req : struct.requirements)
 					{
+						// Get the block coords
 						BlockPosition pos = req.rel.getPosition(rotation, xCoord, yCoord, zCoord);
 						Block brock = worldObj.getBlock(pos.x, pos.y, pos.z); if (brock == null) continue;
 
+						// Do IStructureAware
 						if (brock instanceof IStructureAware)
 							((IStructureAware)brock).onStructureCreated(worldObj, pos.x, pos.y, pos.z, xCoord, yCoord, zCoord);
 						

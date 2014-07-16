@@ -1,11 +1,13 @@
 package magicAndIndustry.tileEntity.base;
 
-public class CraftingCoreEntity extends ProcessingCoreEntity {
+import net.minecraft.item.ItemStack;
 
-	@Override
-	public String getMachineID() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public abstract class CraftingCoreEntity extends ProcessingCoreEntity 
+{
+	public ItemStack[] inputs;
+	public ItemStack output;
+	public ItemStack fuel;
+	
+	
 
 }

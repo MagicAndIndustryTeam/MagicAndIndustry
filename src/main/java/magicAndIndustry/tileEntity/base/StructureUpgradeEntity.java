@@ -192,4 +192,19 @@ public class StructureUpgradeEntity extends StructureEntity
 			worldObj.setTileEntity(xCoord, yCoord, zCoord, new StructureEntity(coreX, coreY, coreZ));
 		}
 	}
+
+	/**
+	 * Called by a Processing Machine when it's looking for fuel sources. 
+	 * @param ent
+	 * @return
+	 */
+	public boolean onFuelInput(ProcessingCoreEntity ent)
+	{
+		
+	}
+	
+	public void onCraftingComplete()
+	{
+		
+	}
 }

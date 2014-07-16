@@ -56,40 +56,6 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 		if (side > 1 && meta == 2) return striped;
 		return blockIcon;
 	}
-	
-	// TODO check for upgrades
-	
-	@Override
-	// TODO use tile entity code
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor)
-	{
-		/*
-		// Is this needed?????????
-		if (world.isRemote) return;
-		
-		// This is gonna be reset every block change???
-		//world.setBlockMetadataWithNotify(x, y, z, 0, 2);
-		
-		// Let's perform a lot of null checks!1!!11!!!1
-		TileEntity ent = world.getTileEntity(x, y, z);
-		if (ent != null && ent instanceof StructureTileEntity)
-		{
-			StructureTileEntity struct = (StructureTileEntity)ent;
-			if (struct != null && struct.hasCore())
-			{
-				// WARNING: referencing core x,y,z not as relative positions!
-				TileEntity coreEnt = world.getTileEntity(struct.coreX, struct.coreY, struct.coreZ);
-				if (coreEnt != null && coreEnt instanceof MachineCoreEntity)
-				{
-					MachineCoreEntity machineCore = (MachineCoreEntity)coreEnt;
-					if (machineCore != null && machineCore.structureComplete())
-						machineCore.updateStructure();
-					// TODO structure
-				}
-			}
-		}
-		*/
-	}
 
 	@Override
 	public void OnWrenched(EntityPlayer player, World world, int x, int y, int z, int meta, int side) 
@@ -115,7 +81,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitx, float hity, float hitz)
 	{
-		// Metadata for client: 0=none, 1=core, 2=striped
+		// Metadata for client: 0=none, 1=has core, 2=striped
 		if (world.isRemote) return world.getBlockMetadata(x, y, z) != 0;
 		
 		TileEntity te = world.getTileEntity(x, y, z);
@@ -169,7 +135,9 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 			{
 				// Right click on core from blocks.
 				Block brock = world.getBlock(structEnt.coreX, structEnt.coreY, structEnt.coreZ);
-				if (brock != null) return brock.onBlockActivated(world, structEnt.coreX, structEnt.coreY, structEnt.coreZ, player, side, hitx, hity, hitz);
+				if (brock != null) 
+					return brock.onBlockActivated(world, structEnt.coreX, structEnt.coreY, structEnt.coreZ, player, side, hitx, hity, hitz);
+				
 				return false; // brock is null
 			}
 			// Structure upgrades have no other item code, and wrenching should pass through separately.
@@ -178,7 +146,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2) 
+	public TileEntity createNewTileEntity(World world, int meta) 
 	{
 		return new StructureEntity();
 	}
