@@ -8,6 +8,10 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+/**
+ * I don't think this is even used.
+ */
+@Deprecated
 public abstract class StructureUpgradeBase 
 {
 	/**

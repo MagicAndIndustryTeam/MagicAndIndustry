@@ -5,6 +5,7 @@ import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.api.IStructureUpgradeItem;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.StructureUpgrade;
+import magicAndIndustry.machines.structure.StructureUpgradeRegistrar;
 import magicAndIndustry.tileEntity.MachineCoreEntity;
 import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.tileEntity.StructureUpgradeEntity;
@@ -136,7 +137,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 					MagicAndIndustry.logger.error("Item " + held.toString() + " does not have a valid IStructureUpgrade implementation! It is bugged, contact its mod author.");
 					return false;
 				}
-				Class<? extends StructureUpgrade> upgradeClass = StructureUpgrade.getUpgradeClassByID(id);
+				Class<? extends StructureUpgrade> upgradeClass = StructureUpgradeRegistrar.getUpgradeClassByID(id);
 				if (upgradeClass == null)
 				{
 					// If this is us we'll look soo silly.
@@ -147,7 +148,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 				try
 				{
 					upgrade = (StructureUpgrade)upgradeClass.newInstance();
-					upgrade.constructFromItemStack(player, player.getHeldItem());
+					//upgrade.readNBTFromItemStack(player, player.getHeldItem());
 				}
 				catch (Exception ex)
 				{
@@ -160,7 +161,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 					// So far all structure upgrade is planned to be through
 					// tile entity but that could change.
 					world.removeTileEntity(x, y, z);
-					world.setTileEntity(x, y, z, upgrade.getTileEntity());
+					world.setTileEntity(x, y, z, upgrade.getTileEntity(held));
 				}
 				return true;
 			}
