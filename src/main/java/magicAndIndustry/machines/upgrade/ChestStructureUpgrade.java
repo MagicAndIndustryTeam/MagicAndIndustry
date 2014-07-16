@@ -8,6 +8,8 @@ import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
 
 public class ChestStructureUpgrade extends StructureUpgrade 
 {
+	public static final String ID = "MAI:Chest";
+	
 	@Override
 	public StructureUpgradeEntity getTileEntity(ItemStack usedItem) 
 	{
@@ -19,5 +21,8 @@ public class ChestStructureUpgrade extends StructureUpgrade
 	{
 		return null;
 	}
+
+	@Override
+	public String getID() { return ID; }
 
 }

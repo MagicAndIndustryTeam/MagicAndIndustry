@@ -39,11 +39,5 @@ public abstract class StructureUpgrade
 	@SideOnly(Side.CLIENT)
 	public abstract IIcon getBlockOverlay();
 	
-	/**
-	 * Called when a structure upgrade (matching this one's tile entity) is broken. </br>
-	 * Determines what ItemStack the tile entity will drop.
-	 * @param entity The tile entity whose block is being broken
-	 * @return An ItemStack (or null) which will be dropped in addition to the structure block.
-	 */
-	public abstract ItemStack getItemOnStructureBreak(StructureTileEntity entity);
+	public abstract String getID();
 }

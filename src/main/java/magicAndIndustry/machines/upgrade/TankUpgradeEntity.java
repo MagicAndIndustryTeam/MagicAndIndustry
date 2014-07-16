@@ -1,8 +1,10 @@
 package magicAndIndustry.machines.upgrade;
 
 import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -10,23 +12,50 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 public class TankUpgradeEntity extends StructureUpgradeEntity implements IFluidHandler
 {
-	
+	// Large, armored, weaponized military vehicle for storing Forge fluids.
+	private FluidTank tank;
 	
 	public TankUpgradeEntity()
 	{
+		super(TankStructureUpgrade.ID);
+		// Start up the tank, vroom vroom
+		tank = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME * 4);
+	}
+	
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		super.readFromNBT(tag);
 		
+		// Check if anyone was sitting in the tank.
+		if (tag.hasKey("FluidID") && tag.hasKey("Amount"))
+			tank.setFluid(new FluidStack(tag.getInteger("FluidID"), tag.getInteger("Amount")));
+		else tank.setFluid(null);
+	}
+	
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		super.writeToNBT(tag);
+		
+		// You turn the tank upside down and shake it
+		// to make the fluid pour out of the top hatch.
+		
+		FluidStack contents = tank.getFluid();
+		
+		if (contents != null)
+		{
+			tag.setInteger("FluidID", contents.fluidID);
+			tag.setInteger("Amount", contents.amount);
+		}
 	}
 	
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
 	{
-		TankStructureUpgrade tankUpgrade = (TankStructureUpgrade)upgrade;
-		int amount = tankUpgrade.tank.fill(resource, doFill);
+		int amount = tank.fill(resource, doFill);
 		
 		if (amount > 0 && doFill)
-		{
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-		}
+		
 		return amount;
 	}
 
@@ -39,11 +68,10 @@ public class TankUpgradeEntity extends StructureUpgradeEntity implements IFluidH
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain)
 	{
-		FluidStack amount = ((TankStructureUpgrade)upgrade).tank.drain(maxDrain, doDrain);
+		FluidStack amount = tank.drain(maxDrain, doDrain);
 		if (amount != null && doDrain)
-		{
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-		}
+		
 		return amount;
 	}
 
@@ -66,7 +94,6 @@ public class TankUpgradeEntity extends StructureUpgradeEntity implements IFluidH
 	public FluidTankInfo[] getTankInfo(ForgeDirection from)
 	{
 		FluidStack fluid = null;
-		FluidTank tank = ((TankStructureUpgrade)upgrade).tank;
 		
 		if (tank.getFluid() != null)
 			fluid = tank.getFluid().copy();

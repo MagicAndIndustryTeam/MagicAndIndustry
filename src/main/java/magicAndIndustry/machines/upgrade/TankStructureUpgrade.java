@@ -13,46 +13,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class TankStructureUpgrade extends StructureUpgrade
-{
-	/** Large, armored, weaponized military vehicle for storing Forge Fluids. */
-	public FluidTank tank;
+{	
+	public static final String ID = "MAI:Tank";
 	
 	public TankStructureUpgrade()
 	{
-		// Start up the tank, vroom vroom
-		tank = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME * 4);
-	}
-	
-	@Override
-	public void readFromNBT(NBTTagCompound tags)
-	{
-		// Check if anyone was sitting in the tank when it was saved
-		if (tags.hasKey("FluidID") && tags.hasKey("Amount"))
-			tank.setFluid(new FluidStack(tags.getInteger("FluidID"), tags.getInteger("Amount")));
-		else tank.setFluid(null);
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound tag)
-	{
-		super.writeToNBT(tag);
-		
-		// You turn the tank upside down and shake it to make the 
-		// fluid pour out of the hatch on top.
-		FluidStack contents = tank.getFluid();
-		
-		if (contents != null)
-		{
-			tag.setInteger("FluidID", contents.fluidID);
-			tag.setInteger("Amount", contents.amount);
-		}
-	}
-
-	@Override
-	public ItemStack GetItemStack(boolean brok)
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -68,5 +33,8 @@ public class TankStructureUpgrade extends StructureUpgrade
 	{
 		return new TankUpgradeEntity();
 	}
+
+	@Override
+	public String getID() { return ID; }
 
 }

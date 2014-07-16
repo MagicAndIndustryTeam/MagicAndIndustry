@@ -21,7 +21,7 @@ public class UpgradedStructureTileRenderer extends TileEntitySpecialRenderer
 		GL11.glPushMatrix();
 		
 			// TODO custom render code
-			IIcon icon = structureEntity.upgrade.getBlockOverlay();
+			IIcon icon = structureEntity.getBlockOverlay();
 			bindTexture(texture);
 			
 			

@@ -20,6 +20,7 @@ public class AutomationStructureEntity extends StructureUpgradeEntity implements
 	
 	public AutomationStructureEntity()
 	{
+		super("MAI:Automation");
 		items = new ItemStack[MAX_ITEMS];
 		input = true;
 	}

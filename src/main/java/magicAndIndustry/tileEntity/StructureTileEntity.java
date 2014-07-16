@@ -51,18 +51,6 @@ public class StructureTileEntity extends TileEntity
 			coreZ = tag.getInteger("CoreZ");
 		}
 	}
-
-	public boolean AcceptUpgrade(StructureUpgrade anUpgrade)
-	{
-		// TODO put stuff here???
-		if (anUpgrade != null)
-		{
-			worldObj.removeTileEntity(xCoord, yCoord, zCoord);
-			worldObj.setTileEntity(xCoord, yCoord, zCoord, anUpgrade.getTileEntity().setCoreValues(coreX, coreY, coreZ));
-			return true;
-		}
-		return false;
-	}
 	
 	public boolean isNeighbor(ForgeDirection direction)
 	{

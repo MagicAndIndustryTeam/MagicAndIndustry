@@ -5,27 +5,18 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import magicAndIndustry.machines.StructureUpgrade;
 import magicAndIndustry.tileEntity.StructureEntity;
+import magicAndIndustry.tileEntity.StructureTileEntity;
 import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
 
 public class AutomationStructureUpgrade extends StructureUpgrade
 {
+	public static final String ID = "MAI:Automation";
+	
 	public AutomationStructureUpgrade()
 	{
 		
 	}
 	
-	@Override
-	public void readFromNBT(NBTTagCompound tags)
-	{
-
-	}
-
-	@Override
-	public ItemStack GetItemStack(boolean isBreaking)
-	{
-		return null;
-	}
-
 	@Override
 	public IIcon getBlockOverlay()
 	{
@@ -38,5 +29,8 @@ public class AutomationStructureUpgrade extends StructureUpgrade
 	{
 		return null;
 	}
+
+	@Override
+	public String getID() { return ID; }
 
 }
