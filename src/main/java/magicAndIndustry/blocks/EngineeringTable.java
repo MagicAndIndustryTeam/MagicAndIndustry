@@ -5,6 +5,8 @@ import magicAndIndustry.api.IStructureUpgradeItem;
 import magicAndIndustry.gui.GuiHandler;
 import magicAndIndustry.items.ItemRegistrar;
 import magicAndIndustry.tileEntity.EngineeringTableEntity;
+import magicAndIndustry.utils.Hardness;
+import magicAndIndustry.utils.Resistance;
 import magicAndIndustry.utils.Textures;
 import magicAndIndustry.utils.Utils;
 import net.minecraft.block.material.Material;
@@ -21,9 +23,9 @@ public class EngineeringTable extends DoubleBlockContainer
 {
 	public EngineeringTable()
 	{
-		super("engineering_table", ItemRegistrar.engineeringTable, Material.rock);
+		super("engineering_table", ItemRegistrar.engineeringTable, Material.piston);
 		setBlockTextureName("engineering_table");
-		setHardness(5F); setResistance(30F);
+		setHardness(Hardness.WOOD); setResistance(Resistance.CHEST);
 		maxY = 0.935F; // maxZ = 2F;
 	}
 
