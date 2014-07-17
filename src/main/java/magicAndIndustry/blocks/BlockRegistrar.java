@@ -5,11 +5,14 @@ import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.upgrade.AutomationStructureEntity;
 import magicAndIndustry.machines.upgrade.TankUpgradeEntity;
 import magicAndIndustry.tileEntity.BlockBreakerEntity;
+import magicAndIndustry.tileEntity.CrusherCoreEntity;
 import magicAndIndustry.tileEntity.DiscoBlockEntity;
 import magicAndIndustry.tileEntity.EngineeringTableEntity;
 import magicAndIndustry.tileEntity.FurnaceCoreEntity;
 import magicAndIndustry.tileEntity.ScienceCraftingTableEntity;
 import magicAndIndustry.tileEntity.StructureEntity;
+import magicAndIndustry.utils.Hardness;
+import magicAndIndustry.utils.Resistance;
 import magicAndIndustry.utils.Textures;
 import magicAndIndustry.utils.Utils;
 import net.minecraft.block.Block;
@@ -25,19 +28,22 @@ public class BlockRegistrar
 		//
 		// Ores
 		//
-		oreRaisin = doFortunateOre(new FortuneOre("raisin", 3F, 20F, 0, 4, 6, 1));
-		oreMeteoric = doIngotOre(new IngotOre("meteoric", 3F, 20F, 2));
-		oreAluminum = doIngotOre(new IngotOre("aluminum", 2.5F, 20F, 2));
+		// Ore hardness: 3, ore resistance 15.
+		oreRaisin = doFortunateOre(new FortuneOre("raisin", 3F, 15F, 0, 4, 6, 1));
+		oreMeteoric = doIngotOre(new IngotOre("meteoric", 3F, 15F, 2));
+		oreAluminum = doIngotOre(new IngotOre("aluminum", 2.5F, 15F, 2));
 		
 		//
 		// Compressed Blocks
 		//
+		// Block hardness: 3 => {lapis, RS, gold}, 5 => {iron, diamond}
 		blockRaisin = doIngotBlock("raisin", 3F);
 		blockRaisinBunch = doIngotBlock("raisin_bunch", 3F);
 		blockMeteoric = doIngotBlock("meteoric", 5F);
 		blockSteel = doIngotBlock("steel", 5F);
 		blockPigIron = doIngotBlock("pig_iron", 5F);
 		blockAluminum = doIngotBlock("aluminum", 5F);
+		//blockTitanium = doIngotBlock("titanium", 6F).setResistance(Resistance.OBSIDIAN + 10);
 		
 		
 		//
@@ -73,7 +79,7 @@ public class BlockRegistrar
 		//
 		// Research Main Things
 		//
-		engineeringTable = doBlock(new EngineeringTable()); //doBlock(new DEFAULT_EngineeringTable());
+		engineeringTable = doBlock(new EngineeringTable());
 		scienceCraftingTable = doBlock(new ScienceCraftingTable());
 		
 		
@@ -81,7 +87,8 @@ public class BlockRegistrar
 		// Randoms
 		//
 		discoBlock = doBlock(new DiscoBlockBlock());
-		steelBars = doBlock(new BlockPaneExposingConstructor("fenceSteel", Textures.block("steel_bars"), Textures.block("steel_bars"), Material.iron, true, 6F, 20F));
+		steelBars = doBlock(new BlockPaneExposingConstructor("fenceSteel", Textures.block("steel_bars"), 
+				Textures.block("steel_bars"), Material.iron, true, Hardness.TOUGH_ORE_BLOCK, Resistance.STONE + 5F));
 		
 		
 		//
@@ -99,8 +106,12 @@ public class BlockRegistrar
 		
 		GameRegistry.registerTileEntity(EngineeringTableEntity.class, "MAIEngineeringTable");
 		GameRegistry.registerTileEntity(ScienceCraftingTableEntity.class, "MAIScienceCraftingTable");
-		GameRegistry.registerTileEntity(FurnaceCoreEntity.class, "MAIfurnace");
+		
+		GameRegistry.registerTileEntity(FurnaceCoreEntity.class, "MAIFurnace");
+		GameRegistry.registerTileEntity(CrusherCoreEntity.class, "MAICrusher");
+		
 		GameRegistry.registerTileEntity(BlockBreakerEntity.class, "MAIBlockBreaker");
+		
 		GameRegistry.registerTileEntity(DiscoBlockEntity.class, "MAIDiscoBlock");
 	}
 	
