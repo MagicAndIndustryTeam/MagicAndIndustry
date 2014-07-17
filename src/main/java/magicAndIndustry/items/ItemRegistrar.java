@@ -2,8 +2,14 @@ package magicAndIndustry.items;
 
 import magicAndIndustry.MagicAndIndustry;
 import magicAndIndustry.blocks.BlockRegistrar;
-import magicAndIndustry.tools.RecursivePick;
-import magicAndIndustry.tools.Wrench;
+import magicAndIndustry.items.tools.AxeWithConstructor;
+import magicAndIndustry.items.tools.BagOfWinds;
+import magicAndIndustry.items.tools.PickaxeWithConstructor;
+import magicAndIndustry.items.tools.RecursivePick;
+import magicAndIndustry.items.tools.VoidBucket;
+import magicAndIndustry.items.tools.WeldingTorch;
+import magicAndIndustry.items.tools.Wrench;
+import magicAndIndustry.items.weapons.LongRangeSword;
 import magicAndIndustry.utils.Textures;
 import magicAndIndustry.utils.Utils;
 import net.minecraft.item.Item;

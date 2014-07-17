@@ -32,5 +32,4 @@ public class AutomationStructureUpgrade extends StructureUpgrade
 
 	@Override
 	public String getID() { return ID; }
-
 }
