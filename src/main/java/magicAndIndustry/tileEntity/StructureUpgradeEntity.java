@@ -21,12 +21,7 @@ import cpw.mods.fml.common.FMLLog;
  * Most machine-type code should be called from the StructureUpgrade itself through machine events.
  */
 public class StructureUpgradeEntity extends StructureEntity
-{
-	/**
-	 * Structure upgrade stored in this tile entity.
-	 */
-	public StructureUpgrade upgrade;
-	
+{	
 	/**
 	 * This random is initialized with the super() constructor (new Random()). 
 	 * Use it for all of your subclass pseudorandomizing needs.
@@ -37,67 +32,6 @@ public class StructureUpgradeEntity extends StructureEntity
 	{
 		super();
 		rand = new Random();
-	}
-	
-	/**
-	 * Called when NBT data is read. You MUST call super.readFromNBT() in subclasses.
-	 */
-	@Override
-	public void readFromNBT(NBTTagCompound tag)
-	{
-		super.readFromNBT(tag);
-		
-		// Check for "Upgrade" tag collection
-		if (tag.hasKey("Upgrade", 10))
-		{
-			NBTTagCompound upgradeTag = tag.getCompoundTag("Upgrade");
-			
-			if (upgradeTag.hasKey("ID"))
-			{
-				Class<? extends StructureUpgrade> classic = StructureUpgrade.getUpgradeClassByID(upgradeTag.getString("ID"));
-				if (classic != null)
-				{
-					try 
-					{
-						upgrade = (StructureUpgrade)classic.newInstance();
-					} 
-					// If there's an exception, they done messed up their constructor.
-					catch (Exception e) 
-					{ 
-						FMLLog.severe("Exception loading a Structure Upgrade (%s, class name %s) from a Structure Block at %i, %i, %i:", 
-							upgradeTag.getString("ID"), classic.getName(), xCoord, yCoord, zCoord);
-						FMLLog.severe("Found exception: %s", e.toString());
-						e.printStackTrace();
-					}
-					upgrade.readFromNBT(upgradeTag);
-				}
-				else // Upgrade isn't registered.
-				{
-					// Failed to load upgrade. Don't want to crash, just log severe.
-					FMLLog.severe("Unable to load StructureUpgrade from Structure Block at %1$i, %2$i, %3$i - found Structure Upgrade with ID %4$s which was not registered!",
-						xCoord, yCoord, zCoord, upgradeTag.getString("ID"));
-					FMLLog.warning("This data will stay in the file as long as the block is not destroyed - if you recover the mod/registration of the Structure Upgrade, " +
-						"you will be able to get the upgrade back by reloading. If you break the block, the upgrade is lost forever.");
-				}
-			}
-			// else no id for the upgrade
-		}
-		// else no upgrade
-	}
-	
-	/**
-	 * Writes the upgrade to NBT. You MUST call super.writeToNBT() in subclasses
-	 */
-	@Override
-	public void writeToNBT(NBTTagCompound tag)
-	{
-		super.writeToNBT(tag);
-		if (upgrade != null)
-		{
-			NBTTagCompound upgradeTag = new NBTTagCompound();
-			upgrade.writeToNBT(upgradeTag);
-			tag.setTag("Upgrade", upgradeTag);
-		}
 	}
 	
 	/**
@@ -125,7 +59,7 @@ public class StructureUpgradeEntity extends StructureEntity
 	 */
 	public void onBlockBroken()
 	{
-		ItemStack stack = upgrade.GetItemStack(true);
+		ItemStack stack = getItemStack(true);
 		
 		if (stack != null)
 		{
@@ -191,4 +125,6 @@ public class StructureUpgradeEntity extends StructureEntity
 			worldObj.setTileEntity(xCoord, yCoord, zCoord, new StructureEntity(coreX, coreY, coreZ));
 		}
 	}
+	
+	
 }

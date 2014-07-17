@@ -1,10 +1,17 @@
 package magicAndIndustry.utils;
 
+import java.util.Random;
+
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
@@ -87,17 +94,6 @@ public class Utils
 		return BlockPistonBase.determineOrientation(placer.worldObj, x, y, z, placer);
 	}
 	
-	/**
-	 * Please just use the metadata instead. Thank you.
-	 * @param meta
-	 * @return
-	 */
-	@Deprecated
-	public static int superSideFromMeta(int meta) 
-	{
-		return meta;
-	}
-	
 	@SideOnly(Side.CLIENT)
 	public static String Translate(String input)
 	{
@@ -113,6 +109,42 @@ public class Utils
 	{
 		System.out.printf(string, args); System.out.println();
 	}
+	
+	public static void dropItem(ItemStack stack, World world, int x, int y, int z)
+	{
+		dropItem(stack, world, null, x, y, z, ForgeDirection.UNKNOWN, new Random());
+	}
+	
+	public static void dropItem(ItemStack stack, World world, EntityPlayer player, int startX, int startY, int startZ, ForgeDirection side, Random rand)
+	{
+		// Create random offsets 0 ~< offset ~< 1
+		float x = rand.nextFloat() * 0.8F + 0.1F,
+				y = rand.nextFloat() * 0.8F + 0.1F, 
+				z = rand.nextFloat() * 0.8F + 0.1F;
 
+		// Create entity item.
+		// If side != forgeDirection.unknowon, they'll be closer to the side.
+		EntityItem entity = new EntityItem(world, 
+				startX + x + (0.2D * side.offsetX),
+				startY + y + (0.2D * side.offsetY), 
+				startZ + z + (0.2D * side.offsetZ), stack);
 
+		// Copy tag compound from the stack
+		if (stack.hasTagCompound())
+			entity.getEntityItem().setTagCompound((NBTTagCompound)stack.getTagCompound().copy());
+
+		// set motion
+		float offset = 0.05F;
+		entity.motionX = rand.nextGaussian() * offset;
+		entity.motionY = rand.nextGaussian() * offset + 0.2F;
+		entity.motionZ = rand.nextGaussian() * offset;
+
+		// Add to player if specified
+		if (player != null) player.capturedDrops.add(entity);
+		
+		// Spawn the entity - CALLING IT WORLD.SPAWNENTITY MAKES NO SENSE YOU HAVE TO SAY IN WORLD BECAUSE JAVA DAMMIT
+		// SO USEFUL I WOULDN'T HAVE THOUGHT AN INSTANCE WORLD.SPAWNENTITY WOULD SPAWN IT IN THE WORLD, THANK YOU FOR
+		// SPECIFYING THAT THIS ENTITY SPAWNED IN YOUR SPAWN METHOD IS IN FACT SPAWNED IN THIS VERY WORLD INSTANCE!!!!
+		world.spawnEntityInWorld(entity);
+	}
 }
