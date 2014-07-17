@@ -1,6 +1,11 @@
 package magicAndIndustry.blocks;
 
 import magicAndIndustry.MagicAndIndustry;
+import magicAndIndustry.blocks.base.BlockPaneExposingConstructor;
+import magicAndIndustry.blocks.base.Block_Exposing_Constructor;
+import magicAndIndustry.blocks.base.FortuneOre;
+import magicAndIndustry.blocks.base.IngotOre;
+import magicAndIndustry.blocks.base.MachineSlab;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.upgrade.AutomationStructureEntity;
 import magicAndIndustry.machines.upgrade.TankUpgradeEntity;
@@ -9,6 +14,7 @@ import magicAndIndustry.tileEntity.CrusherCoreEntity;
 import magicAndIndustry.tileEntity.DiscoBlockEntity;
 import magicAndIndustry.tileEntity.EngineeringTableEntity;
 import magicAndIndustry.tileEntity.FurnaceCoreEntity;
+import magicAndIndustry.tileEntity.OreDoublerEntity;
 import magicAndIndustry.tileEntity.ScienceCraftingTableEntity;
 import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.utils.Hardness;
@@ -99,23 +105,38 @@ public class BlockRegistrar
 		// 
 		// Register Tile Entities
 		//
-		GameRegistry.registerTileEntity(StructureEntity.class, "MAIStructure");
 		
+		// Structure upgrades
+		//
+		GameRegistry.registerTileEntity(StructureEntity.class, "MAIStructure");
 		GameRegistry.registerTileEntity(TankUpgradeEntity.class, "MAITankUpgrade");
 		GameRegistry.registerTileEntity(AutomationStructureEntity.class, "MAIAutomationStructure");
 		
+		// Early game blocks
+		//
+		GameRegistry.registerTileEntity(OreDoublerEntity.class, "MAIOreDoubler"); // TODO name!!!
+		
+		// Science crafting
+		//
 		GameRegistry.registerTileEntity(EngineeringTableEntity.class, "MAIEngineeringTable");
 		GameRegistry.registerTileEntity(ScienceCraftingTableEntity.class, "MAIScienceCraftingTable");
 		
+		// Structure machines
+		//
 		GameRegistry.registerTileEntity(FurnaceCoreEntity.class, "MAIFurnace");
 		GameRegistry.registerTileEntity(CrusherCoreEntity.class, "MAICrusher");
 		
+		// Other machines
+		//
 		GameRegistry.registerTileEntity(BlockBreakerEntity.class, "MAIBlockBreaker");
 		
+		// Other
+		//
 		GameRegistry.registerTileEntity(DiscoBlockEntity.class, "MAIDiscoBlock");
 	}
 	
 	// Machine blocks
+	//
 	public static Block cobbleFurnace, ironFurnace, steelFurnace;
 	public static Block cobbleFurnaceLit, ironFurnaceLit, steelFurnaceLit;
 	
@@ -132,26 +153,33 @@ public class BlockRegistrar
 	public static Block cobbleStructureSafe, ironStructureSafe, steelStructureSafe;
 	
 	// Machines
+	//
 	public static Block blockBreaker; // TODO replace with others n stuff
 	
-	//Ores
+	// Ores
+	//
 	public static IngotOre oreMeteoric, oreAluminum;
 	public static FortuneOre oreRaisin;
 	
 	// Ingot Blocks
+	//
 	public static Block blockRaisin, blockSteel, blockRaisinBunch, blockPigIron, blockMeteoric;
 	public static Block blockAluminum;
 	
 	// Other Blocks
+	//
 	public static Block industrialGlass;
 	
 	// Research
+	//
 	public static Block engineeringTable, scienceCraftingTable;
 	
 	// Random
+	//
 	public static Block discoBlock, superFurnace, steelBars;
 	
 	// Testing
+	//
 	//public static Block blockBreaker;
 	
 	private static Block doBlock(Block brock, boolean oneTextureToRuleThemAll, boolean oreDict, boolean creativeTab, String registerName)

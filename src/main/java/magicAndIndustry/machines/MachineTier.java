@@ -5,7 +5,7 @@ import java.util.HashMap;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import magicAndIndustry.blocks.BlockRegistrar;
-import magicAndIndustry.blocks.MachineSlab;
+import magicAndIndustry.blocks.base.MachineSlab;
 import magicAndIndustry.utils.Textures;
 
 

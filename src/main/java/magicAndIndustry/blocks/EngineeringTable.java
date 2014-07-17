@@ -2,6 +2,8 @@ package magicAndIndustry.blocks;
 
 import magicAndIndustry.MagicAndIndustry;
 import magicAndIndustry.api.IStructureUpgradeItem;
+import magicAndIndustry.blocks.base.DoubleBlock;
+import magicAndIndustry.blocks.base.DoubleBlockContainer;
 import magicAndIndustry.gui.GuiHandler;
 import magicAndIndustry.items.ItemRegistrar;
 import magicAndIndustry.tileEntity.EngineeringTableEntity;

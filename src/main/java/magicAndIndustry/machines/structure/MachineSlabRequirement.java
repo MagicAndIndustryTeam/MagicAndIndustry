@@ -1,7 +1,7 @@
 package magicAndIndustry.machines.structure;
 
 import magicAndIndustry.blocks.BlockRegistrar;
-import magicAndIndustry.blocks.MachineSlab;
+import magicAndIndustry.blocks.base.MachineSlab;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.utils.Utils;
 import net.minecraft.block.Block;

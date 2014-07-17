@@ -3,6 +3,7 @@ package magicAndIndustry.blocks;
 import java.util.Random;
 
 import magicAndIndustry.MagicAndIndustry;
+import magicAndIndustry.blocks.base.MachineCoreBlock;
 import magicAndIndustry.gui.GuiHandler;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.tileEntity.FurnaceCoreEntity;

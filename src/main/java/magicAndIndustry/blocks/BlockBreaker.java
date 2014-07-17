@@ -1,6 +1,7 @@
 package magicAndIndustry.blocks;
 
 import magicAndIndustry.MagicAndIndustry;
+import magicAndIndustry.blocks.base.IWrenchable;
 import magicAndIndustry.gui.GuiHandler;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.tileEntity.BlockBreakerEntity;

@@ -15,4 +15,6 @@ public class OreDoublerBlock extends Block
 		setHardness(Hardness.TECH);
 		setResistance(Resistance.STONE);
 	}
+	
+	
 }

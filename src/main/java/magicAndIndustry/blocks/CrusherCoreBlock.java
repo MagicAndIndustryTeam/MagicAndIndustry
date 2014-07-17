@@ -2,6 +2,7 @@ package magicAndIndustry.blocks;
 
 import java.util.Random;
 
+import magicAndIndustry.blocks.base.MachineCoreBlock;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.tileEntity.CrusherCoreEntity;
 import magicAndIndustry.utils.Textures;

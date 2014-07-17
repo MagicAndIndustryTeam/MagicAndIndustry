@@ -1,6 +1,6 @@
 package magicAndIndustry.items.tools;
 
-import magicAndIndustry.blocks.IWrenchable;
+import magicAndIndustry.blocks.base.IWrenchable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

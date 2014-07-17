@@ -3,6 +3,7 @@ package magicAndIndustry.blocks;
 import magicAndIndustry.MagicAndIndustry;
 import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.api.IStructureUpgradeItem;
+import magicAndIndustry.blocks.base.IWrenchable;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.StructureUpgrade;
 import magicAndIndustry.machines.structure.StructureUpgradeRegistrar;

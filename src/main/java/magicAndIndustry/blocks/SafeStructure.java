@@ -1,5 +1,6 @@
 package magicAndIndustry.blocks;
 
+import magicAndIndustry.blocks.base.IWrenchable;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.utils.Textures;
 import magicAndIndustry.utils.Utils;
