@@ -7,7 +7,7 @@ import magicAndIndustry.blocks.base.FortuneOre;
 import magicAndIndustry.blocks.base.IngotOre;
 import magicAndIndustry.blocks.base.MachineSlab;
 import magicAndIndustry.machines.MachineTier;
-import magicAndIndustry.machines.upgrade.AutomationStructureEntity;
+import magicAndIndustry.machines.upgrade.AutomationEntity;
 import magicAndIndustry.machines.upgrade.TankUpgradeEntity;
 import magicAndIndustry.tileEntity.BlockBreakerEntity;
 import magicAndIndustry.tileEntity.CrusherCoreEntity;
@@ -20,11 +20,8 @@ import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.utils.Hardness;
 import magicAndIndustry.utils.Resistance;
 import magicAndIndustry.utils.Textures;
-import magicAndIndustry.utils.Utils;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPane;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockRegistrar 
@@ -110,7 +107,7 @@ public class BlockRegistrar
 		//
 		GameRegistry.registerTileEntity(StructureEntity.class, "MAIStructure");
 		GameRegistry.registerTileEntity(TankUpgradeEntity.class, "MAITankUpgrade");
-		GameRegistry.registerTileEntity(AutomationStructureEntity.class, "MAIAutomationStructure");
+		GameRegistry.registerTileEntity(AutomationEntity.class, "MAIAutomationUpgrade");
 		
 		// Early game blocks
 		//

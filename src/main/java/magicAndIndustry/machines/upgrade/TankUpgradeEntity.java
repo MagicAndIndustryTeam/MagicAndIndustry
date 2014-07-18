@@ -1,6 +1,8 @@
 package magicAndIndustry.machines.upgrade;
 
-import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
+import magicAndIndustry.tileEntity.StructureUpgradeEntity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -17,7 +19,7 @@ public class TankUpgradeEntity extends StructureUpgradeEntity implements IFluidH
 	
 	public TankUpgradeEntity()
 	{
-		super(TankStructureUpgrade.ID);
+		super();
 		// Start up the tank, vroom vroom
 		tank = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME * 4);
 	}
@@ -99,6 +101,13 @@ public class TankUpgradeEntity extends StructureUpgradeEntity implements IFluidH
 			fluid = tank.getFluid().copy();
 		
 		return new FluidTankInfo[] { new FluidTankInfo(fluid, tank.getCapacity()) };
+	}
+
+	@Override
+	public ItemStack getUpgradeStack(EntityPlayer player, boolean wrenched) 
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

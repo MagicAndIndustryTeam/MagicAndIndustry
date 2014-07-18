@@ -1,12 +1,10 @@
 package magicAndIndustry.tileEntity;
 
 import magicAndIndustry.blocks.StructureBlock;
-import magicAndIndustry.machines.StructureUpgrade;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import cpw.mods.fml.common.FMLLog;
 
 /**
  * Base class for tile entities created by upgrades.

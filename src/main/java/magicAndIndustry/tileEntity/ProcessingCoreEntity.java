@@ -1,6 +1,7 @@
 package magicAndIndustry.tileEntity;
 
 import magicAndIndustry.machines.MachineTier;
+import magicAndIndustry.tileEntity.base.MachineCoreEntity;
 
 /**
  * Base class for machines with processing operations.

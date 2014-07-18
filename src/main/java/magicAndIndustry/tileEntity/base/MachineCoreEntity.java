@@ -1,12 +1,14 @@
 package magicAndIndustry.tileEntity.base;
 
+import java.util.ArrayList;
+
 import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.blocks.StructureBlock;
 import magicAndIndustry.machines.MachineTier;
-import magicAndIndustry.machines.StructureUpgrade;
 import magicAndIndustry.machines.structure.MachineStructure;
 import magicAndIndustry.machines.structure.MachineStructureRegistrar;
 import magicAndIndustry.machines.structure.PReq;
+import magicAndIndustry.tileEntity.StructureUpgradeEntity;
 import magicAndIndustry.utils.BlockPosition;
 import magicAndIndustry.utils.RelativeFaceCoords;
 import magicAndIndustry.utils.Utils;
@@ -18,7 +20,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public abstract class MachineCoreEntity extends TileEntity 
 {	
 	/** All connected structure upgrade tile entities' upgrades are passed into the core which calls events with them. */
-	public StructureUpgrade[] upgrades;
+	public StructureUpgradeEntity[] upgrades;
 	
 	/** Saved coords of structure blocks to reset if the structure is broken. */
 	public RelativeFaceCoords[] structureBlocks;
@@ -112,28 +114,49 @@ public abstract class MachineCoreEntity extends TileEntity
 			// We've gone through all the blocks. They all match up!
 			if (itWorked)
 			{
-				// If the structure is new only
-				// Which sorta implies the blocks have changed between checks
-				// It should take more than two seconds to change a structure...
+				// **If the structure is new only**
+				// Which implies the blocks have changed between checks
 				if (struct.ID != structureID)
 				{
+					//
+					// This is only called when structures are changed/first created.
+					//
+					
 					// Save what structure we have.
 					structureID = struct.ID;
+					
+					// Make an arraylist to save all teh structures
+					ArrayList<StructureUpgradeEntity> newEntities = new ArrayList<StructureUpgradeEntity>();
 
 					// Tell all of the blocks to join us!
 					for (PReq req : struct.requirements)
 					{
-						// Get the block coords
+						// Get the blocks that the structure has checked.
 						BlockPosition pos = req.rel.getPosition(rotation, xCoord, yCoord, zCoord);
 						Block brock = worldObj.getBlock(pos.x, pos.y, pos.z); if (brock == null) continue;
 
-						// Do IStructureAware
 						if (brock instanceof IStructureAware)
 							((IStructureAware)brock).onStructureCreated(worldObj, pos.x, pos.y, pos.z, xCoord, yCoord, zCoord);
 						
-						//if (brock instanceof UpgradeStructureEntity)
+						// Check the tile entity for upgrades
+						TileEntity ent = worldObj.getTileEntity(pos.x, pos.y, pos.z);
+						if (ent != null && ent instanceof StructureUpgradeEntity)
+						{
+							StructureUpgradeEntity structEnt = (StructureUpgradeEntity)ent;
+							newEntities.add(structEnt);
+							
+							/* // Not sure about this.
+							if (structEnt.coreX != xCoord && structEnt.coreY != yCoord && structEnt.coreZ != zCoord)
+							{
+								structEnt.onCoreConnected()
+							}
+							*/
+						}
 						// do stuff with that	
 					}
+					
+					// This is a strange toArray[] but okay
+					upgrades = newEntities.toArray(upgrades);
 
 					// Tell all of the structure blocks to stripe it up!
 					for (RelativeFaceCoords relPos : struct.relativeStriped)

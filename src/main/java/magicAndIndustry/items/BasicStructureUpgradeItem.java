@@ -1,7 +1,8 @@
 package magicAndIndustry.items;
 
+import magicAndIndustry.MagicAndIndustry;
 import magicAndIndustry.api.IStructureUpgradeItem;
-import magicAndIndustry.machines.StructureUpgrade;
+import magicAndIndustry.tileEntity.StructureUpgradeEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,21 +13,28 @@ import net.minecraft.world.World;
  */
 public class BasicStructureUpgradeItem extends Item implements IStructureUpgradeItem
 {
+	public Class<? extends StructureUpgradeEntity> structureClass;
 	
-	//public
-	
-	@Override
-	public String getStructureUpgradeID()
+	public BasicStructureUpgradeItem(String name, String texture, int maxStack, Class<? extends StructureUpgradeEntity> theClass)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		setUnlocalizedName(name);
+		iconString = texture;
+		maxStackSize = maxStack;
+		structureClass = theClass;
 	}
 
 	@Override
-	public StructureUpgrade getUpgradeEntity(ItemStack stack, EntityPlayer player, World world, int x, int y, int z)
+	public StructureUpgradeEntity getUpgradeEntity(ItemStack stack, EntityPlayer player, World world, int x, int y, int z) 
 	{
-		
+		try 
+		{
+			return structureClass.newInstance();
+		} 
+		catch (Exception e) 
+		{
+			MagicAndIndustry.logger.error("Error creating a " + structureClass.getName() + ": " + e.toString());
+		}
+		// finally
 		return null;
 	}
-
 }
