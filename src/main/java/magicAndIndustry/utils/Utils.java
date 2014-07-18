@@ -40,7 +40,7 @@ public class Utils
 	public static ToolMaterial meteoricIronMaterial = EnumHelper.addToolMaterial("materialMAIMeteoricIron",2,  786, 6.0F, 2.5F, 20);
 	public static ToolMaterial copperMaterial = EnumHelper.addToolMaterial("materialMAICopper",            2,  190, 4.0F, 1.5F,  8);
 	public static ToolMaterial magicMaterial = EnumHelper.addToolMaterial("magicalMaterial",               3, 1220, 7.0F, 2.5F, 17);
-	// titanium, tungsten
+	// titanium, tungsten, aluminum, imbued iron
 	
 	/**
 	 * Returns which ForgeDirection the meta refers to!!!
@@ -49,26 +49,14 @@ public class Utils
 	 */
 	public static int sideFromMeta(int meta)
 	{
-		/*
-		 * 0 -> 2
-		 * 1 -> 5
-		 * 2 -> 3
-		 * 3 -> 4
-		 */
-		
 		switch (meta)
 		{
 			case 0: return 3;
 			case 1: return 4;
 			case 2: return 2;
 			case 3: return 5;
-			// 4: return 1, 5: return 0?
 			default: return 0;
 		}
-		/*
-		if (meta == 1) return 5;
-		if (meta == 0) return 2;
-		return meta + 1;*/
 	}
 	
 	public static int backFromMeta(int meta)

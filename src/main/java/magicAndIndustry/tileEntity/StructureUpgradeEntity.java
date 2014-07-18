@@ -1,15 +1,18 @@
 package magicAndIndustry.tileEntity;
 
+import ibxm.Player;
+
 import java.util.Random;
 
 import magicAndIndustry.blocks.StructureBlock;
-import magicAndIndustry.machines.StructureUpgrade;
-import net.minecraft.entity.item.EntityItem;
+import magicAndIndustry.machines.event.InputRequestEvent;
+import magicAndIndustry.machines.event.ItemOutputEvent;
+import magicAndIndustry.machines.event.PowerRequestEvent;
+import magicAndIndustry.machines.event.ProcessingEvent;
+import magicAndIndustry.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
-import cpw.mods.fml.common.FMLLog;
 
 /**
  * TileEntity that holds structure upgrades.
@@ -20,7 +23,7 @@ import cpw.mods.fml.common.FMLLog;
  * <br/>
  * Most machine-type code should be called from the StructureUpgrade itself through machine events.
  */
-public class StructureUpgradeEntity extends StructureEntity
+public abstract class StructureUpgradeEntity extends StructureEntity
 {	
 	/**
 	 * This random is initialized with the super() constructor (new Random()). 
@@ -55,33 +58,16 @@ public class StructureUpgradeEntity extends StructureEntity
 	/**
 	 * Called from {@link StructureBlock} when it is destroyed. 
 	 * <br/>
-	 * Base implementation calls {@link StructureUpgrade#GetItemStack(boolean blockBreal)} with true and adds that to the world.
+	 * Base implementation calls {@code getUpradeStack()} with null and false and adds that to the world.
 	 */
 	public void onBlockBroken()
 	{
-		ItemStack stack = getItemStack(true);
+		ItemStack stack = getUpgradeStack(null, false);
 		
-		if (stack != null)
-		{
-			float x = rand.nextFloat() * 0.8F + 0.1F, 
-				  y = rand.nextFloat() * 0.8F + 0.1F, 
-				  z = rand.nextFloat() * 0.8F + 0.1F;
-
-			EntityItem entity = new EntityItem(worldObj, x, y, z, stack);
-
-			if (stack.hasTagCompound()) 
-				entity.getEntityItem().setTagCompound((NBTTagCompound)stack.getTagCompound().copy());
-
-			float offset = 0.05F;
-			entity.motionX = rand.nextGaussian() * offset;
-			entity.motionY = rand.nextGaussian() * offset + 0.2F;
-			entity.motionZ = rand.nextGaussian() * offset;
-			worldObj.spawnEntityInWorld(entity);
-		}
-		
-		// Clear us out.
-		worldObj.removeTileEntity(xCoord, yCoord, zCoord);
-		worldObj.setTileEntity(xCoord, yCoord, zCoord, new StructureEntity());
+		if (stack != null) Utils.dropItem(stack, worldObj, null, xCoord, yCoord, zCoord, ForgeDirection.UNKNOWN, rand);
+		// Now handled by the block class.
+		//worldObj.removeTileEntity(xCoord, yCoord, zCoord);
+		//worldObj.setTileEntity(xCoord, yCoord, zCoord, new StructureEntity());
 	}
 	
 	/**
@@ -90,41 +76,63 @@ public class StructureUpgradeEntity extends StructureEntity
 	 */
 	public void onWrenched(EntityPlayer player, int side)
 	{
-		// Sneak + wrench drops upgrade
-		if (player.isSneaking())
-		{
-			ItemStack stack = upgrade.GetItemStack(false);
-			if (stack != null)
-			{
-				// The items shouldn't be stuck in the blocks.
-				ForgeDirection dir = ForgeDirection.getOrientation(side);
-
-				// TODO see if standard code works with players capturing drops.
-				float x = rand.nextFloat() * 0.8F + 0.1F, // + (0.4F * dir.offsetX), 
-						y = rand.nextFloat() * 0.8F + 0.1F, 
-						z = rand.nextFloat() * 0.8F + 0.1F;
-
-				// Create entity item.
-				EntityItem entity = new EntityItem(worldObj, x + (0.5D * dir.offsetX), y + (0.5D * dir.offsetY), z + (0.5D * dir.offsetZ), stack);
-
-				// Copy tag compound
-				if (stack.hasTagCompound()) 
-					entity.getEntityItem().setTagCompound((NBTTagCompound)stack.getTagCompound().copy());
-
-				// set motion
-				float offset = 0.05F;
-				entity.motionX = rand.nextGaussian() * offset;
-				entity.motionY = rand.nextGaussian() * offset + 0.2F;
-				entity.motionZ = rand.nextGaussian() * offset;
-
-				player.capturedDrops.add(entity);
-				worldObj.spawnEntityInWorld(entity);
-
-			}
-			worldObj.removeTileEntity(xCoord, yCoord, zCoord);
-			worldObj.setTileEntity(xCoord, yCoord, zCoord, new StructureEntity(coreX, coreY, coreZ));
-		}
+		// Only handle shift-wrench in base.
+		if (!player.isSneaking()) return;
+		
+		// Prepare to drop upgrade stack.
+		ItemStack stack = getUpgradeStack(player, true);
+		if (stack == null) return;
+		
+		// drdrdrdrdrop the item
+		Utils.dropItem(stack, worldObj, player, xCoord, yCoord, zCoord, ForgeDirection.getOrientation(side), rand);
 	}
 	
+	/**
+	 * Called when the player shift-wrenches the structure block through {@link onWrenched}
+	 * (with a {@link Player} and {@code true}), and when the player breaks the block 
+	 * <i>(with <b>{@code null}</b> and {@code false})</i> through {@link onBlockBroken}.
+	 * @param player The player who wrenched the block, or null!
+	 * @param wrenched Whether the block was wrenched (and player isn't null)
+	 * @return An ItemStack representation of this {@link StructureUpgradeEntity}'s upgrade.
+	 */
+	public abstract ItemStack getUpgradeStack(EntityPlayer player, boolean wrenched);
 	
+	//
+	// Events
+	//
+	/**
+	 * Return true to dubscribe to machine processing events.
+	 */
+	public boolean handlesProcessing() { return false; }
+	
+	public void handleProcessing(ProcessingEvent event)
+	{
+		
+	}
+	
+	/**
+	 * Return true to dubscribe to 
+	 * @return
+	 */
+	public boolean handlesItemMovement() { return false; }
+	
+	public void handleFuelRequest(PowerRequestEvent event) { }
+	
+	public void handleItemOutput(ItemOutputEvent event) { }
+	
+	/**
+	 * Called from the machine core when it asks for items.
+	 */
+	public void handleInputRequest(InputRequestEvent event) { }
+	
+	/**
+	 * Call to give the core an item manually - for example, when an item is placed in an input slot.
+	 * Note that
+	 * @param stack
+	 * @return whether the core could accept the item.
+	 */
+	public boolean ouputToCore(ItemStack stack)
+	{
+		return false;
+	}
 }

@@ -48,34 +48,6 @@ public class AutomationStructureEntity extends StructureUpgradeEntity implements
 		}
 	}
 	
-	//private IInventory getLocalInv()
-	//{
-		/*
-		for (int i = 2; i <= 6; i++)
-		{
-			ForgeDirection dir = ForgeDirection.getOrientation(i);
-			System.out.println(dir);
-			TileEntity ent = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord, zCoord + dir.offsetY);
-			
-			if (ent != null)
-			{
-				int j, slot;
-				if (ent instanceof ISidedInventory)
-				{
-					ISidedInventory sidedEnt = (ISidedInventory)ent;
-					for (j = 0; i < sidedEnt.getSizeInventory(); i++)
-					{
-						
-					}
-				}
-				else if (ent instanceof IInventory)
-				{
-					IInventory invEnt = (IInventory)ent;
-				}
-			}
-		}*/
-	//}
-	
 	@Override
 	public int getSizeInventory()
 	{
@@ -158,6 +130,12 @@ public class AutomationStructureEntity extends StructureUpgradeEntity implements
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public ItemStack getUpgradeStack(EntityPlayer player, boolean wrenched) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
