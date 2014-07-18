@@ -1,7 +1,6 @@
 package magicAndIndustry.tileEntity;
 
 import magicAndIndustry.blocks.StructureBlock;
-import magicAndIndustry.machines.StructureUpgrade;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -44,12 +43,9 @@ public class StructureEntity extends TileEntity
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		if (tag.hasKey("coreX"))
-		{
-			coreX = tag.getInteger("CoreX");
-			coreY = tag.getInteger("CoreY");
-			coreZ = tag.getInteger("CoreZ");
-		}
+		coreX = tag.getInteger("CoreX");
+		coreY = tag.getInteger("CoreY");
+		coreZ = tag.getInteger("CoreZ");
 	}
 	
 	public boolean isNeighbor(ForgeDirection direction)

@@ -23,7 +23,7 @@ public class BasicStructureUpgradeItem extends Item implements IStructureUpgrade
 	}
 
 	@Override
-	public StructureUpgrade getUpgrade(ItemStack stack, EntityPlayer player, World world, int x, int y, int z)
+	public StructureUpgrade getUpgradeEntity(ItemStack stack, EntityPlayer player, World world, int x, int y, int z)
 	{
 		
 		return null;

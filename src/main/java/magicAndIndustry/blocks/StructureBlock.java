@@ -1,16 +1,11 @@
 package magicAndIndustry.blocks;
 
-import magicAndIndustry.MagicAndIndustry;
 import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.api.IStructureUpgradeItem;
 import magicAndIndustry.blocks.base.IWrenchable;
 import magicAndIndustry.machines.MachineTier;
-import magicAndIndustry.machines.StructureUpgrade;
-import magicAndIndustry.machines.structure.StructureUpgradeRegistrar;
 import magicAndIndustry.tileEntity.StructureEntity;
-import magicAndIndustry.tileEntity.base.MachineCoreEntity;
-import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
-import magicAndIndustry.utils.Utils;
+import magicAndIndustry.tileEntity.StructureUpgradeEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -21,7 +16,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -83,6 +77,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitx, float hity, float hitz)
 	{
 		// Metadata for client: 0=none, 1=has core, 2=striped
+		// TODO this check isn't reflected in the world.
 		if (world.isRemote) return world.getBlockMetadata(x, y, z) != 0;
 		
 		TileEntity te = world.getTileEntity(x, y, z);
@@ -96,39 +91,15 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 			ItemStack held = player.getHeldItem();
 			if (held != null && held.getItem() instanceof IStructureUpgradeItem)
 			{
-				String id = ((IStructureUpgradeItem)held.getItem()).getStructureUpgradeID();
+				StructureUpgradeEntity entity = ((IStructureUpgradeItem)held.getItem()).getUpgradeEntity(held, player, world, x, y, z);
 				
-				if (id == null)
-				{
-					// If this is us I'm so sorry.
-					MagicAndIndustry.logger.error("Item " + held.toString() + " does not have a valid IStructureUpgrade implementation! It is bugged, contact its mod author.");
-					return false;
-				}
-				Class<? extends StructureUpgrade> upgradeClass = StructureUpgradeRegistrar.getUpgradeClassByID(id);
-				if (upgradeClass == null)
-				{
-					// If this is us we'll look soo silly.
-					MagicAndIndustry.logger.error("Item " + held.toString() + "'s IStructureUpgrade's upgrade ID - " + id + " - is an unregistered StructureUpgrade! It is bugged, contact its mod author.");
-					return false;
-				}
-				StructureUpgrade upgrade = null;
-				try
-				{
-					upgrade = (StructureUpgrade)upgradeClass.newInstance();
-					//upgrade.readNBTFromItemStack(player, player.getHeldItem());
-				}
-				catch (Exception ex)
-				{
-					MagicAndIndustry.logger.error("Unable to create " + (upgrade == null ? id : upgrade.toString()) + "from " + player.getGameProfile().getName() + "'s " + player.getHeldItem().toString() + ".");
-					return false;
-				}
-				if (upgrade != null)
+				if (entity != null)
 				{
 					// This is untested and could require placing a new block.
 					// So far all structure upgrade is planned to be through
 					// tile entity but that could change.
 					world.removeTileEntity(x, y, z);
-					world.setTileEntity(x, y, z, upgrade.getTileEntity(held));
+					world.setTileEntity(x, y, z, entity);
 				}
 				return true;
 			}
