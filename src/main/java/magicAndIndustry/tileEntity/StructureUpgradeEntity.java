@@ -1,7 +1,5 @@
 package magicAndIndustry.tileEntity;
 
-import ibxm.Player;
-
 import java.util.Random;
 
 import magicAndIndustry.blocks.StructureBlock;
@@ -12,6 +10,7 @@ import magicAndIndustry.machines.event.ProcessingEvent;
 import magicAndIndustry.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**
@@ -50,7 +49,7 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	 * @param hitZ Block z coord.
 	 * @return 
 	 */
-	public boolean onBlockActivated(EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World world, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
 		return false;
 	}
@@ -101,22 +100,39 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	// Events
 	//
 	/**
-	 * Return true to dubscribe to machine processing events.
+	 * Return true to dubscribe to machine ProcessingEvents.
 	 */
 	public boolean handlesProcessing() { return false; }
 	
+	/**
+	 * Used to adjust the rate or cost of processing for machines. <br/>
+	 * Called by a {@link ProcessingCoreEntity} every second while processing. <br/>
+	 * Need {@link StructureUpgradeEntity#handlesProcessing() handlesProcessing()} to {@code return true}.
+	 * @param event Event arguments.
+	 */
 	public void handleProcessing(ProcessingEvent event)
 	{
 		
 	}
 	
 	/**
-	 * Return true to dubscribe to 
-	 * @return
+	 * Return true to dubscribe to PowerRequestEvents, ItemOutputEvents, and ItemRequestEvents.
 	 */
 	public boolean handlesItemMovement() { return false; }
 	
-	public void handleFuelRequest(PowerRequestEvent event) { }
+	/**
+	 * Return true to dubsribe to PowerRequestEvents.
+	 * @return
+	 */
+	public boolean handlesPowerUsage() { return false; }
+	
+	/**
+	 * Used to provide a machine with power when it requests it. <br/>
+	 * Called by a {@link ProcessingCoreEntity} when it needs power. <br/>
+	 * Need {@link StructureUpgradeEntity#handlesItemMovement
+	 * @param event
+	 */
+	public void handlePowerRequest(PowerRequestEvent event) { }
 	
 	public void handleItemOutput(ItemOutputEvent event) { }
 	
@@ -134,5 +150,26 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	public boolean ouputToCore(ItemStack stack)
 	{
 		return false;
+	}
+	
+	/**
+	 * Checks if the machine core can provide {@link amount} of power.
+	 * @param amount
+	 * @return
+	 */
+	public boolean canGetPower(int amount)
+	{
+		return false;
+	}
+	
+	/**
+	 * Requests {@code amount} of power from the machine core.
+	 * Returns the 
+	 * @param amount
+	 * @return
+	 */
+	public int powerRequest(int amount)
+	{
+		return 0;
 	}
 }

@@ -22,13 +22,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class StructureBlock extends BlockContainer implements IWrenchable, IStructureAware
 {
 	@SideOnly(Side.CLIENT)
-	public IIcon striped; //, surrounded;
+	public IIcon striped;
 	
 	/** The type of block - iron, steel, etc. */
 	public final MachineTier tier;
 	
 	public StructureBlock(MachineTier theTier)
 	{
+		// Standard tier construction.
 		super(Material.rock);
 		tier = theTier;
 		setBlockName(tier.name + "_structure");
@@ -47,7 +48,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		// Icon checks should be handled by tileentityrenderer.
+		// Structure Upgrade renderers are handled seperately.
 		if (side > 1 && meta == 2) return striped;
 		return blockIcon;
 	}
@@ -56,10 +57,13 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	public void OnWrenched(EntityPlayer player, World world, int x, int y, int z, int meta, int side) 
 	{
 		if (world.isRemote) return;
+		
+		// Pass wrenched on to tile entity
 		TileEntity struct = world.getTileEntity(x, y, z);
 		if (struct != null && struct instanceof StructureUpgradeEntity)
 				((StructureUpgradeEntity)struct).onWrenched(player, side);
-		if (struct != null && struct instanceof StructureEntity)
+		
+		else if (struct instanceof StructureEntity)
 		{
 			StructureEntity strutE = (StructureEntity)struct;
 			player.addChatMessage(new ChatComponentText("Core X=" + strutE.coreX + ", Y=" + strutE.coreY + ", Z=" + strutE.coreZ + ", hasCore=" + strutE.hasCore()));
@@ -69,6 +73,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta)
 	{
+		// Call block break in structure upgrade entities.
 		TileEntity struct = world.getTileEntity(x, y, z);
 		if (struct != null && struct instanceof StructureUpgradeEntity)
 			((StructureUpgradeEntity)struct).onBlockBroken();
@@ -81,29 +86,31 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 		if (world.isRemote) return world.getBlockMetadata(x, y, z) != 0;
 		
 		TileEntity te = world.getTileEntity(x, y, z);
+		
+		// Send block activated to structure upgrades.
 		if (te instanceof StructureUpgradeEntity)
-		{
-			return ((StructureUpgradeEntity)te).onBlockActivated(player, side, hitx, hity, hitz);
-		}
+			return ((StructureUpgradeEntity)te).onBlockActivated(world, player, side, hitx, hity, hitz);
+		
+		// Handle upgrade clicks on the block
 		if (te instanceof StructureEntity)
 		{
 			StructureEntity structEnt = (StructureEntity)te;
 			ItemStack held = player.getHeldItem();
+			
 			if (held != null && held.getItem() instanceof IStructureUpgradeItem)
 			{
+				// Get the structure upgrade for the entity
 				StructureUpgradeEntity entity = ((IStructureUpgradeItem)held.getItem()).getUpgradeEntity(held, player, world, x, y, z);
-				
 				if (entity != null)
 				{
 					// This is untested and could require placing a new block.
-					// So far all structure upgrade is planned to be through
-					// tile entity but that could change.
 					world.removeTileEntity(x, y, z);
 					world.setTileEntity(x, y, z, entity);
 				}
 				return true;
 			}
-			if (((StructureEntity) te).hasCore())
+			// Additional check for core
+			else if (((StructureEntity) te).hasCore())
 			{
 				// Right click on core from blocks.
 				Block brock = world.getBlock(structEnt.coreX, structEnt.coreY, structEnt.coreZ);
@@ -114,6 +121,8 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 			}
 			// Structure upgrades have no other item code, and wrenching should pass through separately.
 		}
+		
+		// If there's no tile entity, which shouldn't happen.
 		return false;
 	}
 
