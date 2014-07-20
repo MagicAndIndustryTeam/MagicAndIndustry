@@ -5,7 +5,7 @@ import magicAndIndustry.api.IStructureUpgradeItem;
 import magicAndIndustry.blocks.base.IWrenchable;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.tileEntity.StructureEntity;
-import magicAndIndustry.tileEntity.StructureUpgradeEntity;
+import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

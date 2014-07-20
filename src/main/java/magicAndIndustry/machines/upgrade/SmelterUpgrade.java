@@ -1,6 +1,6 @@
 package magicAndIndustry.machines.upgrade;
 
-import magicAndIndustry.tileEntity.StructureUpgradeEntity;
+import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

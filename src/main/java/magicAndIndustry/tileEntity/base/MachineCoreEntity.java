@@ -8,7 +8,6 @@ import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.structure.MachineStructure;
 import magicAndIndustry.machines.structure.MachineStructureRegistrar;
 import magicAndIndustry.machines.structure.PReq;
-import magicAndIndustry.tileEntity.StructureUpgradeEntity;
 import magicAndIndustry.utils.BlockPosition;
 import magicAndIndustry.utils.RelativeFaceCoords;
 import magicAndIndustry.utils.Utils;

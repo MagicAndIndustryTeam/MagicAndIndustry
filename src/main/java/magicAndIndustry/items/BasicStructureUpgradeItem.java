@@ -2,7 +2,7 @@ package magicAndIndustry.items;
 
 import magicAndIndustry.MagicAndIndustry;
 import magicAndIndustry.api.IStructureUpgradeItem;
-import magicAndIndustry.tileEntity.StructureUpgradeEntity;
+import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

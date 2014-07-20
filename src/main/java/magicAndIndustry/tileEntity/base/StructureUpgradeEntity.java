@@ -1,4 +1,4 @@
-package magicAndIndustry.tileEntity;
+package magicAndIndustry.tileEntity.base;
 
 import java.util.Random;
 
@@ -7,6 +7,8 @@ import magicAndIndustry.machines.event.InputRequestEvent;
 import magicAndIndustry.machines.event.ItemOutputEvent;
 import magicAndIndustry.machines.event.PowerRequestEvent;
 import magicAndIndustry.machines.event.ProcessingEvent;
+import magicAndIndustry.tileEntity.ProcessingCoreEntity;
+import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -99,6 +101,7 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	//
 	// Events
 	//
+	
 	/**
 	 * Return true to dubscribe to machine ProcessingEvents.
 	 */
@@ -110,10 +113,7 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	 * Need {@link StructureUpgradeEntity#handlesProcessing() handlesProcessing()} to {@code return true}.
 	 * @param event Event arguments.
 	 */
-	public void handleProcessing(ProcessingEvent event)
-	{
-		
-	}
+	public void handleProcessing(ProcessingEvent event) { }
 	
 	/**
 	 * Return true to dubscribe to PowerRequestEvents, ItemOutputEvents, and ItemRequestEvents.
@@ -129,21 +129,29 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	/**
 	 * Used to provide a machine with power when it requests it. <br/>
 	 * Called by a {@link ProcessingCoreEntity} when it needs power. <br/>
-	 * Need {@link StructureUpgradeEntity#handlesItemMovement
+	 * Need {@link StructureUpgradeEntity#handlesItemMovement() handlesItemMovement} to {@code return true}.
 	 * @param event
 	 */
 	public void handlePowerRequest(PowerRequestEvent event) { }
 	
+	/**
+	 * Used to take items output by a machine. <br/>
+	 * Called by a {@link ProcessingMachineCore} when it has finished working.<br/>
+	 * Requires {@link StructureUpgradeEntity#handlesItemMovement()} to {@code return true}.
+	 * @param event Event data
+	 */
 	public void handleItemOutput(ItemOutputEvent event) { }
 	
 	/**
-	 * Called from the machine core when it asks for items.
+	 * Used to input items into a machine. <br/>
+	 * Called by a {@link MachineCoreEntity} when it needs items. <br/>
+	 * Need {@link StructureUpgradeEntity#handlesItemMovement() handlesItemMovement()} to {@code return true}.
+	 * @param event Event data
 	 */
 	public void handleInputRequest(InputRequestEvent event) { }
 	
 	/**
 	 * Call to give the core an item manually - for example, when an item is placed in an input slot.
-	 * Note that
 	 * @param stack
 	 * @return whether the core could accept the item.
 	 */
