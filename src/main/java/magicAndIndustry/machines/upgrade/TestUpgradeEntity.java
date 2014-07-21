@@ -4,6 +4,7 @@ import magicAndIndustry.tileEntity.base.StructureUpgradeEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 public class TestUpgradeEntity extends StructureUpgradeEntity 
 {
@@ -26,6 +27,12 @@ public class TestUpgradeEntity extends StructureUpgradeEntity
 	public ItemStack getUpgradeStack(EntityPlayer player, boolean wrenched) 
 	{
 		return null;
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	{
+		return true;
 	}
 
 }

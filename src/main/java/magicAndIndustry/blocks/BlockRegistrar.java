@@ -46,7 +46,7 @@ public class BlockRegistrar
 		blockSteel = doIngotBlock("steel", 5F);
 		blockPigIron = doIngotBlock("pig_iron", 5F);
 		blockAluminum = doIngotBlock("aluminum", 5F);
-		//blockTitanium = doIngotBlock("titanium", 6F).setResistance(Resistance.OBSIDIAN + 10);
+		blockTitanium = doIngotBlock("titanium", 6F).setResistance(Resistance.OBSIDIAN + 10);
 		
 		
 		//
@@ -161,7 +161,7 @@ public class BlockRegistrar
 	// Ingot Blocks
 	//
 	public static Block blockRaisin, blockSteel, blockRaisinBunch, blockPigIron, blockMeteoric;
-	public static Block blockAluminum;
+	public static Block blockAluminum, blockTitanium;
 	
 	// Other Blocks
 	//
@@ -227,7 +227,7 @@ public class BlockRegistrar
 		brock.setBlockName(name + "_block");
 		// Keep textures organized.
 		brock.setBlockTextureName(Textures.block("block", name));
-		brock.setHardness(hardness); brock.setResistance(30);
+		brock.setHardness(hardness); brock.setResistance(Resistance.ORE_BLOCK);
 		return doBlock(brock, false, true);
 	}
 	

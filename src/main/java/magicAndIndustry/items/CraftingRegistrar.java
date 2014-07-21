@@ -127,6 +127,10 @@ public class CraftingRegistrar
 		{
 			"XXX", "XXX", "XXX", 'X', ItemRegistrar.ingotMeteorIron
 		});
+		GameRegistry.addRecipe(new ItemStack(BlockRegistrar.blockTitanium), new Object[]
+		{
+			"XXX", "XXX", "XXX", 'X', ItemRegistrar.ingotTitanium
+		});
 		
 		
 		GameRegistry.addRecipe(new ItemStack(ItemRegistrar.wrench), new Object[]
