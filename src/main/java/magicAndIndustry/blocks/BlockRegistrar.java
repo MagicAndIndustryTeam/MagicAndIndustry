@@ -74,6 +74,7 @@ public class BlockRegistrar
 		//steelSlab = doBlock(new MachineSlab(false, "steel"));
 		
 		// Others
+		oreDoubler = doBlock(new OreDoublerBlock(), false);
 		industrialGlass = doBlock(new IndustrialGlass());
 		cobbleStructureSafe = doBlock(new SafeStructure(MachineTier.cobble), false, false, false);
 		ironStructureSafe = doBlock(new SafeStructure(MachineTier.iron), false, false, false);
@@ -151,6 +152,7 @@ public class BlockRegistrar
 	
 	// Machines
 	//
+	public static Block oreDoubler;
 	public static Block blockBreaker; // TODO replace with others n stuff
 	
 	// Ores
