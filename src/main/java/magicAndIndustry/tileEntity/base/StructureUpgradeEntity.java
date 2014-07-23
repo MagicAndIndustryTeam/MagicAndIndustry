@@ -39,6 +39,18 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	}
 	
 	/**
+	 * Called to confirm that an upgrade of this type can be added to a structure. </br>
+	 * For example, check the type of core entity for compatibility or prevent joining
+	 * if its existing upgrades contain a similar upgrade.
+	 * @param coreEntity The MachineCoreEntity
+	 * @return Whether this upgrade can be added to the structure.
+	 */
+	public boolean canBeAddedToStructure(MachineCoreEntity coreEntity)
+	{
+		return true;
+	}
+	
+	/**
 	 * Called from the structure block when it is right clicked.
 	 * These parameters are copied from the block's event - server side only.
 	 * The base class {@link StructureUpgradeEntity } does not handle this event.

@@ -198,6 +198,7 @@ public abstract class MachineCoreEntity extends TileEntity
 	
 	/**
 	 * If the machine has a valid structure.
+	 * Does NOT check/validate structure, just a null check on structureID.
 	 */
 	public boolean structureComplete() { return structureID != null && structureID.length() != 0; }
 	
