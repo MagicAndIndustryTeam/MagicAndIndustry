@@ -57,7 +57,7 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 	
 	public void readFromNBT(NBTTagCompound tag)
 	{
-		
+		power = tag.getInteger("Power");
 	}
 	
 	public void writeToNBT(NBTTagCompound tag)
