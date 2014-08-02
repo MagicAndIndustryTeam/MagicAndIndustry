@@ -1,6 +1,7 @@
 package magicAndIndustry.tileEntity.base;
 
 import magicAndIndustry.machines.MachineTier;
+import magicAndIndustry.machines.event.PowerRequestEvent;
 import magicAndIndustry.machines.event.ProcessingEvent;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -89,7 +90,13 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 			return;
 		}
 		
+		/////////////////////////////////
+		// Processing handled serverside.
+		/////////////////////////////////
+		if (worldObj.isRemote) return;
+		
 		// Only process twice a second.
+		// TODO affect tick counter with timers.
 		// Dunno why vanilla doesn't do this
 		if (tickCounter != 10)
 		{
@@ -99,13 +106,33 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 		/////////////////////////////////////////////////////////////
 		// 1. Calculate and subtract energy costs for this operation.
 		/////////////////////////////////////////////////////////////
-		int currentCost = 10;
+		ProcessingEvent processingEvent = new ProcessingEvent();
+		
 		for (StructureUpgradeEntity upgrade : upgrades)
-		{
 			if (upgrade.handlesProcessing())
-			{
-				
-			}
+				upgrade.handleProcessing(processingEvent);
+		
+		// TODO use battery with checks.
+		power -= processingEvent.getEnergyCost();
+		
+		// 2. If more power is needed, draw it from external sources.
+		
+		int required = power;
+		PowerRequestEvent powerEvent = new PowerRequestEvent(0-required);
+		if (required < 0)
+		{
+			for (StructureUpgradeEntity upgrade : upgrades)
+				if (upgrade.handlesPowerUsage())
+				{
+					upgrade.handlePowerRequest(powerEvent);
+					
+					if (powerEvent.isComplete())
+					{
+						power += powerEvent.getCurrentEnergy();
+						break;
+					}
+				}
+					
 		}
 	}
 }

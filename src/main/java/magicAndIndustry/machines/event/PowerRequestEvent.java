@@ -24,12 +24,12 @@ public class PowerRequestEvent
 	 * Adds the specified power to the machine.
 	 * If you choose not to floor the amount added, this will
 	 * 
-	 * @param powerLevel The amonut of power to add
+	 * @param powerAmount The amonut of power to add
 	 * @return Any discarded power
 	 */
-	public int addEnergy(int powerLevel)
+	public int addEnergy(int powerAmount)
 	{
-		int total = energyCurrent + powerLevel;
+		int total = energyCurrent + powerAmount;
 		if (total > energyMax) 
 		{
 			energyCurrent = energyMax;
@@ -46,5 +46,10 @@ public class PowerRequestEvent
 	public PowerRequestEvent(int max, int current)
 	{
 		energyMax = max; energyCurrent = current;
+	}
+	
+	public PowerRequestEvent(int max)
+	{
+		energyMax = max; energyCurrent = 0;
 	}
 }
