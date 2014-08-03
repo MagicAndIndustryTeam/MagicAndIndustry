@@ -91,7 +91,7 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 		}
 		
 		/////////////////////////////////
-		// Processing handled serverside.
+		// 1. Processing handled serverside.
 		/////////////////////////////////
 		if (worldObj.isRemote) return;
 		
@@ -104,7 +104,7 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 		}
 		
 		/////////////////////////////////////////////////////////////
-		// 1. Calculate and subtract energy costs for this operation.
+		// 2. Calculate and subtract energy costs for this operation.
 		/////////////////////////////////////////////////////////////
 		ProcessingEvent processingEvent = new ProcessingEvent();
 		
@@ -116,7 +116,6 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 		power -= processingEvent.getEnergyCost();
 		
 		// 2. If more power is needed, draw it from external sources.
-		
 		int required = power;
 		PowerRequestEvent powerEvent = new PowerRequestEvent(0-required);
 		if (required < 0)
@@ -132,7 +131,17 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 						break;
 					}
 				}
-					
-		}
+		} // if required < 0
+		
+		////////////////////////////////////
+		// 3. Add steps to crafting process.
+		////////////////////////////////////
+		currentProcessingTime += processingEvent.getProceesingTime();
+		
+		//////////////////////////////////////////////////////
+		// 4. If crafting process is complete, craft the item.
+		//////////////////////////////////////////////////////
+		//if (currentProcessingTime > )
+		
 	}
 }
