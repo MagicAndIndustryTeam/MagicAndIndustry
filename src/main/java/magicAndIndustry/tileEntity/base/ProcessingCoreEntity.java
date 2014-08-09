@@ -81,9 +81,9 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 		
 		// load items
 		// TODO determine items by machine configuration or structure upgrades.
-		// Save the 
-		input = NBTUtils.readItemCollectionTag(tag.getTagList("Inputs",  10), 0);
-		outputs = NBTUtils.readItemCollectionTag(tag.getTagList("Outputs", 10), 0);
+		// The lengths of these are determined automatically and later refined by structure upgrades
+		input = NBTUtils.readItemCollectionTag(tag.getTagList("Inputs",  10));
+		outputs = NBTUtils.readItemCollectionTag(tag.getTagList("Outputs", 10));
 	}
 	
 	public void writeToNBT(NBTTagCompound tag)
@@ -91,8 +91,8 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 		tag.setInteger("Power", power);
 		
 		// Save items
-		tag.setTag("Inputs", NBTUtils.getItemCollectionTag(input));
-		tag.setTag("Outputs", NBTUtils.getItemCollectionTag(outputs));
+		tag.setTag("Inputs", NBTUtils.writeItemCollectionTag(input));
+		tag.setTag("Outputs", NBTUtils.writeItemCollectionTag(outputs));
 	}
 	
 	public void updateEntity()

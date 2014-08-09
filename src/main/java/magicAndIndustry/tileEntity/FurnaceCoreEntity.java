@@ -96,7 +96,7 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 		tag.setString("FurnaceType", tier.name);
 		
 		// Save all of the items.
-		tag.setTag("Items", NBTUtils.getItemCollectionTag(items));
+		tag.setTag("Items", NBTUtils.writeItemCollectionTag(items));
 
 		if (hasCustomInventoryName())
 			tag.setString("CustomName", inventoryName);

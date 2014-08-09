@@ -11,7 +11,7 @@ public class NBTUtils
 	 * @param items
 	 * @return
 	 */
-	public static NBTTagList getItemCollectionTag(ItemStack[] items)
+	public static NBTTagList writeItemCollectionTag(ItemStack[] items)
 	{
 		// Create a list and copy items over to it.
 		NBTTagList turn = new NBTTagList();
@@ -29,7 +29,7 @@ public class NBTUtils
 	}
 	
 	/**
-	 * Reads an array of items from an NBTTagList.
+	 * Reads an array of items from an NBTTagList with specified length checking.
 	 * @param items
 	 * @param length The length of the returned array
 	 * @return
@@ -51,6 +51,16 @@ public class NBTUtils
 				turn[slot] = ItemStack.loadItemStackFromNBT(item);
 		}
 		return turn;
+	}
+	
+	/**
+	 * Reads an array of items from an NBTTagList without checking their length.
+	 * @param items The NBTTagList of items to read from
+	 * @return
+	 */
+	public static ItemStack[] readItemCollectionTag(NBTTagList items)
+	{
+		return readItemCollectionTag(items, items.tagCount());
 	}
 
 }
