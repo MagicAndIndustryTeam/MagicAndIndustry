@@ -3,6 +3,7 @@ package magicAndIndustry.tileEntity.base;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.machines.event.PowerRequestEvent;
 import magicAndIndustry.machines.event.ProcessingEvent;
+import magicAndIndustry.utils.NBTUtils;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,7 +16,7 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 {
 	// Variables: fuel - saved internally
 	private ItemStack[] input;
-	private ItemStack output;
+	private ItemStack[] outputs;
 	
 	// TODO use a battery.
 	/**
@@ -77,6 +78,12 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		power = tag.getInteger("Power");
+		
+		// load items
+		// TODO determine items by machine configuration or structure upgrades.
+		// Save the 
+		input = NBTUtils.readItemCollectionTag(tag.getTagList("Inputs",  10), 0);
+		outputs = NBTUtils.readItemCollectionTag(tag.getTagList("Outputs", 10), 0);
 	}
 	
 	public void writeToNBT(NBTTagCompound tag)
@@ -84,18 +91,8 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 		tag.setInteger("Power", power);
 		
 		// Save items
-		NBTTagList inputs = new NBTTagList();
-		for (int i = 0; i < input.length; i++)
-		{
-			if (input[i] == null) continue;
-			
-			NBTTagCompound item = new NBTTagCompound();
-			item.setByte("Slot", (byte)i);
-			input[i].writeToNBT(item);
-			inputs.appendTag(item);
-	
-		}
-		tag.setTag("Inputs", inputs);
+		tag.setTag("Inputs", NBTUtils.getItemCollectionTag(input));
+		tag.setTag("Outputs", NBTUtils.getItemCollectionTag(outputs));
 	}
 	
 	public void updateEntity()
