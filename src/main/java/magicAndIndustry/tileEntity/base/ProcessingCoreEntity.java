@@ -6,6 +6,7 @@ import magicAndIndustry.machines.event.ProcessingEvent;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 /**
  * Base class for machines with processing operations.
@@ -49,13 +50,15 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 	/**
 	 * If this returns true, setMachineState is called instead of a metadata change.
 	 * The metadata change will set the 3rd bit to true while processing.
-	 * setMachineState can be implemented and should be used 
-	 * @return
+	 * setMachineState can be implemented and should be used for things like changing block types
+	 * or changing light levels (as the vanilla furnace does).
+	 * @return Whether to implement custom handling for machines turning on and off.
 	 */
 	public abstract boolean hasAltBlock();
 	
 	/**
-	 * If 
+	 * If hasAltBlock() returns true, this method will be called instead of a metadata change.
+	 * 
 	 * @param active
 	 * @param tier
 	 */
@@ -78,7 +81,21 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 	
 	public void writeToNBT(NBTTagCompound tag)
 	{
+		tag.setInteger("Power", power);
 		
+		// Save items
+		NBTTagList inputs = new NBTTagList();
+		for (int i = 0; i < input.length; i++)
+		{
+			if (input[i] == null) continue;
+			
+			NBTTagCompound item = new NBTTagCompound();
+			item.setByte("Slot", (byte)i);
+			input[i].writeToNBT(item);
+			inputs.appendTag(item);
+	
+		}
+		tag.setTag("Inputs", inputs);
 	}
 	
 	public void updateEntity()

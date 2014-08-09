@@ -67,11 +67,9 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 		// Loop through the items and add them.
 		for (int i = 0; i < itemsList.tagCount(); i++)
 		{
-			//System.out.println("Reading item ");
 			// Each item is saved in a tag compound with an added "slot" tag.
 			NBTTagCompound item = itemsList.getCompoundTagAt(i);
 			byte slot = item.getByte("Slot");
-			System.out.println("Found slot " + slot);
 			
 			// If the slot hasn't been tampered with, set the item in the slot.
 			if (slot >= 0 && slot < items.length)
