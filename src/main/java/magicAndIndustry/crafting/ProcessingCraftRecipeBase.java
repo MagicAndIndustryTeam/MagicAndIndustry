@@ -8,4 +8,6 @@ import net.minecraft.item.ItemStack;
  */
 public abstract class ProcessingCraftRecipeBase 
 {
+	public ItemStack[] inputs;
+	public ItemStack[] outputs;
 }
