@@ -1,4 +1,4 @@
 MagicAndIndustry
 ================
 
-A Forge mod for Minecraft 1.7.2. Guess what it does.
+Magic and Industry is a research-based technology and magic mod for Minecraft 1.7.10 using Minecraft Forge.
