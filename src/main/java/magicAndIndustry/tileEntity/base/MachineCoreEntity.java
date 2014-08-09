@@ -67,6 +67,9 @@ public abstract class MachineCoreEntity extends TileEntity
 			structureID = tag.getString("Structure");
 	}
 	
+	/**
+	 * Checks for the structure completeness.
+	 */
 	@Override
 	public void updateEntity()
 	{
@@ -80,6 +83,9 @@ public abstract class MachineCoreEntity extends TileEntity
 		else checkCountdown++;
 	}
 	
+	/**
+	 * Updates the structure. Override this with a super call to hook into the event.
+	 */
 	public void updateStructure()
 	{
 		boolean itWorked = true;

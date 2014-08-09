@@ -32,7 +32,7 @@ public class ProcessingEvent
 	
 	public int getEnergyCost() { return 0; }
 	
-	public int getProceesingTime() { return 0;}
+	public byte getProceesingTime() { return (byte) ((100 * processingRate) / 10);}
 	
 	/**
 	 * There aren't any variables to initialize.

@@ -127,13 +127,13 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 		// Only process twice a second.
 		// TODO affect tick counter with timers.
 		// Dunno why vanilla doesn't do this
-		if (tickCounter != 10)
+		if (tickCounter < tickProcessingTime)
 		{
 			tickCounter++; return;
 		}
 		
 		/////////////////////////////////////////////////////////////
-		// 2. Calculate and subtract energy costs for this operation.
+		// 2. Get the processing requirements from the structure upgrades.
 		/////////////////////////////////////////////////////////////
 		ProcessingEvent processingEvent = new ProcessingEvent();
 		
@@ -141,14 +141,22 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 			if (upgrade.handlesProcessing())
 				upgrade.handleProcessing(processingEvent);
 		
-		// TODO use battery with checks.
+		////////////////////////////////////////////////////
+		// 3. Subtract power and update the processing time.
+		////////////////////////////////////////////////////
 		power -= processingEvent.getEnergyCost();
+		tickProcessingTime = processingEvent.getProceesingTime();
 		
-		// 2. If more power is needed, draw it from external sources.
-		int required = power;
-		PowerRequestEvent powerEvent = new PowerRequestEvent(0-required);
-		if (required < 0)
+		/////////////////////////////////////////////////////////////
+		// 4. If more power is needed, draw it from external sources.
+		/////////////////////////////////////////////////////////////
+		// TODO fill up the battery if the system is in a lull
+		// or when it's like < 75% or configurably or something.
+		// Also, request the battery's max power. 
+		// And don't go into debt over a process.
+		if (power < 0) 
 		{
+			PowerRequestEvent powerEvent = new PowerRequestEvent(0 - power);
 			for (StructureUpgradeEntity upgrade : upgrades)
 				if (upgrade.handlesPowerUsage())
 				{
@@ -165,7 +173,7 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 		////////////////////////////////////
 		// 3. Add steps to crafting process.
 		////////////////////////////////////
-		currentProcessingTime += processingEvent.getProceesingTime();
+		currentProcessingTime++; // Increase number of ticks, tick length is seperate.
 		
 		//////////////////////////////////////////////////////
 		// 4. If crafting process is complete, craft the item.
