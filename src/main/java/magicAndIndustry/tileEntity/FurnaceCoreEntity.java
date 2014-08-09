@@ -3,6 +3,7 @@ package magicAndIndustry.tileEntity;
 import magicAndIndustry.blocks.FurnaceCoreBlock;
 import magicAndIndustry.machines.MachineTier;
 import magicAndIndustry.tileEntity.base.MachineCoreEntity;
+import magicAndIndustry.utils.NBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -61,20 +62,7 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 		
 		// Get the items from the tag.
 		NBTTagList itemsList = tag.getTagList("Items", 10);
-		items = new ItemStack[getSizeInventory()];
-		//System.out.println("Created items array: length " + items.length);
-		
-		// Loop through the items and add them.
-		for (int i = 0; i < itemsList.tagCount(); i++)
-		{
-			// Each item is saved in a tag compound with an added "slot" tag.
-			NBTTagCompound item = itemsList.getCompoundTagAt(i);
-			byte slot = item.getByte("Slot");
-			
-			// If the slot hasn't been tampered with, set the item in the slot.
-			if (slot >= 0 && slot < items.length)
-				items[slot] = ItemStack.loadItemStackFromNBT(item);
-		}
+		items = NBTUtils.readItemCollectionTag(itemsList, getSizeInventory());
 		
 		// Set the other variables. These names match the vanilla furnace's.
 		fuelBurnTime = tag.getShort("BurnTime");
@@ -82,6 +70,7 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 		maxFuelTime = tag.getShort("MaxBurnTime");
 		tier = MachineTier.get(tag.getString("FurnaceType"));
 		
+		// TODO This code isn't taking structure upgrades into account yet.
 		// 8 seconds of cooking to start out with, should be set by like a scan area. Possibly on chunk load.
 		//maxCookTime = 20 * 8; 
 		
@@ -107,18 +96,7 @@ public class FurnaceCoreEntity extends MachineCoreEntity implements IInventory
 		tag.setString("FurnaceType", tier.name);
 		
 		// Save all of the items.
-		NBTTagList list = new NBTTagList();
-		for (int i = 0; i < items.length; i++)
-		{
-			if (items[i] != null)
-			{
-				NBTTagCompound item = new NBTTagCompound();
-				item.setByte("Slot", (byte)i);
-				items[i].writeToNBT(item);
-				list.appendTag(item);
-			}
-		}
-		tag.setTag("Items", list);
+		tag.setTag("Items", NBTUtils.getItemCollectionTag(items));
 
 		if (hasCustomInventoryName())
 			tag.setString("CustomName", inventoryName);
