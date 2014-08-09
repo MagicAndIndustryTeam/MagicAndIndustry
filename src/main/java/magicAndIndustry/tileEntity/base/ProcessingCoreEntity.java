@@ -17,8 +17,23 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 	private ItemStack output;
 	
 	// TODO use a battery.
+	/**
+	 * The power stored in the machine. Will be a battery object.
+	 */
 	public int power;
+	/**
+	 * How far along with processing (i.e. number of "process cycles") the machine is.
+	 */
 	public int currentProcessingTime;
+	/**
+	 * Used by structure upgrades to speed up or slow down the machine. <br/>
+	 * Starts at 10 - 10 tick per process cycle - and can be increased or decreased.
+	 * Once this many ticks have passed, tickCounter is reset and a process cycle is done.
+	 */
+	private byte tickProcessingTime;
+	/**
+	 * Used to count the ticks until the next processing cycle.
+	 */
 	private byte tickCounter = 0;
 	
 	/**
