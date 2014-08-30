@@ -97,7 +97,7 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 		if (stack == null) return;
 		
 		// drdrdrdrdrop the item
-		Utils.dropItem(stack, worldObj, player, xCoord, yCoord, zCoord, ForgeDirection.getOrientation(side), rand);
+		Utils.dropItem(stack, worldObj, player, xCoord, yCoord, zCoord, ForgeDirection.getOrientation(side), worldObj.rand);
 	}
 	
 	/**
@@ -161,16 +161,6 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	 * @param event Event data
 	 */
 	public void handleInputRequest(InputRequestEvent event) { }
-	
-	/**
-	 * Call to give the core an item manually - for example, when an item is placed in an input slot.
-	 * @param stack
-	 * @return whether the core could accept the item.
-	 */
-	public boolean ouputToCore(ItemStack stack)
-	{
-		return false;
-	}
 	
 	/**
 	 * Checks if the machine core can provide {@link amount} of power.
