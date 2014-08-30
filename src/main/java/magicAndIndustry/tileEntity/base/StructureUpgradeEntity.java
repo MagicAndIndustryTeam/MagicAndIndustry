@@ -1,13 +1,15 @@
 package magicAndIndustry.tileEntity.base;
 
+import ibxm.Player;
+
 import java.util.Random;
 
 import magicAndIndustry.blocks.StructureBlock;
+import magicAndIndustry.machines.event.CraftingEvent;
 import magicAndIndustry.machines.event.InputRequestEvent;
 import magicAndIndustry.machines.event.ItemOutputEvent;
 import magicAndIndustry.machines.event.PowerRequestEvent;
 import magicAndIndustry.machines.event.ProcessingEvent;
-import magicAndIndustry.tileEntity.ProcessingMachineEntity;
 import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -115,7 +117,7 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	//
 	
 	/**
-	 * Return true to dubscribe to machine ProcessingEvents.
+	 * Return true to subscribe to machine ProcessingEvents.
 	 */
 	public boolean handlesProcessing() { return false; }
 	
@@ -128,13 +130,12 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	public void handleProcessing(ProcessingEvent event) { }
 	
 	/**
-	 * Return true to dubscribe to PowerRequestEvents, ItemOutputEvents, and ItemRequestEvents.
+	 * Return true to subscribe to PowerRequestEvents, ItemOutputEvents, and ItemRequestEvents.
 	 */
 	public boolean handlesItemMovement() { return false; }
 	
 	/**
-	 * Return true to dubsribe to PowerRequestEvents.
-	 * @return
+	 * Return true to subscribe to PowerRequestEvents.
 	 */
 	public boolean handlesPowerUsage() { return false; }
 	
@@ -142,7 +143,7 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	 * Used to provide a machine with power when it requests it. <br/>
 	 * Called by a {@link ProcessingCoreEntity} when it needs power. <br/>
 	 * Need {@link StructureUpgradeEntity#handlesItemMovement() handlesItemMovement} to {@code return true}.
-	 * @param event
+	 * @param event Event data
 	 */
 	public void handlePowerRequest(PowerRequestEvent event) { }
 	
@@ -161,6 +162,20 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	 * @param event Event data
 	 */
 	public void handleInputRequest(InputRequestEvent event) { }
+	
+	/**
+	 * Return true to subscribe to CraftingRequestEvents.
+	 * @return
+	 */
+	public boolean handlesCrafting() { return false; }
+	
+	/**
+	 * Used to provide crafting output to a machine when it's ready to craft. <br/>
+	 * Called by a {@link ProcessingCoreEntity} to determine what to craft. <br/>
+	 * Need {@link StructureUpgradeEntity#handlesCrafting() handlesCrafting} to {@code return true}.
+	 * @param craft Event data
+	 */
+	public void handleCraftingRequest(CraftingEvent craft) { }
 	
 	/**
 	 * Checks if the machine core can provide {@link amount} of power.
