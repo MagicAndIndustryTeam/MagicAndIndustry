@@ -8,7 +8,7 @@ import magicAndIndustry.blocks.StructureBlock;
 import magicAndIndustry.machines.event.CraftingEvent;
 import magicAndIndustry.machines.event.InputRequestEvent;
 import magicAndIndustry.machines.event.ItemOutputEvent;
-import magicAndIndustry.machines.event.PowerRequestEvent;
+import magicAndIndustry.machines.event.PowerUsageEvent;
 import magicAndIndustry.machines.event.ProcessingEvent;
 import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.utils.Utils;
@@ -145,7 +145,7 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	 * Need {@link StructureUpgradeEntity#handlesItemMovement() handlesItemMovement} to {@code return true}.
 	 * @param event Event data
 	 */
-	public void handlePowerRequest(PowerRequestEvent event) { }
+	public void handlePowerUsageRequest(PowerUsageEvent event) { }
 	
 	/**
 	 * Used to take items output by a machine. <br/>
@@ -176,6 +176,19 @@ public abstract class StructureUpgradeEntity extends StructureEntity
 	 * @param craft Event data
 	 */
 	public void handleCraftingRequest(CraftingEvent craft) { }
+	
+	/**
+	 * Return true to subscribe to PowerRequestEvents (supply the core with power). <br/>
+	 * DO NOT also subscribe to {@link StructureUpgradeEntity#handlesPowerUsage() handlesPowerUsage}!
+	 * Your upgrade should either <i>power</i> the core or <i>receive power</i> from the core
+	 * at any given moment!
+	 */
+	public boolean handlesPowerSupply() { return false; }
+	
+	public void handlePowerRsequest(int event)
+	{
+		
+	}
 	
 	/**
 	 * Checks if the machine core can provide {@link amount} of power.

@@ -1,7 +1,7 @@
 package magicAndIndustry.tileEntity.base;
 
 import magicAndIndustry.machines.MachineTier;
-import magicAndIndustry.machines.event.PowerRequestEvent;
+import magicAndIndustry.machines.event.PowerUsageEvent;
 import magicAndIndustry.machines.event.ProcessingEvent;
 import magicAndIndustry.utils.NBTUtils;
 import net.minecraft.inventory.IInventory;
@@ -156,11 +156,11 @@ public abstract class ProcessingCoreEntity extends MachineCoreEntity  implements
 		// And don't go into debt over a process.
 		if (power < 0) 
 		{
-			PowerRequestEvent powerEvent = new PowerRequestEvent(0 - power);
+			PowerUsageEvent powerEvent = new PowerUsageEvent(0 - power);
 			for (StructureUpgradeEntity upgrade : upgrades)
 				if (upgrade.handlesPowerUsage())
 				{
-					upgrade.handlePowerRequest(powerEvent);
+					upgrade.handlePowerUsageRequest(powerEvent);
 					
 					if (powerEvent.isComplete())
 					{
