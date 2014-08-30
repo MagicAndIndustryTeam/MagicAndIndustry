@@ -7,7 +7,7 @@ import magicAndIndustry.machines.event.InputRequestEvent;
 import magicAndIndustry.machines.event.ItemOutputEvent;
 import magicAndIndustry.machines.event.PowerRequestEvent;
 import magicAndIndustry.machines.event.ProcessingEvent;
-import magicAndIndustry.tileEntity.ProcessingCoreEntity;
+import magicAndIndustry.tileEntity.ProcessingMachineEntity;
 import magicAndIndustry.tileEntity.StructureEntity;
 import magicAndIndustry.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;

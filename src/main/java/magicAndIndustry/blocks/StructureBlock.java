@@ -140,8 +140,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 		TileEntity te = world.getTileEntity(x, y, z); if (te == null) return;
 		
 		// Notify clients with 1: has core
-		world.setBlockMetadataWithNotify(x, y, z, 1, 2);
-		
+		world.setBlockMetadataWithNotify(x, y, z, 1, 3);
 		// Set structure core ref stuff
 		if (te instanceof StructureEntity)
 			((StructureEntity)te).setCoreValues(coreX, coreY, coreZ);
@@ -157,7 +156,7 @@ public class StructureBlock extends BlockContainer implements IWrenchable, IStru
 	@Override
 	public void onStructureBroken(World world, int x, int y, int z, int coreX, int coreY, int coreZ) 
 	{
-		world.setBlockMetadataWithNotify(x, y, z, 0, 2);
+		world.setBlockMetadataWithNotify(x, y, z, 0, 3);
 		
 		TileEntity te = world.getTileEntity(x, y, z);
 		

@@ -7,8 +7,13 @@ import net.minecraft.item.ItemStack;
 
 public abstract class ProcessingMachineEntity extends MachineCoreEntity implements IInventory
 {
+	/**
+	 * Input items to the machine's crafting/processing
+	 */
 	private ItemStack[] inputs;
-	private ItemStack fuel;
+	/**
+	 * Output itemstacks
+	 */
 	private ItemStack output;
 	// TODO battery, etc.
 	

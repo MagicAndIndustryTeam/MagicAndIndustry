@@ -1,6 +1,7 @@
 package magicAndIndustry.tileEntity.base;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import magicAndIndustry.api.IStructureAware;
 import magicAndIndustry.blocks.StructureBlock;
@@ -160,8 +161,11 @@ public abstract class MachineCoreEntity extends TileEntity
 						// do stuff with that	
 					}
 					
-					// This is a strange toArray[] but okay
-					upgrades = newEntities.toArray(upgrades);
+					// I haven't figured out how the hell to do toArray() in this crap
+					// so here's a weird combination of iterator and for loop
+					upgrades = new StructureUpgradeEntity[newEntities.size()];
+					for (int i = 0; i < newEntities.size(); i++)
+						upgrades[i] = newEntities.get(i);
 
 					// Tell all of the structure blocks to stripe it up!
 					for (RelativeFaceCoords relPos : struct.relativeStriped)
